@@ -2,7 +2,9 @@ import React from 'react'
 
 const Reg = () => {
   return (
-    <div>Reg</div>
+    <div>
+        <h1>Reg</h1>
+    </div>
   )
 }
 
