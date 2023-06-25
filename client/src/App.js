@@ -23,6 +23,7 @@ function App() {
     <div className="App">
       <NavBar />
       <Home />
+      
       {/* <NavBar />
       <Routes>
         <Route path="/register" element={<Reg sessionId={sessionId} setSessionId={setSessionId}/>} /> 

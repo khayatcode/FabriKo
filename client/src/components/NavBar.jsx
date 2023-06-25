@@ -2,6 +2,10 @@ import React from 'react'
 import {useNavigate} from 'react-router-dom'
 
 const NavBar = () => {
+    const navigate = useNavigate()
+        
+
+
   return (
     <div>
         <nav className="navbar navbar-expand-xl navbar-light bg-light p-3 fixed-top" style={{ backgroundColor: 'transparent', opacity: 0.5 }}>
