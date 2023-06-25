@@ -22,13 +22,11 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-      <Home />
-      
-      {/* <NavBar />
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route path="/register" element={<Reg sessionId={sessionId} setSessionId={setSessionId}/>} /> 
-        <Route path="/login" element={<Login sessionId={sessionId} setSessionId={setSessionId}/>} />
-      </Routes>  */}
+        <Route path="/login" element={<Log sessionId={sessionId} setSessionId={setSessionId}/>} />
+      </Routes> 
     </div>
   );
 }
