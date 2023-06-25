@@ -3,13 +3,9 @@ package com.groupproject.tshirtpalooza.models;
 import java.util.Date;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -43,18 +39,18 @@ public class Product {
 	
 	private String fileName;
 	
-	@Lob
-	@Column(name="content", columnDefinition = "BLOB")
-	private byte[] content;
+//	@Lob
+//	@Column(name="content", columnDefinition = "BLOB")
+//	private byte[] content;
 	
 	
     @Column(updatable=false)
     private Date createdAt;
     private Date updatedAt;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id")
-    private User user;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name="user_id")
+//    private User user;
     
     public Product() {}
     
@@ -134,21 +130,21 @@ public class Product {
 		this.fileName = fileName;
 	}
 
-	public byte[] getContent() {
-		return content;
-	}
+//	public byte[] getContent() {
+//		return content;
+//	}
+//
+//	public void setContent(byte[] content) {
+//		this.content = content;
+//	}
 
-	public void setContent(byte[] content) {
-		this.content = content;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
+//	public User getUser() {
+//		return user;
+//	}
+//
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
     
     
 }

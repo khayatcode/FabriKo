@@ -1,86 +1,81 @@
 package com.groupproject.tshirtpalooza.controllers;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.groupproject.tshirtpalooza.models.Product;
-import com.groupproject.tshirtpalooza.services.ProductService;
+import com.groupproject.tshirtpalooza.models.Shipping;
+import com.groupproject.tshirtpalooza.services.ShippingService;
 
 import jakarta.validation.Valid;
 
 @RestController
-@Controller
-public class ProductController {
+public class ShippingController {
 	
 	@Autowired
-	private ProductService productServ;
+	private ShippingService shippingServ;
 	
 //	@Autowired
 //	private UserService userServ;
+//  NOTE: for email domain name check fabriko.com prevent from creating an "admin" account type
 
-	@GetMapping("/product")
-	public ResponseEntity<List<Product>> items(){
-		return ResponseEntity.status(200).body(this.productServ.all());
+	@GetMapping("/shipping")
+	public ResponseEntity<List<Shipping>> items(){
+		return ResponseEntity.status(200).body(this.shippingServ.all());
 	}
 	
-	@GetMapping("/product/{id}")
-	public ResponseEntity<Product> getOneById(@PathVariable Long id){
-		return ResponseEntity.status(200).body(this.productServ.getOne(id));
+	@GetMapping("/shipping/{id}")
+	public ResponseEntity<Shipping> getOneById(@PathVariable Long id){
+		return ResponseEntity.status(200).body(this.shippingServ.getOne(id));
 	}
 	
-	@PostMapping("/product/add")
-	public ResponseEntity<Product> add(@Valid @RequestBody Product product
+	@PostMapping("/shipping/add")
+	public ResponseEntity<Shipping> add(@Valid @RequestBody Shipping shipping
 //			HttpSession session
 			){
 //		if(session.getAttribute("userId") == null) {
-//		return "redirect:/login";
+//			return ResponseEntity.badRequest().build();
 //		}
 //		User user = userServ.getOne((Long)session.getAttribute("userId"));
 //		
 //		if(user.getAccountType().equals("Admin")) {
-			Product savedProduct = productServ.create(product);
+			Shipping savedProduct = shippingServ.create(shipping);
 			return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);
 //		}
 	}
 	
-	@PostMapping("/product/update")
-	public ResponseEntity<Product> update(@Valid @RequestBody Product product
+	@PostMapping("/shipping/update")
+	public ResponseEntity<Shipping> update(@Valid @RequestBody Shipping shipping
 //			HttpSession session
 			){
 //		if(session.getAttribute("userId") == null) {
-//		return "redirect:/login";
+//			return ResponseEntity.badRequest().build();
 //		}
 //		User user = userServ.getOne((Long)session.getAttribute("userId"));
 //		
 //		if(user.getAccountType().equals("Admin")) {
-			Product savedProduct = productServ.update(product);
+			Shipping savedProduct = shippingServ.update(shipping);
 			return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);
 //		}
 	}
 
-	@GetMapping("/product/delete/{id}")
-	public ResponseEntity<Product> delete(@PathVariable Long id){
+	@GetMapping("/shipping/delete/{id}")
+	public ResponseEntity<Shipping> delete(@PathVariable Long id){
 //		if(session.getAttribute("userId") == null) {
-//		return "redirect:/login";
+//			return ResponseEntity.badRequest().build();
 //		}
 		
 //		User user = userServ.getOne((Long)session.getAttribute("userId"));
 //		
 //		if(user.getAccountType().equals("Admin")) {
-			this.productServ.delete(id);
+			this.shippingServ.delete(id);
 			return ResponseEntity.status(200).body(null);
 //	    }
 		
 	}
-	
-	
 }

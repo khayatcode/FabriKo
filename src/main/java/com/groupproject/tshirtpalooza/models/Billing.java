@@ -1,16 +1,15 @@
 package com.groupproject.tshirtpalooza.models;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -31,7 +30,7 @@ public class Billing {
 	private String name;
     
     @NotNull(message="Card Number is required!")
-    private Integer card;
+    private BigInteger card;
     
     @DateTimeFormat(pattern="yyyy-MM-dd")
     @NotNull(message="Experation date is required!")
@@ -49,18 +48,20 @@ public class Billing {
 	private String city;
 	
 	@NotBlank(message="State is required!")
+	@Size(max=2)
 	private String state;
 	
-	@NotBlank(message="Zip is required!")
+	@NotNull(message="Zip is required!")
+	@Size(max=5)
 	private Integer zip;
 	
     @Column(updatable=false)
     private Date createdAt;
     private Date updatedAt;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id")
-    private User user;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name="user_id")
+//    private User user;
     
     public Billing() {}
     
@@ -91,11 +92,11 @@ public class Billing {
 		this.name = name;
 	}
 
-	public Integer getCard() {
+	public BigInteger getCard() {
 		return card;
 	}
 
-	public void setCard(Integer card) {
+	public void setCard(BigInteger card) {
 		this.card = card;
 	}
 
@@ -171,12 +172,12 @@ public class Billing {
 		this.updatedAt = updatedAt;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
+//	public User getUser() {
+//		return user;
+//	}
+//
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
     
 }

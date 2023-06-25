@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.groupproject.tshirtpalooza.models.LoginUser;
 import com.groupproject.tshirtpalooza.models.User;
 import com.groupproject.tshirtpalooza.services.UserService;
@@ -31,36 +29,30 @@ public class UserController {
 
  
   
-  @GetMapping("/login")
-  private ResponseEntity<String> login(@RequestParam String email,
-		  @RequestParam String password){
-	  User user = userServ.findByEmail(email);
-	  
-	  if(user != null && user.getPassword().equals(password)) {
-		  return ResponseEntity.ok("Login successful");
-	  }else {
-		  return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
-	  }
-  }
-
+//  @GetMapping("/login")
+//  private ResponseEntity<User> login(@RequestParam String email,
+//		  @RequestParam String password){
+//	  User user = userServ.findByEmail(email);
+//	  
+//	  return ResponseEntity.status(200).body(user);
+//  }
   
   @PostMapping("/login")
-  public ResponseEntity<String> login(@Valid @RequestBody LoginUser loginUser, 
+  public ResponseEntity<User> login(@Valid @RequestBody LoginUser loginUser, 
           BindingResult result, HttpSession session) {
       
-  
-      if(result.hasErrors()) {
-    	  return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid username or password1");
-      }
- 	 else{
- 		 User user = userServ.login(loginUser, result);
- 		 if(user != null) {
- 			 session.setAttribute("userId", user.getId());
- 			 return ResponseEntity.ok("Login successful");
- 		 }else {
- 			 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
- 		 }
- 	 }
+	  
+		User savedLogin = userServ.login(loginUser, result);
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(savedLogin);
+		
+// 		 User user = userServ.login(loginUser, result);
+// 		 if(user != null) {
+// 			 session.setAttribute("userId", user.getId());
+// 			 return ResponseEntity.ok(null);
+// 		 }else {
+// 			 return ResponseEntity.badRequest().build();
+// 		 }
   }
   
   @GetMapping("/register")
