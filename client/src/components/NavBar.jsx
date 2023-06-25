@@ -2,9 +2,13 @@ import React from 'react'
 import {useNavigate} from 'react-router-dom'
 
 const NavBar = () => {
+    const navigate = useNavigate()
+        
+
+
   return (
     <div>
-        <nav className="navbar navbar-expand-xl navbar-light bg-light p-3 fixed-top">
+        <nav className="navbar navbar-expand-xl navbar-light bg-light p-3 fixed-top" style={{ backgroundColor: 'transparent', opacity: 0.5 }}>
             <div className="container-fluid gap-1">
                 <a className="navbar-brand display-4" href="#">Fabriko</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
