@@ -12,21 +12,36 @@ const AllCategories = () => {
             </div>
             <div className='row d-flex justify-content-evenly'>
                 <div className='col-3'>
-                    <a href='#'>
-                        <img className='p-3' src={UpperWear} alt='UpperWear' style={{ width: '50%', backgroundColor: '#E8E8E8' }} />
-                        <p className='mt-3' style={{ textAlign: 'center', fontWeight: 300 }}>Upper Wear</p>
+                    <a href='#' style={{textDecoration: 'none', transition: 'transform 0.2s'}}>
+                        <img className='p-3' src={UpperWear} alt='UpperWear' style={{ height: '30%', backgroundColor: '#E8E8E8', transition: 'transform 0.2s'}}  onMouseOver={(e) => {
+                e.currentTarget.style.transform = 'scale(1.05)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = 'scale(1)';
+              }}/>
+                        <h5 className='mt-3' style={{ textAlign: 'center', fontWeight: 300, color: "black" }}>Upper Wear</h5>
                     </a>
                 </div>
                 <div className='col-3'>
-                    <a href='#'>
-                        <img className='pb-3' src={BottomWear} alt='BottomWear' style={{ width: '88%', backgroundColor: '#E8E8E8' }} />
-                        <p className='mt-3' style={{ textAlign: 'center', fontWeight: 300 }}>Bottom Wear</p>
+                    <a href='#' style={{textDecoration: 'none'}}>
+                        <img className='pb-3' src={BottomWear} alt='BottomWear' style={{ height: '30%', backgroundColor: '#E8E8E8', transition: 'transform 0.2s'}}  onMouseOver={(e) => {
+                e.currentTarget.style.transform = 'scale(1.05)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = 'scale(1)';
+              }} />
+                        <h5 className='mt-3' style={{ textAlign: 'center', fontWeight: 300,  color: "black" }}>Bottom Wear</h5>
                     </a>
                 </div>
                 <div className='col-3'>
-                    <a href='#'>
-                        <img src={DressShoes} alt='DressShoes' style={{ width: '81%' }} />
-                        <p className='mt-3' style={{ textAlign: 'center', fontWeight: 300 }}>Dress Shoes</p>
+                    <a href='#' style={{textDecoration: 'none'}}>
+                        <img src={DressShoes} alt='DressShoes' style={{ height: '30%', transition: 'transform 0.2s'}}  onMouseOver={(e) => {
+                e.currentTarget.style.transform = 'scale(1.05)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = 'scale(1)';
+              }} />
+                        <h5 className='mt-3' style={{ textAlign: 'center', fontWeight: 300,  color: "black" }}>Dress Shoes</h5>
                     </a>
                 </div>
             </div>
