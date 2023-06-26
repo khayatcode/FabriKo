@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useNavigate, Link } from "react-router-dom";
+import Cookies from 'js-cookie';
 
 const Log = (props) => {
     const { sessionId, setSessionId } = props
@@ -20,7 +21,7 @@ const Log = (props) => {
     
     const submitLog = (e) => {
         e.preventDefault()
-        fetch("http://localhost:8080/login", {
+        fetch("http://localhost:8080/api/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -30,16 +31,16 @@ const Log = (props) => {
             .then(res => {
                 console.log(res)
                 if (!res.ok) {
-                    throw new Error("Login failed. Please try again.");} 
-                else {
+                    throw new Error("Login failed. Please try again.");}
+                    return res.json();})
+                .then(data => {
                     setUser({
                         email: "",
                         password: ""
                     })
-                    setErrors({})
-                    setSessionId(res.email)
-                    navigate("/")
-                }
+                    setErrors({});
+                    setSessionId(data.email);
+                    navigate("/");
             })
             .catch(err => console.log(err))
     }

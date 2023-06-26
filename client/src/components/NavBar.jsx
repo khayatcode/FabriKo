@@ -1,10 +1,17 @@
-import React from 'react'
+import {React, useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 
-const NavBar = () => {
-    const navigate = useNavigate()
-        
 
+const NavBar = (props) => {
+    
+    const navigate = useNavigate()
+    const {sessionId, setSessionId} = props;    
+
+    const logOut = () => {
+        setSessionId("")
+        console.log(sessionId);
+        navigate("/");
+    }
 
   return (
     <div>
@@ -38,8 +45,17 @@ const NavBar = () => {
                             <a className="nav-link" href="/shoppingcart/:userid">Shopping Cart</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/login">Log In</a>
-                        </li>       
+                            <a className="nav-link active" href="#">Welcome {sessionId}!</a>
+                        </li>
+                        {!sessionId == "" ? (
+                            <li className="nav-item">
+                                <button className="nav-link" onClick={logOut}>Log Out</button>
+                            </li>
+                            ) : (
+                            <li className="nav-item">
+                                <a className="nav-link" href="/login">Log In</a>
+                            </li>
+                        )}
                     </ul>
                 </div>
             </div>

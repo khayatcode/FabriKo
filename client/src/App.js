@@ -21,9 +21,9 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar />
+      <NavBar sessionId={sessionId} setSessionId={setSessionId} />
         <Routes>
-          <Route path="/" element={<Home/>} defualt/> 
+          <Route path="/" element={<Home sessionId={sessionId} setSessionId={setSessionId}/>} defualt/> 
           <Route path="/register" element={<Reg sessionId={sessionId} setSessionId={setSessionId}/>} /> 
           <Route path="/login" element={<Log sessionId={sessionId} setSessionId={setSessionId}/>} />
         </Routes> 

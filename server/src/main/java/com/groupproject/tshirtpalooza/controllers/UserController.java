@@ -26,17 +26,7 @@ public class UserController {
   @Autowired
   private UserService userServ;
 
- 
-  
-//  @GetMapping("/login")
-//  private ResponseEntity<User> login(@RequestParam String email,
-//		  @RequestParam String password){
-//	  User user = userServ.findByEmail(email);
-//	  
-//	  return ResponseEntity.status(200).body(user);
-//  }
-  
-  @PostMapping("/login")
+  @PostMapping("/api/login")
   public ResponseEntity<User> login(@Valid @RequestBody LoginUser loginUser, 
           BindingResult result, HttpSession session) {
 	  
@@ -47,24 +37,8 @@ public class UserController {
 		else {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(savedLogin);
 		}
-// 		 User user = userServ.login(loginUser, result);
-// 		 if(user != null) {
-// 			 session.setAttribute("userId", user.getId());
-// 			 return ResponseEntity.ok(null);
-// 		 }else {
-// 			 return ResponseEntity.badRequest().build();
-// 		 }
   }
   
-  @GetMapping("/register")
-  private String register(Model model) {
-	  model.addAttribute("newUser", new User());
-	  return "register.jsp";
-  }
- 
-  
-  
- 
  @PostMapping("/api/register")
  public ResponseEntity<User> register(@Valid @RequestBody User user, 
          BindingResult result, Model model, HttpSession session) {
@@ -77,14 +51,12 @@ public class UserController {
     	 System.out.println(user);
     	 return ResponseEntity.status(HttpStatus.CREATED).body(user);
      }
- 
  }
  
- 
- @GetMapping("/logout")
- public String logout(HttpSession session) {
+ @GetMapping("/api/logout")
+ public ResponseEntity<User> logout(HttpSession session) {
 	 session.invalidate();
-	 return "redirect:/login";
+	 return ResponseEntity.status(HttpStatus.RESET_CONTENT).body(null);
  }
  
 }
