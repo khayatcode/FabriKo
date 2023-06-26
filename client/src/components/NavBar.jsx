@@ -5,22 +5,19 @@ import {useNavigate} from 'react-router-dom'
 const NavBar = (props) => {
     
     const navigate = useNavigate()
-    const {sessionId, setSessionId} = props;    
+    const {sessionId, setSessionId, userInfo, setUserInfo} = props;  
+    // const [userInfo, setUserInfo] = useState({}) 
 
     const logOut = () => {
+        setUserInfo("")
         setSessionId("")
         console.log(sessionId);
         navigate("/");
     }
 
-    fetch('http://localhost:8080/api/getuser?sessionId=' + sessionId)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data)
-        })
-        .catch(err => {
-            console.log(err)
-        })
+    const addProduct = () => {
+        navigate("/product/add");
+    }
 
   return (
     <div>
@@ -54,7 +51,7 @@ const NavBar = (props) => {
                             <a className="nav-link" href="/shoppingcart/:userid">Shopping Cart</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link active" href="#">Welcome {sessionId}!</a>
+                            <a className="nav-link active" href="#">Welcome {userInfo.firstName}!</a>
                         </li>
                         {!sessionId == "" ? (
                             <li className="nav-item">
@@ -64,6 +61,13 @@ const NavBar = (props) => {
                             <li className="nav-item">
                                 <a className="nav-link" href="/login">Log In</a>
                             </li>
+                        )}
+                        {userInfo.accountType === "admin" && (
+                        <li className="nav-item">
+                            <button className="nav-link" onClick={addProduct}>
+                            Add Product
+                            </button>
+                        </li>
                         )}
                     </ul>
                 </div>

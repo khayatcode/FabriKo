@@ -1,11 +1,12 @@
 import React from 'react'
+import CreateProduct from './CreateProduct'
 
 const FormProduct = (props) => {
     const { productInfo, setProductInfo, changeHandler, submitProduct, errors, submiValue } = props
     return (
         <div>
             <h1>Create Product</h1>
-            <form onSubmit={createProduct}>
+            <form onSubmit={CreateProduct}>
                 {Object.keys(errors).length > 0 ? (
                     <div>
                         {Object.keys(errors).map((key, index) => (
