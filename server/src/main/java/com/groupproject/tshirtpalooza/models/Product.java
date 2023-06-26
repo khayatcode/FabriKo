@@ -1,18 +1,19 @@
 package com.groupproject.tshirtpalooza.models;
 
 import java.util.Date;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="shirts")
@@ -37,7 +38,7 @@ public class Product {
 	@Size(min=10, message="Description must be at least 10 characters long")
 	private String description;
 	
-	private String fileName;
+//	private String fileName;
 	
 //	@Lob
 //	@Column(name="content", columnDefinition = "BLOB")
@@ -121,14 +122,14 @@ public class Product {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-
-	public String getFileName() {
-		return fileName;
-	}
-
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
+//
+//	public String getFileName() {
+//		return fileName;
+//	}
+//
+//	public void setFileName(String fileName) {
+//		this.fileName = fileName;
+//	}
 
 //	public byte[] getContent() {
 //		return content;

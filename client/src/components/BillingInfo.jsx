@@ -35,7 +35,7 @@ const BillingInfo = () => {
         const stripe = new Stripe('sk_test_XXXXXXXXXXXXXXXXXXXXXXXX');
         const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: 'card',
-            card: cardElement,
+            // card: cardElement,
         });
         if (!error) {
             console.log(paymentMethod);

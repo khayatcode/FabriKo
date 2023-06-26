@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.0.6</version>
+		<version>2.7.12</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.jquinones.mvc</groupId>
@@ -66,7 +66,13 @@
 			<artifactId>webjars-locator</artifactId>
 			<version>0.46</version>
 		</dependency>
-
+		
+<!--	 Added JSON functionality-->
+    
+<dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+    </dependency>
 		<!-- BOOTSTRAP DEPENDENCIES -->
 		<dependency>
 			<groupId>org.webjars</groupId>

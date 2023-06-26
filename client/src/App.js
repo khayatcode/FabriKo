@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Reg from './components/Reg';
 import Log from './components/Log';
@@ -22,13 +22,11 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-      <Home />
-      
-      {/* <NavBar />
-      <Routes>
-        <Route path="/register" element={<Reg sessionId={sessionId} setSessionId={setSessionId}/>} /> 
-        <Route path="/login" element={<Login sessionId={sessionId} setSessionId={setSessionId}/>} />
-      </Routes>  */}
+        <Routes>
+          <Route path="/" element={<Home/>} defualt/> 
+          <Route path="/register" element={<Reg sessionId={sessionId} setSessionId={setSessionId}/>} /> 
+          <Route path="/login" element={<Log sessionId={sessionId} setSessionId={setSessionId}/>} />
+        </Routes> 
     </div>
   );
 }

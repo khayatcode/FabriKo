@@ -25,7 +25,7 @@ const Reg = (props) => {
     const submitReg = (e) => {
         e.preventDefault()
         console.log(userInfo)
-        fetch("http://localhost:8080/api/register", {
+        fetch("http://localhost:8080/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -35,7 +35,9 @@ const Reg = (props) => {
             .then(res => {
                 console.log(res)
                 if (res.data && res.data.errors) {
+                    console.log(res.data.errors)
                     setErrors(res.data.errors)
+
                 } else {
                     setUserInfo({
                         firstName: "",
@@ -87,12 +89,12 @@ const Reg = (props) => {
                     <label htmlFor="floatingSelect">Account Type</label>
                 </div>
                 <button type="submit" className="btn btn-primary">Register</button>
+            </form>
                 <div className="row mb-3">
                     <div className="col">
                         <Link to="/register">Already have an account? Login here.</Link>
                     </div>
                 </div>
-            </form>
         </div>
     )
 }

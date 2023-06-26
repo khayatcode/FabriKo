@@ -2,23 +2,23 @@ package com.groupproject.tshirtpalooza.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.groupproject.tshirtpalooza.models.Product;
 import com.groupproject.tshirtpalooza.services.ProductService;
 
-import jakarta.validation.Valid;
-
 @RestController
-@Controller
+@RequestMapping("/product")
 public class ProductController {
 	
 	@Autowired
@@ -27,18 +27,24 @@ public class ProductController {
 //	@Autowired
 //	private UserService userServ;
 
-	@GetMapping("/product")
+	@GetMapping("/")
 	public ResponseEntity<List<Product>> items(){
 		return ResponseEntity.status(200).body(this.productServ.all());
 	}
 	
-	@GetMapping("/product/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<Product> getOneById(@PathVariable Long id){
 		return ResponseEntity.status(200).body(this.productServ.getOne(id));
 	}
 	
-	@PostMapping("/product/add")
-	public ResponseEntity<Product> add(@Valid @RequestBody Product product
+	@GetMapping("/{category}")
+	public ResponseEntity<List<Product>> categoryItems(@PathVariable String category){
+		return ResponseEntity.status(200).body(this.productServ.findByCategory(category));
+	}
+	
+	
+	@PostMapping("/add")
+	public ResponseEntity<Product> add(@RequestBody Product product
 //			HttpSession session
 			){
 //		if(session.getAttribute("userId") == null) {
@@ -47,12 +53,13 @@ public class ProductController {
 //		User user = userServ.getOne((Long)session.getAttribute("userId"));
 //		
 //		if(user.getAccountType().equals("Admin")) {
-			Product savedProduct = productServ.create(product);
+			
+		Product savedProduct = productServ.create(product);
 			return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);
 //		}
 	}
 	
-	@PostMapping("/product/update")
+	@PostMapping("/update")
 	public ResponseEntity<Product> update(@Valid @RequestBody Product product
 //			HttpSession session
 			){
@@ -67,7 +74,7 @@ public class ProductController {
 //		}
 	}
 
-	@GetMapping("/product/delete/{id}")
+	@GetMapping("/delete/{id}")
 	public ResponseEntity<Product> delete(@PathVariable Long id){
 //		if(session.getAttribute("userId") == null) {
 //		return "redirect:/login";
