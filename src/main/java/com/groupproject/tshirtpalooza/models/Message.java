@@ -1,5 +1,6 @@
 package com.groupproject.tshirtpalooza.models;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -10,12 +11,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name="shipping")
-public class Shipping {
+@Table(name="messages")
+public class Message {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,29 +28,21 @@ public class Shipping {
     @Size(min=2, message="Name must be at least 2 characters")
 	private String name;
     
-    @NotBlank(message="Street address is required!")
-	private String address1;
+    @NotBlank(message="Email is required!")
+    @Email(message="Please enter a valid email!")
+    private String email;
     
-	private String address2;
-	
-	@NotBlank(message="City is required!")
-	private String city;
-	
-	@NotBlank(message="State is required!")
-	private String state;
-	
-	@NotBlank(message="Zip is required!")
-	private Integer zip;
-	
+    @NotNull(message="Phone is required!")
+    private BigInteger phone;
+    
+    @NotBlank(message="Message is required!")
+    private String message;
+    
     @Column(updatable=false)
     private Date createdAt;
     private Date updatedAt;
     
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name="user_id")
-//    private User user;
-	
-    public Shipping() {}
+    public Message() {}
     
     @PrePersist
     protected void createAt(){
@@ -58,8 +53,6 @@ public class Shipping {
         this.updatedAt = new Date();
     }
 
-	//===================== GETTERS AND SETTERS ==========================
-    
 	public Long getId() {
 		return id;
 	}
@@ -76,44 +69,28 @@ public class Shipping {
 		this.name = name;
 	}
 
-	public String getAddress1() {
-		return address1;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setAddress1(String address1) {
-		this.address1 = address1;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getAddress2() {
-		return address2;
+	public BigInteger getPhone() {
+		return phone;
 	}
 
-	public void setAddress2(String address2) {
-		this.address2 = address2;
+	public void setPhone(BigInteger phone) {
+		this.phone = phone;
 	}
 
-	public String getCity() {
-		return city;
+	public String getMessage() {
+		return message;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public Integer getZip() {
-		return zip;
-	}
-
-	public void setZip(Integer zip) {
-		this.zip = zip;
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 	public Date getCreatedAt() {
@@ -131,15 +108,6 @@ public class Shipping {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-
-//	public User getUser() {
-//		return user;
-//	}
-//
-//	public void setUser(User user) {
-//		this.user = user;
-//	}
-
-
+    
     
 }

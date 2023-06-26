@@ -1,13 +1,14 @@
 package com.groupproject.tshirtpalooza.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,9 +19,8 @@ import com.groupproject.tshirtpalooza.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
-
+@CrossOrigin(origins = "http//localhost:3000")
 @RestController
-@Controller
 public class UserController {
  
  
@@ -29,13 +29,6 @@ public class UserController {
 
  
   
-//  @GetMapping("/login")
-//  private ResponseEntity<User> login(@RequestParam String email,
-//		  @RequestParam String password){
-//	  User user = userServ.findByEmail(email);
-//	  
-//	  return ResponseEntity.status(200).body(user);
-//  }
   
   @PostMapping("/login")
   public ResponseEntity<User> login(@Valid @RequestBody LoginUser loginUser, 
@@ -55,39 +48,61 @@ public class UserController {
 // 		 }
   }
   
-  @GetMapping("/register")
-  private String register(Model model) {
-	  model.addAttribute("newUser", new User());
-	  return "register.jsp";
-  }
- 
   
+	@PostMapping("/register/add")
+	public ResponseEntity<User> add(@Valid @RequestBody User newUser,
+			BindingResult result, HttpSession session){
+
+			User savedProduct = userServ.register(newUser, result);
+	 		
+			if(newUser != null) {
+				
+				 session.setAttribute("userId", newUser.getId());
+				
+				 return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);
+				 
+			}else {
+				
+			 return ResponseEntity.badRequest().build();
+		 }
+
+
+	}
   
- 
- @PostMapping("/register")
- public String register(@Valid @ModelAttribute("newUser") User newUser, 
-         BindingResult result, Model model, HttpSession session) {
-     
+	@GetMapping("/user")
+	public ResponseEntity<List<User>> items() {
 
-     userServ.register(newUser, result);
-     
-     if(result.hasErrors()) {
+		return ResponseEntity.status(200).body(this.userServ.all());
+	}
+	
+	@GetMapping("/user/{id}")
+	public ResponseEntity<User> getOneById(@PathVariable Long id) {
 
-         model.addAttribute("newLogin", new LoginUser());
-         return "register.jsp";
-     }else {
-    	 userServ.register(newUser, result);
-    	 session.setAttribute("userId",newUser.getId());
-    	 return "redirect:/home";
-     }
+		return ResponseEntity.status(200).body(this.userServ.getOne(id));
+	}
+	
+	@PostMapping("/user/update")
+	public ResponseEntity<User> update(@Valid @RequestBody User user) {
+
+		User savedProduct = userServ.update(user);
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);
+	}
+
+	@GetMapping("/user/delete/{id}")
+	public ResponseEntity<User> delete(@PathVariable Long id) {
+
+		this.userServ.delete(id);
+
+		return ResponseEntity.status(200).body(null);
+
+	}
+	
  
- }
- 
- 
- @GetMapping("/logout")
- public String logout(HttpSession session) {
-	 session.invalidate();
-	 return "redirect:/login";
- }
+	 @GetMapping("/logout")
+	 public String logout(HttpSession session) {
+		 session.invalidate();
+		 return "redirect:/login";
+	 }
  
 }

@@ -67,7 +67,7 @@ public class UserService {
 
 	    }
 	    
-	    public List<User> getAll() {
+	    public List<User> all() {
 	    	return repo.findAll();
 	    }
 	    
@@ -84,4 +84,8 @@ public class UserService {
 	    	User user = potentialUser.get();
 	    	return user;
 	    }
+	    
+		public void delete(Long id) {
+			repo.deleteById(id);
+		}
 }

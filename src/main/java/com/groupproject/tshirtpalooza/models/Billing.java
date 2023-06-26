@@ -48,11 +48,9 @@ public class Billing {
 	private String city;
 	
 	@NotBlank(message="State is required!")
-	@Size(max=2)
 	private String state;
 	
 	@NotNull(message="Zip is required!")
-	@Size(max=5)
 	private Integer zip;
 	
     @Column(updatable=false)

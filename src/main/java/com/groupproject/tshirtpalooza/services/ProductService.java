@@ -40,4 +40,8 @@ public class ProductService {
 		return repo.save(product);
 	}
 	
+	public List<Product> findByCategory(String category) {
+		List<Product> productsInCategory = repo.findByCategory(category);
+		return productsInCategory;
+	}
 }

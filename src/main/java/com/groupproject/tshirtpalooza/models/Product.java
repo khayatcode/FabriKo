@@ -15,7 +15,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name="shirts")
+@Table(name="products")
 public class Product {
 	
 	@Id
