@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Stripe from 'stripe';
+// import Stripe from 'stripe';
 
 const BillingInfo = () => {
     const [billingForm, setBillingForm] = useState({
@@ -16,12 +16,12 @@ const BillingInfo = () => {
         billing: false,
     });
 
-    useEffect(() => {
-    const stripe = window.Stripe('sk_test_51NMg77BuZ9fgdSow523FwBH4tQMXMTzRT0q3i0W9xOet8C6AsshHMDqCz3hQ8VosFzQIB06ND4R589RvFSro7Yd100dzw9am9p');
-    const elements = stripe.elements();
-    const cardElement = elements.create('card');
-    cardElement.mount('#card-element');
-}, []);
+//     useEffect(() => {
+//     const stripe = window.Stripe('sk_test_51NMg77BuZ9fgdSow523FwBH4tQMXMTzRT0q3i0W9xOet8C6AsshHMDqCz3hQ8VosFzQIB06ND4R589RvFSro7Yd100dzw9am9p');
+//     const elements = stripe.elements();
+//     const cardElement = elements.create('card');
+//     cardElement.mount('#card-element');
+// }, []);
 
     const onChange = (e) => {
         setBillingForm({
@@ -30,24 +30,24 @@ const BillingInfo = () => {
         });
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const stripe = new Stripe('sk_test_XXXXXXXXXXXXXXXXXXXXXXXX');
-        const { error, paymentMethod } = await stripe.createPaymentMethod({
-            type: 'card',
-            card: cardElement,
-        });
-        if (!error) {
-            console.log(paymentMethod);
-            const { id } = paymentMethod;
-            try {
-                const { data } = await axios.post('/api/stripe/charge', { id, amount: 10000 });
-                console.log(data);
-            } catch (error) {
-                console.log(error);
-            }
-        }
-    };
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     const stripe = new Stripe('sk_test_XXXXXXXXXXXXXXXXXXXXXXXX');
+    //     const { error, paymentMethod } = await stripe.createPaymentMethod({
+    //         type: 'card',
+    //         card: cardElement,
+    //     });
+    //     if (!error) {
+    //         console.log(paymentMethod);
+    //         const { id } = paymentMethod;
+    //         try {
+    //             const { data } = await axios.post('/api/stripe/charge', { id, amount: 10000 });
+    //             console.log(data);
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     }
+    // };
 
     return (
         <div>
