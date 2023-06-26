@@ -13,6 +13,15 @@ const NavBar = (props) => {
         navigate("/");
     }
 
+    fetch('http://localhost:8080/api/getuser?sessionId=' + sessionId)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+
   return (
     <div>
         <nav className="navbar navbar-expand-xl navbar-light bg-light p-3 fixed-top" style={{ backgroundColor: 'transparent', opacity: 0.5 }}>
