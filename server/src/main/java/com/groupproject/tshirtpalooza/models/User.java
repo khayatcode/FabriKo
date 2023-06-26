@@ -42,7 +42,7 @@ public class User {
     @Transient
     @NotBlank(message="Confirm Password is required!")
     @Size(min=8, max=128, message="Confirm Password must be at least 8 characters and matches PW")
-    private String confirm;
+    private String confirmPassword;
     
     @NotBlank(message="Profile is required!")
     private String accountType;
@@ -115,12 +115,12 @@ public class User {
 		this.password = password;
 	}
 
-	public String getConfirm() {
-		return confirm;
+	public String getConfirmPassword() {
+		return confirmPassword;
 	}
 
-	public void setConfirm(String confirm) {
-		this.confirm = confirm;
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
     
     public Date getCreatedAt() {

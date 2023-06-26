@@ -25,35 +25,37 @@ const Reg = (props) => {
     const submitReg = (e) => {
         e.preventDefault()
         console.log(userInfo)
-        fetch("http://localhost:8080/register", {
+        fetch("http://localhost:8080/api/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(userInfo)
         })
-            .then(res => {
-                console.log(res)
-                if (res.data && res.data.errors) {
-                    console.log(res.data.errors)
-                    setErrors(res.data.errors)
-
-                } else {
-                    setUserInfo({
-                        firstName: "",
-                        lastName: "",
-                        email: "",
-                        password: "",
-                        confirmPassword: "",
-                        accountType: ""
-                    })
-                    setErrors({})
-                    setSessionId(res.data.sessionId)
-                    navigate("/dashboard")
-                }
-            })
-            .catch(err => console.log(err))
-    }
+        .then(res => {
+            if (!res.ok) {
+                throw new Error("Registration failed. Please try again.");
+            }
+            return res.json();
+        })
+        .then(data => {
+            setUserInfo({
+                firstName: "",
+                lastName: "",
+                email: "",
+                password: "",
+                confirmPassword: "",
+                accountType: ""
+            });
+            setErrors({});
+            setSessionId(data.email);
+            navigate("/");
+        })
+        .catch(err => {
+            console.log(err);
+            setErrors({ err });
+        });
+    };
 
 
     return (
@@ -92,7 +94,7 @@ const Reg = (props) => {
             </form>
                 <div className="row mb-3">
                     <div className="col">
-                        <Link to="/register">Already have an account? Login here.</Link>
+                        <Link to="/login">Already have an account? Login here.</Link>
                     </div>
                 </div>
         </div>

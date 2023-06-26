@@ -29,9 +29,9 @@ public class UserService {
 	    		result.rejectValue("email", "Matches", "An accoount with that email already exist!");
 	    	}
 	    	//compare password to confirm password
-	    	if(!newUser.getPassword().equals(newUser.getConfirm())) {
-	    		result.rejectValue("confirm", "Matches", "The confirm password must match the password!");
-	    	}
+	    	if(!newUser.getPassword().equals(newUser.getConfirmPassword())) {
+	    		result.rejectValue("confirmPassword", "Matches", "The confirm password must match the password!");
+   	}
 	    	
 	    	if(result.hasErrors()) {
 	            return null;

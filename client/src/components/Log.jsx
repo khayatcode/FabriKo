@@ -20,7 +20,7 @@ const Log = (props) => {
     
     const submitLog = (e) => {
         e.preventDefault()
-        fetch("http://localhost:8080/api/login", {
+        fetch("http://localhost:8080/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -29,16 +29,16 @@ const Log = (props) => {
         })
             .then(res => {
                 console.log(res)
-                if (res.data && res.data.errors) {
-                    setErrors(res.data.errors)
-                } else {
+                if (!res.ok) {
+                    throw new Error("Login failed. Please try again.");} 
+                else {
                     setUser({
                         email: "",
                         password: ""
                     })
                     setErrors({})
-                    setSessionId(res.data.sessionId)
-                    navigate("/dashboard")
+                    setSessionId(res.email)
+                    navigate("/")
                 }
             })
             .catch(err => console.log(err))

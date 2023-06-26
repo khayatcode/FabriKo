@@ -6,11 +6,10 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +18,7 @@ import com.groupproject.tshirtpalooza.models.LoginUser;
 import com.groupproject.tshirtpalooza.models.User;
 import com.groupproject.tshirtpalooza.services.UserService;
 
-
+@CrossOrigin
 @RestController
 public class UserController {
  
@@ -40,12 +39,14 @@ public class UserController {
   @PostMapping("/login")
   public ResponseEntity<User> login(@Valid @RequestBody LoginUser loginUser, 
           BindingResult result, HttpSession session) {
-      
 	  
 		User savedLogin = userServ.login(loginUser, result);
-		
+		if(!result.hasErrors()) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(savedLogin);
-		
+		}
+		else {
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(savedLogin);
+		}
 // 		 User user = userServ.login(loginUser, result);
 // 		 if(user != null) {
 // 			 session.setAttribute("userId", user.getId());
@@ -64,21 +65,17 @@ public class UserController {
   
   
  
- @PostMapping("/register")
- public String register(@Valid @ModelAttribute("newUser") User newUser, 
+ @PostMapping("/api/register")
+ public ResponseEntity<User> register(@Valid @RequestBody User user, 
          BindingResult result, Model model, HttpSession session) {
-     
-
-     userServ.register(newUser, result);
-     
+     userServ.register(user, result);
      if(result.hasErrors()) {
-
-         model.addAttribute("newLogin", new LoginUser());
-         return "register.jsp";
-     }else {
-    	 userServ.register(newUser, result);
-    	 session.setAttribute("userId",newUser.getId());
-    	 return "redirect:/home";
+    	 System.out.println(result);
+    	 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(user);
+     }
+     else {
+    	 System.out.println(user);
+    	 return ResponseEntity.status(HttpStatus.CREATED).body(user);
      }
  
  }
