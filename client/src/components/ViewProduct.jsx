@@ -89,7 +89,7 @@ const ViewProduct = (props) => {
 
     return (
         // create a page to view a product and select wich picture to view. Create a form to choose size and quantity and add to cart
-        <div className='container' style={{ padding: '8%'  }}>
+        <div className='container' style={{ padding: '8%', paddingTop: '10%'  }}>
             <div className='row'>
                 <div className='col-md-6'>
                     <div className='d-flex flex-column justify-content-center align-items-center view-product-image-container' style={{ position: "relative" }}>
