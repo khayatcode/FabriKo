@@ -10,7 +10,7 @@ const AboutUs = () => {
                 </div>
                 <div className='col-4'>
                     <h1 style={{ fontWeight: 300, textDecoration: 'underline', color: "#212727" }}>About Us</h1>
-                    <p className='mt-4' style={{ fontWeight: 300, color: "#212727" }}>Since 1937, Fabriko has epitomized elegance in men's fashion. Our timeless suits, crafted with meticulous attention to detail, have adorned influential leaders and stylish icons. With a blend of tradition and innovation, Fabriko redefines the essence of sophistication. Step into our world and experience sartorial excellence.</p>
+                    <p className='mt-4' style={{ fontWeight: 300, color: "#212727" }}>Revolutionizing elegance since 1937. Enhance your style with our timeless suits, meticulously crafted with exquisite attention to detail. Step into a realm of unmatched refinement, where elegance becomes your signature style.</p>
                 </div>
             </div>
         </div>

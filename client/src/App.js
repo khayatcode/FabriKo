@@ -7,7 +7,8 @@ import Reg from './components/Reg';
 import Log from './components/Log';
 import BillingInfo from './components/BillingInfo';
 import Cookies from 'js-cookie';
-import Home from './components/Home';
+import Home from './views/Home';
+import Footer from './components/Footer';
 
 
 
@@ -27,6 +28,7 @@ function App() {
         <Route path="/register" element={<Reg sessionId={sessionId} setSessionId={setSessionId}/>} /> 
         <Route path="/login" element={<Log sessionId={sessionId} setSessionId={setSessionId}/>} />
       </Routes> 
+      <Footer />
     </div>
   );
 }
