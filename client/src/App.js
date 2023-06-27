@@ -52,7 +52,7 @@ function App() {
               // productImage5: '' 
             }}/>} />
           <Route path="/contact" element={<AboutUs/>}/>
-          <Route path="/product/:category" element={<Category category = {category}/>}/>
+          <Route path="/product/:category" element={<Category category = {category} userInfo={userInfo} setUserInfo={setUserInfo}/>}/>
         </Routes> 
     </div>
   );
