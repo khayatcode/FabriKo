@@ -1,16 +1,15 @@
-import logo from './logo.svg';
 import './App.css';
 import { useState, useEffect } from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Reg from './components/Reg';
 import Log from './components/Log';
-import BillingInfo from './components/BillingInfo';
 import Cookies from 'js-cookie';
 import Home from './components/Home';
 import { useNavigate } from 'react-router-dom';
-import CreateProduct from './components/CreateProduct';
 import FormProduct from './components/FormProduct';
+import ContactUs from './components/ContactUs';
+import AboutUs from './components/AboutUs';
 
 
 
@@ -29,7 +28,6 @@ function App() {
   .then(response => response.json()) 
   .then(data => {
           setUserInfo({...data, password : ""});
-      console.log(data)
   })
   .catch(err => {
       console.log(err)
@@ -55,6 +53,7 @@ function App() {
               // productImage4: '', 
               // productImage5: '' 
             }}/>} />
+          <Route path="/contact" element={<AboutUs/>}/>
         </Routes> 
     </div>
   );

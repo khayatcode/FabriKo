@@ -11,7 +11,6 @@ const NavBar = (props) => {
     const logOut = () => {
         setUserInfo("")
         setSessionId("")
-        console.log(sessionId);
         navigate("/");
     }
 

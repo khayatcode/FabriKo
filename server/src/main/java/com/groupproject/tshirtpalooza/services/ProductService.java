@@ -2,8 +2,13 @@ package com.groupproject.tshirtpalooza.services;
 
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
 import com.groupproject.tshirtpalooza.models.Product;
 import com.groupproject.tshirtpalooza.repositories.ProductRepository;
 
@@ -12,6 +17,8 @@ public class ProductService {
 	
 	@Autowired
 	private ProductRepository repo;
+	
+	private static final int PAGE_SIZE = 9;
 	
 	public Product getOne(Long id) {
 		
@@ -40,8 +47,9 @@ public class ProductService {
 		return repo.save(product);
 	}
 	
-	public List<Product> findByCategory(String category) {
-		List<Product> productsInCategory = repo.findByProductCategory(category);
+	public Page<Product> findByCategory(int pageNumber, String category) {
+		PageRequest pageRequest = PageRequest.of(pageNumber, PAGE_SIZE, Sort.Direction.DESC, "created_at");
+		Page<Product> productsInCategory = repo.findByProductCategory(pageRequest, category);
 		return productsInCategory;
 	}
 	

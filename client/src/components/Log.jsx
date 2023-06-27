@@ -29,15 +29,10 @@ const Log = (props) => {
             body: JSON.stringify(user)
         })
             .then(res => {
-                console.log(res)
                 if (!res.ok) {
                     throw new Error("Login failed. Please try again.");}
                     return res.json();})
                 .then(data => {
-                    setUser({
-                        email: "",
-                        password: ""
-                    })
                     setErrors({});
                     setSessionId(data.email);
                     navigate("/");
