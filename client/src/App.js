@@ -9,6 +9,7 @@ import BillingInfo from './components/BillingInfo';
 import Cookies from 'js-cookie';
 import Home from './views/Home';
 import Footer from './components/Footer';
+import UpperCategory from './views/UpperCategory';
 
 
 
@@ -27,6 +28,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Reg sessionId={sessionId} setSessionId={setSessionId}/>} /> 
         <Route path="/login" element={<Log sessionId={sessionId} setSessionId={setSessionId}/>} />
+        <Route path="/category/upper" element={<UpperCategory />} />
       </Routes> 
       <Footer />
     </div>

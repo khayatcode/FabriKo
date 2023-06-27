@@ -10,7 +10,7 @@ const NavBar = () => {
     <div>
         <nav className="navbar NavBarCSS navbar-expand-xl p-4 fixed-top">
             <div className="container-fluid gap-1">
-                <a className="navbar-brand display-5" href="#">Fabriko</a>
+                <a className="navbar-brand display-5" href="/" style={{ fontSize: '2rem' }}>Fabriko</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                     aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" >
                     <span className="navbar-toggler-icon"></span>
