@@ -43,6 +43,7 @@ const FormProduct = (props) => {
                 productDescription : "",
 
             })
+            navigate("/");
           })
           .catch(err => console.log(err))
       }
@@ -69,9 +70,9 @@ const FormProduct = (props) => {
                 <div className='form-floating'>
                     <select className='form-select' id='floatingSelect' aria-label='Floating label select example' name='productCategory' onChange={changeHandler}>
                         <option value=''>Select Category</option>
-                        <option value='Mens'>Mens</option>
-                        <option value='Womens'>Womens</option>
-                        <option value='Childrens'>Childrens</option>
+                        <option value='upperwear'>Upperwear</option>
+                        <option value='bottomwear'>Bottomwear</option>
+                        <option value='shoes'>Shoes</option>
                     </select>
                     <label htmlFor='floatingSelect'>Product Category</label>
                 </div>

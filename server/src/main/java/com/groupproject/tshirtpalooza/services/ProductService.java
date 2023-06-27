@@ -47,9 +47,8 @@ public class ProductService {
 		return repo.save(product);
 	}
 	
-	public Page<Product> findByCategory(int pageNumber, String category) {
-		PageRequest pageRequest = PageRequest.of(pageNumber, PAGE_SIZE, Sort.Direction.DESC, "created_at");
-		Page<Product> productsInCategory = repo.findByProductCategory(pageRequest, category);
+	public List<Product> findByProductCategory(String category) {
+		List<Product> productsInCategory = repo.findByProductCategory(category);
 		return productsInCategory;
 	}
 	

@@ -38,9 +38,9 @@ public class ProductController {
 		return ResponseEntity.status(200).body(this.productServ.getOne(id));
 	}
 	
-	@GetMapping("/{category}")
+	@GetMapping("/api/{category}")
 	public ResponseEntity<List<Product>> categoryItems(@PathVariable String category){
-		return ResponseEntity.status(200).body(this.productServ.findByCategory(category));
+		return ResponseEntity.status(200).body(this.productServ.findByProductCategory(category));
 	}
 	
 	

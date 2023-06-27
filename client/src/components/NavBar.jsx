@@ -1,12 +1,12 @@
 import {React, useState} from 'react'
 import {useNavigate} from 'react-router-dom'
-
+import { Link } from 'react-router-dom'
 
 const NavBar = (props) => {
     
     const navigate = useNavigate()
-    const {sessionId, setSessionId, userInfo, setUserInfo} = props;  
-    // const [userInfo, setUserInfo] = useState({}) 
+    const {sessionId, setSessionId, userInfo, setUserInfo} = props;
+    const [category, setCategory] = useState(""); 
 
     const logOut = () => {
         setUserInfo("")
@@ -17,6 +17,12 @@ const NavBar = (props) => {
     const addProduct = () => {
         navigate("/product/add");
     }
+    const selectCategory = (category) => {
+        setCategory(category);
+        navigate("/product/" + category)
+        return category;
+    }
+
 
   return (
     <div>
@@ -38,9 +44,9 @@ const NavBar = (props) => {
                                 Categories
                             </a>
                             <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a className="dropdown-item" href="/products/mens">Mens</a>
-                                <a className="dropdown-item" href="/products/womens">Womens</a>
-                                <a className="dropdown-item" href="/products/childrens">Childrens</a>
+                                <li className="dropdown-item" onClick={ () => selectCategory("upperwear")}>UpperWear</li>
+                                <li className="dropdown-item" onClick={ () => selectCategory("bottomwear")}>Bottomwear</li>
+                                <li className="dropdown-item" onClick={ () => selectCategory("shoes")}>Shoes</li>
                             </ul>
                         </li>
                         <li className="nav-item">
@@ -53,21 +59,24 @@ const NavBar = (props) => {
                             <a className="nav-link active" href="#">Welcome {userInfo.firstName}!</a>
                         </li>
                         {!sessionId == "" ? (
-                            <li className="nav-item">
+                            <li className="nav-item mx-auto">
                                 <button className="nav-link" onClick={logOut}>Log Out</button>
                             </li>
                             ) : (
-                            <li className="nav-item">
+                            <li className="nav-item mx-auto">
                                 <a className="nav-link" href="/login">Log In</a>
                             </li>
                         )}
                         {userInfo.accountType === "admin" && (
-                        <li className="nav-item">
+                        <li className="nav-item mx-auto">
                             <button className="nav-link" onClick={addProduct}>
                             Add Product
                             </button>
                         </li>
                         )}
+                        <li>
+                            {category}
+                        </li>
                     </ul>
                 </div>
             </div>

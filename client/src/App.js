@@ -10,16 +10,14 @@ import { useNavigate } from 'react-router-dom';
 import FormProduct from './components/FormProduct';
 import ContactUs from './components/ContactUs';
 import AboutUs from './components/AboutUs';
-
-
+import Category  from './components/Category'
 
 function App() {
   const [sessionId, setSessionId] = useState(Cookies.get("sessionId") || "");
   const [userInfo, setUserInfo] = useState({})
-  const navigate = useNavigate(); 
+  const [category, setCategory] = useState("")
 
   useEffect(() => {
-    console.log("sessionId changed:", sessionId);
     Cookies.set("sessionId", sessionId);
   }, [sessionId]);
   
@@ -36,7 +34,7 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar sessionId={sessionId} setSessionId={setSessionId} userInfo={userInfo} setUserInfo={setUserInfo} />
+      <NavBar sessionId={sessionId} setSessionId={setSessionId} userInfo={userInfo} setUserInfo={setUserInfo}/>
         <Routes>
           <Route path="/" element={<Home sessionId={sessionId} setSessionId={setSessionId}/>} defualt/> 
           <Route path="/register" element={<Reg sessionId={sessionId} setSessionId={setSessionId}/>} /> 
@@ -54,6 +52,7 @@ function App() {
               // productImage5: '' 
             }}/>} />
           <Route path="/contact" element={<AboutUs/>}/>
+          <Route path="/product/:category" element={<Category category = {category}/>}/>
         </Routes> 
     </div>
   );
