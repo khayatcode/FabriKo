@@ -43,7 +43,18 @@ function App() {
           <Route path="/" element={<Home sessionId={sessionId} setSessionId={setSessionId}/>} defualt/> 
           <Route path="/register" element={<Reg sessionId={sessionId} setSessionId={setSessionId}/>} /> 
           <Route path="/login" element={<Log sessionId={sessionId} setSessionId={setSessionId}/>} />
-          <Route path="/product/add" element={<FormProduct sessionId={sessionId} setSessionId={setSessionId}/>} />
+          <Route path="/product/add" element={<FormProduct userInfo={userInfo} setUserInfo={setUserInfo} errors={{}} 
+            productInfo={{ 
+              productName: '', 
+              productPrice: '', 
+              productCategory: '', 
+              productDescription: '', 
+              // productImage1: '', 
+              // productImage2: '', 
+              // productImage3: '', 
+              // productImage4: '', 
+              // productImage5: '' 
+            }}/>} />
         </Routes> 
     </div>
   );

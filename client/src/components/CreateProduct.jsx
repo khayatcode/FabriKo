@@ -29,13 +29,8 @@ const CreateProduct = () => {
       formData.append("productCategory", productInfo.productCategory)
       formData.append("productPrice", productInfo.productPrice)
       formData.append("productDescription", productInfo.productDescription)
-      formData.append("productImage1", productInfo.productImage1)
-      formData.append("productImage2", productInfo.productImage2)
-      formData.append("productImage3", productInfo.productImage3)
-      formData.append("productImage4", productInfo.productImage4)
-      formData.append("productImage5", productInfo.productImage5)
       e.preventDefault()
-      fetch("http://localhost:8080/api/create/product", {
+      fetch("http://localhost:8080/product/add", {
         method: "POST",
         body: formData
       })

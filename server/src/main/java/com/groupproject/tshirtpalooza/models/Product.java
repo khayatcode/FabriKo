@@ -23,20 +23,17 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank(message="Item Name is required!")
 	@Size(min=3, message="Item Name must be at least 3 characters long")
-	private String name;
+	private String productName;
 	
 	@NotBlank(message="Category is required!")
-	private String category;
+	private String productCategory;
 	
-	@NotNull(message="Price is required!")
 	@Min(value=1, message="Price must be at least greater than 0")
-	private Double price;
+	private Double productPrice;
 	
 	@NotBlank(message="Description is required!")
-	@Size(min=10, message="Description must be at least 10 characters long")
-	private String description;
+	private String productDescription;
 	
 //	private String fileName;
 	
@@ -64,9 +61,6 @@ public class Product {
         this.updatedAt = new Date();
     }
 
-    
-    //================== GETTERS AND SETTERS ===========================
-    
 	public Long getId() {
 		return id;
 	}
@@ -75,36 +69,36 @@ public class Product {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getProductName() {
+		return productName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 
-	public String getCategory() {
-		return category;
+	public String getProductCategory() {
+		return productCategory;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
+	public void setProductCategory(String productCategory) {
+		this.productCategory = productCategory;
 	}
 
-	public Double getPrice() {
-		return price;
+	public Double getProductPrice() {
+		return productPrice;
 	}
 
-	public void setPrice(Double price) {
-		this.price = price;
+	public void setProductPrice(Double productPrice) {
+		this.productPrice = productPrice;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getProductDescription() {
+		return productDescription;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setProductDescription(String productDescription) {
+		this.productDescription = productDescription;
 	}
 
 	public Date getCreatedAt() {
@@ -122,30 +116,10 @@ public class Product {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-//
-//	public String getFileName() {
-//		return fileName;
-//	}
-//
-//	public void setFileName(String fileName) {
-//		this.fileName = fileName;
-//	}
 
-//	public byte[] getContent() {
-//		return content;
-//	}
-//
-//	public void setContent(byte[] content) {
-//		this.content = content;
-//	}
-
-//	public User getUser() {
-//		return user;
-//	}
-//
-//	public void setUser(User user) {
-//		this.user = user;
-//	}
     
+    //================== GETTERS AND SETTERS ===========================
+    
+	
     
 }

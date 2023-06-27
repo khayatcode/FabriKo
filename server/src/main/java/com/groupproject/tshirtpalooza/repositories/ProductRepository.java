@@ -8,5 +8,5 @@ import com.groupproject.tshirtpalooza.models.Product;
 @Repository
 public interface ProductRepository extends CrudRepository<Product, Long>{
 	List<Product> findAll();
-	List<Product> findByCategory(String category);
+	List<Product> findByProductCategory(String productCategory);
 }
