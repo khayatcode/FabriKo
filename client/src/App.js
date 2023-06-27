@@ -12,6 +12,8 @@ import Footer from './components/Footer';
 import UpperCategory from './views/UpperCategory';
 import BottomCategory from './views/BottomCategory';
 import ShoesCategory from './views/ShoesCategory';
+import CreateProduct from './components/CreateProduct';
+import EditProduct from './components/EditProduct';
 
 
 
@@ -33,6 +35,8 @@ function App() {
         <Route path="/category/upper" element={<UpperCategory />} />
         <Route path="/category/bottom" element={<BottomCategory />} />
         <Route path="/category/shoes" element={<ShoesCategory />} />
+        <Route path="/createProduct" element={<CreateProduct />} />
+        <Route path="/editProduct/example" element={<EditProduct />} />
       </Routes> 
       <Footer />
     </div>

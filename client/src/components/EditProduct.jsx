@@ -24,15 +24,15 @@ const EditProduct = () => {
         })
     }
 
-    useEffect(() => {
-        fetch("http://localhost:8080/api/product/" + productId)
-            .then(res => res.json())
-            .then(res => {
-                console.log(res)
-                setProductInfo(res)
-            })
-            .catch(err => console.log(err))
-    }, [])
+    // useEffect(() => {
+    //     fetch("http://localhost:8080/api/product/" + productId)
+    //         .then(res => res.json())
+    //         .then(res => {
+    //             console.log(res)
+    //             setProductInfo(res)
+    //         })
+    //         .catch(err => console.log(err))
+    // }, [])
 
 
     const editProduct = (e) => {
@@ -75,9 +75,10 @@ const EditProduct = () => {
     
   return (
     <div>
-        <h2>Edit Product</h2>
         <FormProduct
+            message={"Edit Product"}
             productInfo={productInfo}
+            setProductInfo={setProductInfo}
             changeHandler={changeHandler}
             submitHandler={editProduct}
             errors={errors}
