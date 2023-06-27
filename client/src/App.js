@@ -10,6 +10,8 @@ import Cookies from 'js-cookie';
 import Home from './views/Home';
 import Footer from './components/Footer';
 import UpperCategory from './views/UpperCategory';
+import BottomCategory from './views/BottomCategory';
+import ShoesCategory from './views/ShoesCategory';
 
 
 
@@ -29,6 +31,8 @@ function App() {
         <Route path="/register" element={<Reg sessionId={sessionId} setSessionId={setSessionId}/>} /> 
         <Route path="/login" element={<Log sessionId={sessionId} setSessionId={setSessionId}/>} />
         <Route path="/category/upper" element={<UpperCategory />} />
+        <Route path="/category/bottom" element={<BottomCategory />} />
+        <Route path="/category/shoes" element={<ShoesCategory />} />
       </Routes> 
       <Footer />
     </div>

@@ -124,7 +124,7 @@ const UpperCategory = (props) => {
                         </Link>
                         <div className='d-flex flex-column flex-wrap pb-2' style={{ width: '52%' }}>
                             <p className='text-start text-muted' style={{ fontSize: '15px' }}> Brown Tweed Wedding Suit   </p>
-                            <p className='text-start fw-bold' style={{ fontSize: '12px' }}>$5694USD</p>
+                            <p className='text-start fw-bold' style={{ fontSize: '12px' }}>$569USD</p>
                         </div>
                     </div>
                     <div className="col-sm-4 d-flex flex-column align-items-center gap-2">
