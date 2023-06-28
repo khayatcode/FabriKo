@@ -2,49 +2,6 @@ import React from 'react'
 import { useState } from 'react'
 
 const ContactUs = () => {
-    const [contactInfo, setContactInfo] = useState({
-        name: '',
-        email: '',
-        phoneNumber: '',
-        message: ''
-    })
-    const [errors, setErrors] = useState({})
-
-    const onChange = (e) => {
-        setContactInfo({
-            ...contactInfo,
-            [e.target.name]: e.target.value
-        })
-    }
-
-    const onSubmit = (e) => {
-        e.preventDefault()
-        console.log(contactInfo)
-        fetch('http://localhost:8080/api/contact', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(contactInfo)
-        })
-            .then(res => {
-                console.log(res)
-                if (res.data && res.data.errors) {
-                    setErrors(res.data.errors)
-                } else {
-                    setContactInfo({
-                        name: '',
-                        email: '',
-                        phoneNumber: '',
-                        message: ''
-                    })
-                    setErrors({})
-                }
-            })
-            .catch(err => console.log(err))
-    }
-
-
 
     return (
         <div className='container d-flex justify-content-center' style={{ padding: '14%' }}>
