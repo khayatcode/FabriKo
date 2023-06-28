@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import windowOld from '../images/windowOld.jpeg'
 
 const ContactUs = () => {
     const [contactInfo, setContactInfo] = useState({
@@ -47,27 +48,23 @@ const ContactUs = () => {
 
 
   return (
-    <div>
-        <h1>Contact Us</h1>
-        <form onSubmit={onSubmit}>
-            <div className='form-floating mb-3'>
-                <input type='text' className='form-control' id='floatingInput' placeholder='Name' name='name' value={contactInfo.name} onChange={onChange} />
-                <label htmlFor='floatingInput'>Name</label>
+    <div className='d-flex' >
+        <div className='fixed-top bg-white' style={{ zIndex: 1, paddingTop: '5%' }}>
+            <h1 style={{ fontWeight: 300 }}>Contact Us</h1>
+        </div>
+        <div className='mx-auto mt-auto'>
+            <div className='d-flex justify-content-center align-self-center ' style={{ padding: '14%' , marginTop:"15%",backgroundColor: "#F5F4EF" }}>
+                <div className='col-4'>
+                    <img src={windowOld} alt='windowOld' style={{ width: '70%' }} />
+                </div>
+                <div className='col-md-6 align-self-center '>
+                    <p style={{ fontWeight: 300, color: "#212727" }}>20892 Abner Trace</p>
+                    <p style={{ fontWeight: 300, color: "#212727" }}>Gloverstad, TN 33484</p>
+                    <p style={{ fontWeight: 300, color: "#212727" }}> Office : 1 (818) 970 - 3118</p>
+                    <p style={{ fontWeight: 300, color: "#212727" }}> Email : customersupport@fabriko.com</p>
+                </div>
             </div>
-            <div className='form-floating mb-3'>
-                <input type='email' className='form-control' id='floatingInput' placeholder='Email' name='email' value={contactInfo.email} onChange={onChange} />
-                <label htmlFor='floatingInput'>Email</label>
-            </div>
-            <div className='form-floating mb-3'>
-                <input type='text' className='form-control' id='floatingInput' placeholder='Phone Number' name='phoneNumber' value={contactInfo.phoneNumber} onChange={onChange} />
-                <label htmlFor='floatingInput'>Phone Number</label>
-            </div>
-            <div className='form-floating mb-3'>
-                <textarea className='form-control' placeholder='Message' id='floatingTextarea2' style={{ height: '100px' }} name='message' value={contactInfo.message} onChange={onChange}></textarea>
-                <label htmlFor='floatingTextarea2'>Message</label>
-            </div>
-            <button type='submit' className='btn btn-primary'>Submit</button>
-        </form>
+        </div>
     </div>
   )
 }

@@ -44,24 +44,26 @@ const Log = (props) => {
 
 
     return (
-        <div>
-            <h1>Login</h1>
-            <form onSubmit={submitLog}>
-                <div className="form-floating">
-                    <input type="email" className="form-control" id="floatingInput" placeholder="Email" name="email" value={user.email} onChange={changeHandler} />
-                    <label htmlFor="floatingInput">Email</label>
-                </div>
-                <div className="form-floating">
-                    <input type="password" className="form-control" id="floatingInput" placeholder="Password" name="password" value={user.password} onChange={changeHandler} />
-                    <label htmlFor="floatingInput">Password</label>
-                </div>
-                <button type="submit" className="btn btn-primary">Login</button>
-                <div className="row mb-3">
-                    <div className="col">
-                        <Link to="/register">Don't have an account? Register here.</Link>
+        <div className='container d-flex justify-content-center' style={{ padding: '8%' }}>
+            <div className='col-md-6'>
+                <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>Login</h1>
+                <form onSubmit={submitLog}>
+                    <div className='form-floating mb-3'>
+                        <input type='email' className='form-control' id='email' placeholder='Email' name='email' value={user.email} onChange={changeHandler} />
+                        <label htmlFor='email'>Email</label>
                     </div>
-                </div>
-            </form>
+                    <div className='form-floating mb-3'>
+                        <input type='password' className='form-control' id='password' placeholder='Password' name='password' value={user.password} onChange={changeHandler} />
+                        <label htmlFor='password'>Password</label>
+                    </div>
+                    <button type='submit' className='btn btn-outline-dark'>Login</button>
+                    <div className='row mt-3'>
+                        <div className='col text-center'>
+                            <Link className='text-dark' to='/register'>Don't have an account? Register here.</Link>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     )
 }

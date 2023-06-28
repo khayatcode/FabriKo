@@ -18,15 +18,12 @@ public class ProductService {
 	@Autowired
 	private ProductRepository repo;
 	
-	private static final int PAGE_SIZE = 9;
-	
 	public Product getOne(Long id) {
 		
 		Optional<Product> result = repo.findById(id);
 		if(result.isPresent()) {
 			return result.get();
-		}
-		
+			}
 		return null;
 	}
 	
@@ -35,7 +32,7 @@ public class ProductService {
 		return repo.findAll();
 	}
 	
-	public Product create(Product product) {
+	public Product save(Product product) {
 		return repo.save(product);
 	}
 	
@@ -43,13 +40,15 @@ public class ProductService {
 		repo.deleteById(id);
 	}
 	
-	public Product update(Product product) {
-		return repo.save(product);
-	}
-	
 	public List<Product> findByProductCategory(String category) {
 		List<Product> productsInCategory = repo.findByProductCategory(category);
 		return productsInCategory;
+	}
+
+
+	public Optional<Product> findById(Long id) {
+		Optional<Product> findOne = repo.findById(id);
+		return findOne;
 	}
 	
 }

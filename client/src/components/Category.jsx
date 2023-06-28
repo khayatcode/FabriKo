@@ -1,23 +1,15 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import App from '../App'
+import UpperWear1 from '../images/upperWear1.webp'
 
 const Category = (props) => {
-    const { categoryId, selectedCategory, userInfo, setUserInfo} =  props
+    const { categoryId, selectedCategory, userInfo, productId, setProductId} =  props
     const [productsInCategory, setProductsInCategory] = useState([])
+    const [product , setProduct] = useState({});
     const {category} = useParams();
     const navigate = useNavigate();
-
-    // useEffect(() => {
-    //     fetch('http://localhost:8080/api/category/' + categoryId)
-    //         .then(res => res.json())
-    //         .then(res => {
-    //             console.log(res)
-    //             setCategory(res)
-    //         })
-    //         .catch(err => console.log(err))
-    // }, [])
-
 
     useEffect(() => {
         fetch('http://localhost:8080/product/api/' + category)
@@ -35,30 +27,64 @@ const Category = (props) => {
             method: "DELETE"
         })
             .then(res => {
-                navigate(window.location.pathname);
+                window.location.reload(true);
             })
             .catch(err => console.log(err))
     }
-    
+
+    const editProduct = (productId) => {
+        fetch("http://localhost:8080/product/edit/" + productId)
+        .then(res => res.json()
+        )
+        .then (res => {setProduct(res);
+            console.log("from Category ---" + productId);
+        setProductId(productId)}
+        )
+        .catch(err => console.log(err))
+        navigate("/product/edit/" + productId )
+    }
+
+    const viewProduct = (productId) => {
+        fetch("http://localhost:8080/product/" + productId)
+        .then(res => res.json()
+        )
+        .then (res => {setProduct(res)
+            setProductId(res.id)
+        console.log(res)
+        navigate("/product/view/" + productId )
+        }
+        )
+        .catch(err => console.log(err))
+        
+    }
 
   return (
-    <div>
-        <h1>Test</h1>
-        <div className="row">
+    <div style={{ padding: '13%' }}>
+         <div className='fixed-top bg-white' style={{ zIndex: 1, paddingTop: '8%' }}>
+                <h1 className='mb-4' style={{ fontWeight: 300 }}>{category}</h1>
+            </div>
+        <div className="row p-3">
             {
                 productsInCategory.map((product, idx) => {
                     return (
-                        <div className="col-sm-6 col-md-4 col-lg-3" key={idx}>
+                        <div className="col-sm-4 d-flex flex-column align-items-center gap-2 mb-2" key={idx}>
                             <div className="card">
                                 <div className="card-body">
                                     <h5 className="card-title">{product.productName}</h5>
-                                    <p className="card-text">{product.productDescription}</p>
-                                    <p className="card-text">{product.productPrice}</p>
-                                    <Link to={"/product/" + product.id}>View</Link>
+                                    <img src={UpperWear1} alt="UpperWear1" style={{ height: '300px', backgroundColor: '#E8E8E8', transition: 'transform 0.2s', paddingRight: '30px', paddingLeft: '30px' }} 
+                                    onMouseOver={(e) => {e.currentTarget.style.transform = 'scale(1.05)';}}
+                                    onMouseOut={(e) => {e.currentTarget.style.transform = 'scale(1)';}}
+                                    onClick={() => viewProduct(product.id)}
+                                    />
+                                    <p className='text-center text-muted' style={{ fontSize: '15px' }}>{product.productDescription}</p>
+                                    <p className='text-center fw-bold' style={{ fontSize: '12px' }}>${product.productPrice} USD</p>
                                     <br />
                                     {userInfo.accountType === "admin" && (
                                     <button onClick={() => deleteProduct(product.id)}>Delete</button>
                         )}
+                                    {userInfo.accountType === "admin" && (
+                                                <button onClick={() => editProduct(product.id)}>Edit</button>
+                                    )}
                                 </div>
                             </div>
                         </div>

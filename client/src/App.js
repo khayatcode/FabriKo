@@ -11,12 +11,21 @@ import FormProduct from './components/FormProduct';
 import ContactUs from './components/ContactUs';
 import AboutUs from './components/AboutUs';
 import Category  from './components/Category'
+import EditProduct from './components/EditProduct';
+import ViewProduct from './components/ViewProduct';
+import Footer from './components/Footer';
 
 function App() {
   const [sessionId, setSessionId] = useState(Cookies.get("sessionId") || "");
   const [userInfo, setUserInfo] = useState({})
   const [category, setCategory] = useState("")
+  const [productsInCategory, setProductsInCategory] = useState([]);
+  const [product , setProduct] = useState({});
+  const [ productId, setProductId] = useState("");
 
+  const handlePageProduct = (pageProduct) => {
+    setProduct(pageProduct);
+  }
   useEffect(() => {
     Cookies.set("sessionId", sessionId);
   }, [sessionId]);
@@ -51,9 +60,12 @@ function App() {
               // productImage4: '', 
               // productImage5: '' 
             }}/>} />
-          <Route path="/contact" element={<AboutUs/>}/>
-          <Route path="/product/:category" element={<Category category = {category} userInfo={userInfo} setUserInfo={setUserInfo}/>}/>
+          <Route path="/contact" element={<ContactUs/>}/>
+          <Route path="/product/:category" element={<Category category = {category} userInfo={userInfo} setUserInfo={setUserInfo} setProduct = {handlePageProduct} productId = {productId} setProductId = {setProductId}/>}/>
+          <Route path="/product/edit/:productId" element={<EditProduct product = {product} setProduct = {setProduct} productId = {productId} setProductId = {setProductId}/>}/>
+          <Route path="/product/view/:productId" element={<ViewProduct product = {product} setProduct = {setProduct} productId = {productId} setProductId = {setProductId}/>}/>
         </Routes> 
+        <Footer/>
     </div>
   );
 }

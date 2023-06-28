@@ -59,44 +59,46 @@ const Reg = (props) => {
 
 
     return (
-        <div>
-            <h1>Registers</h1>
-            <form onSubmit={submitReg}>
-                <div className="form-floating">
-                    <input type="text" className="form-control" id="floatingInput" placeholder="First Name" name="firstName" value={userInfo.firstName} onChange={changeHandler} />
-                    <label htmlFor="floatingInput">First Name</label>
-                </div>
-                <div className="form-floating">
-                    <input type="text" className="form-control" id="floatingInput" placeholder="Last Name" name="lastName" value={userInfo.lastName} onChange={changeHandler} />
-                    <label htmlFor="floatingInput">Last Name</label>
-                </div>
-                <div className="form-floating">
-                    <input type="email" className="form-control" id="floatingInput" placeholder="Email" name="email" value={userInfo.email} onChange={changeHandler} />
-                    <label htmlFor="floatingInput">Email</label>
-                </div>
-                <div className="form-floating">
-                    <input type="password" className="form-control" id="floatingInput" placeholder="Password" name="password" value={userInfo.password} onChange={changeHandler} />
-                    <label htmlFor="floatingInput">Password</label>
-                </div>
-                <div className="form-floating">
-                    <input type="password" className="form-control" id="floatingInput" placeholder="Confirm Password" name="confirmPassword" value={userInfo.confirmPassword} onChange={changeHandler} />
-                    <label htmlFor="floatingInput">Confirm Password</label>
-                </div>
-                <div className="form-floating">
-                    <select className="form-select" id="floatingSelect" aria-label="Floating label select example" name="accountType" value={userInfo.accountType} onChange={changeHandler}>
-                        <option selected disabled>Select Account Type</option>
-                        <option value="shopper">Shopper</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                    <label htmlFor="floatingSelect">Account Type</label>
-                </div>
-                <button type="submit" className="btn btn-primary">Register</button>
-            </form>
-                <div className="row mb-3">
-                    <div className="col">
-                        <Link to="/login">Already have an account? Login here.</Link>
+        <div className='container d-flex justify-content-center' style={{ padding: '8%' }}>
+            <div className='col-md-6'>
+                <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>Registers</h1>
+                <form onSubmit={submitReg}>
+                    <div className='form-floating mb-3'>
+                        <input type='text' className='form-control' id='firstName' placeholder='First Name' name='firstName' value={userInfo.firstName} onChange={changeHandler} />
+                        <label htmlFor='firstName'>First Name</label>
                     </div>
-                </div>
+                    <div className='form-floating mb-3'>
+                        <input type='text' className='form-control' id='lastName' placeholder='Last Name' name='lastName' value={userInfo.lastName} onChange={changeHandler} />
+                        <label htmlFor='lastName'>Last Name</label>
+                    </div>
+                    <div className='form-floating mb-3'>
+                        <input type='email' className='form-control' id='email' placeholder='Email' name='email' value={userInfo.email} onChange={changeHandler} />
+                        <label htmlFor='email'>Email</label>
+                    </div>
+                    <div className='form-floating mb-3'>
+                        <input type='password' className='form-control' id='password' placeholder='Password' name='password' value={userInfo.password} onChange={changeHandler} />
+                        <label htmlFor='password'>Password</label>
+                    </div>
+                    <div className='form-floating mb-3'>
+                        <input type='password' className='form-control' id='confirmPassword' placeholder='Confirm Password' name='confirmPassword' value={userInfo.confirmPassword} onChange={changeHandler} />
+                        <label htmlFor='confirmPassword'>Confirm Password</label>
+                    </div>
+                    <div className='form-floating mb-3'>
+                        <select className='form-select' id='accountType' aria-label='Floating label select example' name='accountType' value={userInfo.accountType} onChange={changeHandler}>
+                            <option selected disabled>Select Account Type</option>
+                            <option value='shopper'>Shopper</option>
+                            <option value='admin'>Admin</option>
+                        </select>
+                        <label htmlFor='accountType'>Account Type</label>
+                    </div>
+                    <button type='submit' className='btn btn-outline-dark'>Register</button>
+                    <div className='row mt-3'>
+                        <div className='col text-center'>
+                            <Link className='text-dark' to='/login'>Already have an account? Login here.</Link>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     )
 }

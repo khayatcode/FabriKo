@@ -1,6 +1,7 @@
 package com.groupproject.tshirtpalooza.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,8 +36,13 @@ public class ProductController {
 		return ResponseEntity.status(200).body(this.productServ.all());
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/edit/{id}")
 	public ResponseEntity<Product> getOneById(@PathVariable Long id){
+		return ResponseEntity.status(200).body(this.productServ.getOne(id));
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<Product> getById(@PathVariable Long id){
 		return ResponseEntity.status(200).body(this.productServ.getOne(id));
 	}
 	
@@ -43,6 +50,8 @@ public class ProductController {
 	public ResponseEntity<List<Product>> categoryItems(@PathVariable String category){
 		return ResponseEntity.status(200).body(this.productServ.findByProductCategory(category));
 	}
+	
+
 	
 	
 	@PostMapping("/add")
@@ -56,24 +65,26 @@ public class ProductController {
 //		
 //		if(user.getAccountType().equals("Admin")) {
 			
-		Product savedProduct = productServ.create(product);
+		Product savedProduct = productServ.save(product);
 			return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);
 //		}
 	}
 	
-	@PostMapping("/update")
-	public ResponseEntity<Product> update(@Valid @RequestBody Product product
-//			HttpSession session
-			){
-//		if(session.getAttribute("userId") == null) {
-//		return "redirect:/login";
-//		}
-//		User user = userServ.getOne((Long)session.getAttribute("userId"));
-//		
-//		if(user.getAccountType().equals("Admin")) {
-			Product savedProduct = productServ.update(product);
-			return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);
-//		}
+	@PutMapping("/edit/{id}")
+	public ResponseEntity<Product> update(@PathVariable Long id, @Valid @RequestBody Product updatedProduct) {
+	    Optional<Product> optionalProduct = productServ.findById(id);
+	    if (optionalProduct.isPresent()) {
+	        Product product = optionalProduct.get();
+	        // Update the properties of the existing product
+	        product.setProductName(updatedProduct.getProductName());
+	        product.setProductPrice(updatedProduct.getProductPrice());
+	        product.setProductDescription(updatedProduct.getProductDescription());
+	        product.setProductCategory(updatedProduct.getProductCategory());
+	        Product savedProduct = productServ.save(product);
+	        return ResponseEntity.status(HttpStatus.OK).body(savedProduct);
+	    } else {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	    }
 	}
 
 	@DeleteMapping("/delete/{id}")
