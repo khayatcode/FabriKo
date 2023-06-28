@@ -7,7 +7,21 @@ import Reg from './components/Reg';
 import Log from './components/Log';
 import BillingInfo from './components/BillingInfo';
 import Cookies from 'js-cookie';
-import Home from './components/Home';
+import Home from './views/Home';
+import Footer from './components/Footer';
+import UpperCategory from './views/UpperCategory';
+import BottomCategory from './views/BottomCategory';
+import ShoesCategory from './views/ShoesCategory';
+import CreateProduct from './components/CreateProduct';
+import EditProduct from './components/EditProduct';
+import ViewProduct from './components/ViewProduct';
+import ContactUs from './components/ContactUs';
+import Shipping from './components/Shipping';
+import ShoppingCartConf from './components/ShoppingCartConf';
+import OrderSuccessPage from './components/OrderSuccessPage';
+import ShoppingCart from './components/ShoppingCart';
+import Terms from './components/Terms';
+import { Privacy } from './components/Privacy';
 
 
 
@@ -26,7 +40,24 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Reg sessionId={sessionId} setSessionId={setSessionId}/>} /> 
         <Route path="/login" element={<Log sessionId={sessionId} setSessionId={setSessionId}/>} />
+        <Route path="/category/upper" element={<UpperCategory />} />
+        <Route path="/category/bottom" element={<BottomCategory />} />
+        <Route path="/category/shoes" element={<ShoesCategory />} />
+        <Route path="/createProduct" element={<CreateProduct />} />
+        <Route path="/editProduct/example" element={<EditProduct />} />
+        <Route path="/viewProduct/example" element={<ViewProduct />} />
+        <Route path="/contact" element={<ContactUs />} />
+        <Route path="/billing" element={<BillingInfo/>} />
+        <Route path="/shippingInfo" element={<Shipping/>} />
+        <Route path="/shoppingCart" element={<ShoppingCart/>} />
+        <Route path="/shoppingCart/confirm" element={<ShoppingCartConf/>} />
+        <Route path="/orderSuccess" element={<OrderSuccessPage/>} />
+        <Route path="/terms" element={<Terms/>} />
+        <Route path="/privacy" element={<Privacy/>} />
+        <Route path="*" element={<h1>Not Found</h1>} /> 
+
       </Routes> 
+      <Footer />
     </div>
   );
 }
