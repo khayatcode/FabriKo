@@ -49,9 +49,9 @@ const ContactUs = () => {
     return (
         <div className='container d-flex justify-content-center' style={{ padding: '14%' }}>
             <div className='col-md-10'>
+                <h1 className='mb-4' style={{ fontWeight: 300 }}>Contact Us</h1>
                 <div className='card p-4'>
                     <div className='card-body'>
-                        <h1 className='card-title mb-3' style={{ fontWeight: 300 }}>Contact Us</h1>
                         <div className='d-flex flex-column'>
                             <div className='d-flex align-items-center mb-4 gap-3'>
                                 <p className='font-weight-bold text-decoration-underline'>Address:</p>
