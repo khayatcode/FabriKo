@@ -7,10 +7,12 @@ const OrderSuccessPage = (props) => {
     const orderNumber = Math.floor(Math.random() * 1000000000)
 
   return (
-    <div>
-        <h1>Congratulations {firstName}!</h1>
-        <h2>Your order has been placed!</h2>
-        <h2>Order Number: {orderNumber}</h2>
+    <div className='container d-flex justify-content-center' style={{ padding: '12%' }}>
+      <div className='col-8'>
+          <h1 className='mb-3' style={{ fontWeight: 300 }}>Congratulations firstName!</h1>
+          <h2 className='mb-3' style={{ fontWeight: 300 }}>Your order has been placed!</h2>
+          <h6 className='mb-3' style={{ fontWeight: 300 }}>Order Number: #{orderNumber}</h6>
+      </div>
     </div>
   )
 }

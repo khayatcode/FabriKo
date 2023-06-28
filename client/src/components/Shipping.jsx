@@ -48,39 +48,41 @@ const Shipping = () => {
             .catch(err => console.log(err))
     }
   return (
-    <div>
-        <h1>Shipping</h1>
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>First Name:</label>
-                <input type="text" name="firstName" value={shippingAddress.firstName} onChange={onChange} />
-            </div>
-            <div>
-                <label>Last Name:</label>
-                <input type="text" name="lastName" value={shippingAddress.lastName} onChange={onChange} />
-            </div>
-            <div>
-                <label>Address:</label>
-                <input type="text" name="address" value={shippingAddress.address} onChange={onChange} />
-            </div>
-            <div>
-                <label>City:</label>
-                <input type="text" name="city" value={shippingAddress.city} onChange={onChange} />
-            </div>
-            <div>
-                <label>State:</label>
-                <input type="text" name="state" value={shippingAddress.state} onChange={onChange} />
-            </div>
-            <div>
-                <label>Zip:</label>
-                <input type="text" name="zip" value={shippingAddress.zip} onChange={onChange} />
-            </div>
-            <div>
-                <label>Phone:</label>
-                <input type="text" name="phone" value={shippingAddress.phone} onChange={onChange} />
-            </div>
-            <input type="submit" value="Submit" />
-        </form>
+    <div className='container d-flex justify-content-center' style={{ padding: '8%' }}>
+        <div className='col-md-6'>
+            <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>Shipping</h1>
+            <form onSubmit={handleSubmit}>
+                <div className='form-floating mb-3'>
+                    <input type="text" className='form-control' placeholder='First Name' name="firstName" value={shippingAddress.firstName} onChange={onChange} />
+                    <label htmlFor='firstName'>First Name:</label>
+                </div>
+                <div className='form-floating mb-3'>
+                    <input type="text" className='form-control' placeholder='Last Name' name="lastName" value={shippingAddress.lastName} onChange={onChange} />
+                    <label htmlFor='lasstName'>Last Name:</label>
+                </div>
+                <div className='form-floating mb-3'>
+                    <input type="text" className='form-control' placeholder='Address' name="address" value={shippingAddress.address} onChange={onChange} />
+                    <label htmlFor='address'>Address:</label>
+                </div>
+                <div className='form-floating mb-3'>
+                    <input type="text" className='form-control' placeholder='City' name="city" value={shippingAddress.city} onChange={onChange} />
+                    <label htmlFor='city'>City:</label>
+                </div>
+                <div className='form-floating mb-3'>
+                    <input type="text" className='form-control' placeholder='state' name="state" value={shippingAddress.state} onChange={onChange} />
+                    <label htmlFor='state'>State:</label>
+                </div>
+                <div className='form-floating mb-3'>
+                    <input type="text" className='form-control' placeholder='Zip' name="zip" value={shippingAddress.zip} onChange={onChange} />
+                    <label htmlFor='zip'>Zip:</label>
+                </div>
+                <div className='form-floating mb-3'>
+                    <input type="text" className='form-control' placeholder='Phone' name="phone" value={shippingAddress.phone} onChange={onChange} />
+                    <label htmlFor='phone'>Phone:</label>
+                </div>
+                <input type="submit" value="Submit" className='btn btn-outline-dark' />
+            </form>
+        </div>
     </div>
   )
 }
