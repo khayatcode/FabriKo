@@ -63,7 +63,7 @@ const EditProduct = (props) => {
                 productCategory: ""
               });
               setErrors({});
-              navigate("/product/" + productId)
+              navigate("/")
             } else {
               return res.json().then(data => {
                 setErrors(data.errors);
