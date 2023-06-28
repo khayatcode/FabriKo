@@ -23,9 +23,10 @@ const ShoppingCartConf = (props) => {
                 <h1 className='mb-5' style={{ fontWeight: 300 }}>First Name Shopping Cart</h1>
                 <hr />
                 <div className='d-flex justify-content-between align-items-center mt-5'>
-                    <div style={{ borderRight: '1px solid black', paddingRight: '35%' }} className='bg-danger'>
-                        <div className='bg-primary d-flex' >
-                            <h4 className='text-decoration-underline mb-4 ' style={{ fontWeight: 300 }}>Shipping Info</h4>
+                    <div style={{ borderRight: '1px solid black', paddingRight: '35%' }} className=''>
+                        <div className='d-flex' style={{width: '100%', marginLeft: '100%'}}>
+                            <h4 className='text-decoration-underline mb-4 text-center' style={{ fontWeight: 300 }}>Shipping Info</h4>
+
                         </div>
                         <ul>
                             <li className='text-start mb-4' style={{ fontWeight: 300 }}>First Name: </li>
@@ -37,7 +38,7 @@ const ShoppingCartConf = (props) => {
                             <li className='text-start mb-4' style={{ fontWeight: 300 }}>Phone: </li>
                         </ul>
                     </div>
-                    <div className='bg-danger' style={{width: '47%'}}>
+                    <div className='' style={{width: '47%'}}>
                         <h4 className='text-decoration-underline mb-4' style={{ fontWeight: 300 }}>Billing Info</h4>
                         <ul>
                             <li className='text-start mb-4' style={{ fontWeight: 300 }}>First Name: </li>

@@ -18,6 +18,10 @@ import ViewProduct from './components/ViewProduct';
 import ContactUs from './components/ContactUs';
 import Shipping from './components/Shipping';
 import ShoppingCartConf from './components/ShoppingCartConf';
+import OrderSuccessPage from './components/OrderSuccessPage';
+import ShoppingCart from './components/ShoppingCart';
+import Terms from './components/Terms';
+import { Privacy } from './components/Privacy';
 
 
 
@@ -45,8 +49,13 @@ function App() {
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/billing" element={<BillingInfo/>} />
         <Route path="/shippingInfo" element={<Shipping/>} />
+        <Route path="/shoppingCart" element={<ShoppingCart/>} />
         <Route path="/shoppingCart/confirm" element={<ShoppingCartConf/>} />
+        <Route path="/orderSuccess" element={<OrderSuccessPage/>} />
+        <Route path="/terms" element={<Terms/>} />
+        <Route path="/privacy" element={<Privacy/>} />
         <Route path="*" element={<h1>Not Found</h1>} /> 
+
       </Routes> 
       <Footer />
     </div>
