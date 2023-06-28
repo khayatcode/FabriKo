@@ -40,7 +40,6 @@ const Footer = () => {
                         <h5 className='text-dark  text-decoration-underline'>Company</h5>
                         <div className="mt-3 d-flex flex-column gap-2">
                             <a href="#" className="text-secondary mx-3" style={{ textDecoration: 'none'}} onClick={handleLinkClick}>Home</a>
-                            <a href="#" className="text-secondary mx-3" style={{ textDecoration: 'none'}} onClick={handleLinkClick}>About Us</a>
                             <a href="#" className="text-secondary mx-3" style={{ textDecoration: 'none'}} onClick={handleLinkClick}>Contact Us</a>
                         </div>
                     </div>

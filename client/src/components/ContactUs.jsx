@@ -47,7 +47,7 @@ const ContactUs = () => {
 
 
     return (
-        <div className='container d-flex justify-content-center' style={{ padding: '8%' }}>
+        <div className='container d-flex justify-content-center' style={{ padding: '14%' }}>
             <div className='col-md-6'>
                 <h1 className='mb-3' style={{ fontWeight: 300 }}>Contact Us</h1>
                 <form onSubmit={onSubmit}>
@@ -67,7 +67,7 @@ const ContactUs = () => {
                         <textarea className='form-control' placeholder='Message' id='floatingTextarea2' style={{ height: '100px' }} name='message' value={contactInfo.message} onChange={onChange}></textarea>
                         <label htmlFor='floatingTextarea2'>Message</label>
                     </div>
-                    <button type='submit' className='btn btn-primary'>Submit</button>
+                    <button type='submit' className='btn btn-outline-dark'>Submit</button>
                 </form>
             </div>
         </div>

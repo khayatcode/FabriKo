@@ -1,7 +1,7 @@
 import React from 'react'
 
 const ShoppingCartConf = (props) => {
-    const { firstName, total, shippingInfo, billingInfo} = props 
+    const { firstName, total, shippingInfo, billingInfo } = props
 
     const confirmOrder = (e) => {
         e.preventDefault()
@@ -17,33 +17,49 @@ const ShoppingCartConf = (props) => {
             })
     }
 
-  return (
-    <div>
-        <h1>{firstName} Shopping Cart</h1>
-        <div>
-            <h2>Total: {total}</h2>
-            <h2>Shipping Info</h2>
-            <p>{shippingInfo.firstName}</p>
-            <p>{shippingInfo.lastName}</p>
-            <p>{shippingInfo.address}</p>
-            <p>{shippingInfo.city}</p>
-            <p>{shippingInfo.state}</p>
-            <p>{shippingInfo.zip}</p>
-            <p>{shippingInfo.phone}</p>
-            <h2>Billing Info</h2>
-            <p>{billingInfo.firstName}</p>
-            <p>{billingInfo.lastName}</p>
-            <p>{billingInfo.address}</p>
-            <p>{billingInfo.city}</p>
-            <p>{billingInfo.state}</p>
-            <p>{billingInfo.zip}</p>
-            <p>{billingInfo.phone}</p>
+    return (
+        <div className='container d-flex justify-content-center' style={{ padding: '10%' }}>
+            <div className='col-9'>
+                <h1 className='mb-5' style={{ fontWeight: 300 }}>First Name Shopping Cart</h1>
+                <hr />
+                <div className='d-flex justify-content-between align-items-center mt-5'>
+                    <div style={{ borderRight: '1px solid black', paddingRight: '35%' }} className='bg-danger'>
+                        <div className='bg-primary d-flex' >
+                            <h4 className='text-decoration-underline mb-4 ' style={{ fontWeight: 300 }}>Shipping Info</h4>
+                        </div>
+                        <ul>
+                            <li className='text-start mb-4' style={{ fontWeight: 300 }}>First Name: </li>
+                            <li className='text-start mb-4' style={{ fontWeight: 300 }}>Last Name: </li>
+                            <li className='text-start mb-4' style={{ fontWeight: 300 }}>Address: </li>
+                            <li className='text-start mb-4' style={{ fontWeight: 300 }}>City:</li>
+                            <li className='text-start mb-4' style={{ fontWeight: 300 }}>State: </li>
+                            <li className='text-start mb-4' style={{ fontWeight: 300 }}>ZIP: </li>
+                            <li className='text-start mb-4' style={{ fontWeight: 300 }}>Phone: </li>
+                        </ul>
+                    </div>
+                    <div className='bg-danger' style={{width: '47%'}}>
+                        <h4 className='text-decoration-underline mb-4' style={{ fontWeight: 300 }}>Billing Info</h4>
+                        <ul>
+                            <li className='text-start mb-4' style={{ fontWeight: 300 }}>First Name: </li>
+                            <li className='text-start mb-4' style={{ fontWeight: 300 }}>Last Name: </li>
+                            <li className='text-start mb-4' style={{ fontWeight: 300 }}>Address: </li>
+                            <li className='text-start mb-4' style={{ fontWeight: 300 }}>City: </li>
+                            <li className='text-start mb-4' style={{ fontWeight: 300 }}>State: </li>
+                            <li className='text-start mb-4' style={{ fontWeight: 300 }}>ZIP: </li>
+                            <li className='text-start mb-4' style={{ fontWeight: 300 }}>Phone: </li>
+                        </ul>
+                    </div>
+                </div>
+                <hr />
+                <div className='d-flex justify-content-evenly align-items-center mt-5'>
+                    <h6 style={{ fontWeight: 500 }}>Total: $XXX</h6>
+                    <form onSubmit={confirmOrder}>
+                        <button type="submit" className='btn btn-outline-dark'>Confirm Order</button>
+                    </form>
+                </div>
+            </div>
         </div>
-        <form onSubmit={confirmOrder}>
-            <button type="submit">Confirm Order</button>
-        </form>
-    </div>
-  )
+    )
 }
 
 export default ShoppingCartConf

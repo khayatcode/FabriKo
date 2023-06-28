@@ -55,7 +55,7 @@ const FormProduct = (props) => {
                         <label htmlFor='formFile' className='form-label'>Product Image 5</label>
                         <input type='file' className='form-control' id='formFile' placeholder='Product Image 5' name='productImage5' value={productInfo.productImage5} onChange={changeHandler} />
                     </div>
-                    <button type='submit' className='btn btn-primary'>{submitValue}</button>
+                    <button type='submit' className='btn btn-outline-dark'>{submitValue}</button>
                 </form>
             </div>
         </div>

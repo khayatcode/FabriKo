@@ -16,6 +16,8 @@ import CreateProduct from './components/CreateProduct';
 import EditProduct from './components/EditProduct';
 import ViewProduct from './components/ViewProduct';
 import ContactUs from './components/ContactUs';
+import Shipping from './components/Shipping';
+import ShoppingCartConf from './components/ShoppingCartConf';
 
 
 
@@ -41,6 +43,10 @@ function App() {
         <Route path="/editProduct/example" element={<EditProduct />} />
         <Route path="/viewProduct/example" element={<ViewProduct />} />
         <Route path="/contact" element={<ContactUs />} />
+        <Route path="/billing" element={<BillingInfo/>} />
+        <Route path="/shippingInfo" element={<Shipping/>} />
+        <Route path="/shoppingCart/confirm" element={<ShoppingCartConf/>} />
+        <Route path="*" element={<h1>Not Found</h1>} /> 
       </Routes> 
       <Footer />
     </div>
