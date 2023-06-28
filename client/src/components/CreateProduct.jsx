@@ -1,8 +1,10 @@
 import React from 'react'
 import FormProduct from './FormProduct'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const CreateProduct = () => {
+    const navigate = useNavigate();
     const [productInfo, setProductInfo] = useState({
         productName: "",
         productCategory: "",
@@ -51,6 +53,7 @@ const CreateProduct = () => {
               productImage5: ""
             })
             setErrors({})
+            navigate("/")
           }
         })
         .catch(err => console.log(err))

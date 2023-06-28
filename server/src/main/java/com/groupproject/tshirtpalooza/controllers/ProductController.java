@@ -27,9 +27,6 @@ public class ProductController {
 	
 	@Autowired
 	private ProductService productServ;
-	
-//	@Autowired
-//	private UserService userServ;
 
 	@GetMapping("/")
 	public ResponseEntity<List<Product>> items(){
@@ -51,23 +48,11 @@ public class ProductController {
 		return ResponseEntity.status(200).body(this.productServ.findByProductCategory(category));
 	}
 	
-
-	
-	
 	@PostMapping("/add")
 	public ResponseEntity<Product> add(@RequestBody Product product
-//			HttpSession session
 			){
-//		if(session.getAttribute("userId") == null) {
-//		return "redirect:/login";
-//		}
-//		User user = userServ.getOne((Long)session.getAttribute("userId"));
-//		
-//		if(user.getAccountType().equals("Admin")) {
-			
 		Product savedProduct = productServ.save(product);
 			return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);
-//		}
 	}
 	
 	@PutMapping("/edit/{id}")
@@ -75,7 +60,6 @@ public class ProductController {
 	    Optional<Product> optionalProduct = productServ.findById(id);
 	    if (optionalProduct.isPresent()) {
 	        Product product = optionalProduct.get();
-	        // Update the properties of the existing product
 	        product.setProductName(updatedProduct.getProductName());
 	        product.setProductPrice(updatedProduct.getProductPrice());
 	        product.setProductDescription(updatedProduct.getProductDescription());
@@ -89,18 +73,8 @@ public class ProductController {
 
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<Product> delete(@PathVariable Long id){
-//		if(session.getAttribute("userId") == null) {
-//		return "redirect:/login";
-//		}
-		
-//		User user = userServ.getOne((Long)session.getAttribute("userId"));
-//		
-//		if(user.getAccountType().equals("Admin")) {
 			this.productServ.delete(id);
 			return ResponseEntity.status(200).body(null);
-//	    }
-		
+
 	}
-	
-	
 }
