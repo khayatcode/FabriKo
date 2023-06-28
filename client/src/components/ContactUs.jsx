@@ -46,30 +46,32 @@ const ContactUs = () => {
 
 
 
-  return (
-    <div>
-        <h1>Contact Us</h1>
-        <form onSubmit={onSubmit}>
-            <div className='form-floating mb-3'>
-                <input type='text' className='form-control' id='floatingInput' placeholder='Name' name='name' value={contactInfo.name} onChange={onChange} />
-                <label htmlFor='floatingInput'>Name</label>
+    return (
+        <div className='container d-flex justify-content-center' style={{ padding: '8%' }}>
+            <div className='col-md-6'>
+                <h1 className='mb-3' style={{ fontWeight: 300 }}>Contact Us</h1>
+                <form onSubmit={onSubmit}>
+                    <div className='form-floating mb-3'>
+                        <input type='text' className='form-control' id='floatingInput' placeholder='Name' name='name' value={contactInfo.name} onChange={onChange} />
+                        <label htmlFor='floatingInput'>Name</label>
+                    </div>
+                    <div className='form-floating mb-3'>
+                        <input type='email' className='form-control' id='floatingInput' placeholder='Email' name='email' value={contactInfo.email} onChange={onChange} />
+                        <label htmlFor='floatingInput'>Email</label>
+                    </div>
+                    <div className='form-floating mb-3'>
+                        <input type='text' className='form-control' id='floatingInput' placeholder='Phone Number' name='phoneNumber' value={contactInfo.phoneNumber} onChange={onChange} />
+                        <label htmlFor='floatingInput'>Phone Number</label>
+                    </div>
+                    <div className='form-floating mb-3'>
+                        <textarea className='form-control' placeholder='Message' id='floatingTextarea2' style={{ height: '100px' }} name='message' value={contactInfo.message} onChange={onChange}></textarea>
+                        <label htmlFor='floatingTextarea2'>Message</label>
+                    </div>
+                    <button type='submit' className='btn btn-primary'>Submit</button>
+                </form>
             </div>
-            <div className='form-floating mb-3'>
-                <input type='email' className='form-control' id='floatingInput' placeholder='Email' name='email' value={contactInfo.email} onChange={onChange} />
-                <label htmlFor='floatingInput'>Email</label>
-            </div>
-            <div className='form-floating mb-3'>
-                <input type='text' className='form-control' id='floatingInput' placeholder='Phone Number' name='phoneNumber' value={contactInfo.phoneNumber} onChange={onChange} />
-                <label htmlFor='floatingInput'>Phone Number</label>
-            </div>
-            <div className='form-floating mb-3'>
-                <textarea className='form-control' placeholder='Message' id='floatingTextarea2' style={{ height: '100px' }} name='message' value={contactInfo.message} onChange={onChange}></textarea>
-                <label htmlFor='floatingTextarea2'>Message</label>
-            </div>
-            <button type='submit' className='btn btn-primary'>Submit</button>
-        </form>
-    </div>
-  )
+        </div>
+    )
 }
 
 export default ContactUs
