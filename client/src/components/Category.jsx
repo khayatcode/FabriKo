@@ -82,7 +82,7 @@ const Category = (props) => {
                                     <button className="btn btn-outline-dark" onClick={() => deleteProduct(product.id)}>Delete</button>
                         )}
                                     {userInfo.accountType === "admin" && (
-                                                <button className="btn btn-outline-dark" onClick={() => editProduct(product.id)}>Edit</button>
+                                                <button className="btn btn-outline-dark" _comonClick={() => editProduct(product.id)}>Edit</button>
                                     )}
                                 </div>
                             </div>

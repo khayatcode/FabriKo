@@ -49,6 +49,7 @@ const Reg = (props) => {
             setErrors({});
             setSessionId(data.email);
             navigate("/");
+            window.location.reload(true);
         })
         .catch(err => {
             console.log(err);
@@ -60,7 +61,7 @@ const Reg = (props) => {
     return (
         <div className='container d-flex justify-content-center' style={{ padding: '8%' }}>
             <div className='col-md-6'>
-                <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>Registers</h1>
+                <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>Register</h1>
                 <form onSubmit={submitReg}>
                     <div className='form-floating mb-3'>
                         <input type='text' className='form-control' id='firstName' placeholder='First Name' name='firstName' value={userInfo.firstName} onChange={changeHandler} />
