@@ -14,6 +14,8 @@ import Category  from './components/Category'
 import EditProduct from './components/EditProduct';
 import ViewProduct from './components/ViewProduct';
 import Footer from './components/Footer';
+import Privacy from './components/Privacy';
+import Terms from './components/Terms';
 
 function App() {
   const [sessionId, setSessionId] = useState(Cookies.get("sessionId") || "");
@@ -64,6 +66,8 @@ function App() {
           <Route path="/product/:category" element={<Category category = {category} userInfo={userInfo} setUserInfo={setUserInfo} setProduct = {handlePageProduct} productId = {productId} setProductId = {setProductId}/>}/>
           <Route path="/product/edit/:productId" element={<EditProduct product = {product} setProduct = {setProduct} productId = {productId} setProductId = {setProductId}/>}/>
           <Route path="/product/view/:productId" element={<ViewProduct product = {product} setProduct = {setProduct} productId = {productId} setProductId = {setProductId}/>}/>
+          <Route path="/privacy" element={<Privacy/>}/>
+          <Route path="/terms" element={<Terms/>}/>
         </Routes> 
         <Footer/>
     </div>

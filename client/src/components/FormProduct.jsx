@@ -21,7 +21,6 @@ const FormProduct = (props) => {
 
     const createProduct = (e) => {
         e.preventDefault()
-        console.log(productInfo)
         fetch("http://localhost:8080/product/add", {
             method: "POST",
             headers: {

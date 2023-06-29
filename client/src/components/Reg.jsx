@@ -24,7 +24,6 @@ const Reg = (props) => {
 
     const submitReg = (e) => {
         e.preventDefault()
-        console.log(userInfo)
         fetch("http://localhost:8080/api/register", {
             method: "POST",
             headers: {

@@ -35,15 +35,12 @@ const ViewProduct = (props) => {
       };
 
       useEffect(() => {
-        console.log(productId)
         fetch("http://localhost:8080/product/" + productId)
             .then(res => res.json())
             .then(res => {
-                console.log(res)
                 setProduct(res)
             })
             .catch(err => console.log(err))
-            // console.log("from viewproduct useeffect : " + product)
     }, [])
 
     // Start of import
@@ -142,14 +139,14 @@ const ViewProduct = (props) => {
                     </div>
                 </div>
                 <div className='col-md-6' style={{ borderLeft: '1px solid #ccc', paddingLeft: '10%' }}>
-                    <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>Product Example</h1>
+                    <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>{product.productName}</h1>
                     <form className='view-product-form'>
                         <div className='mb-4'>
                             <label htmlFor='size' className='form-label'>Size</label>
                             <select className='form-select' id='size'>
                                 <option value='XS'>XS</option>
                                 <option value='S'>S</option>
-                                <option value='M' selected>M</option>
+                                <option value='M'>M</option>
                                 <option value='L'>L</option>
                                 <option value='XL'>XL</option>
                             </select>

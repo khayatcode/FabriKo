@@ -50,7 +50,6 @@ const Category = (props) => {
         )
         .then (res => {setProduct(res)
             setProductId(res.id)
-        console.log(res)
         navigate("/product/view/" + productId )
         }
         )
@@ -80,10 +79,10 @@ const Category = (props) => {
                                     <p className='text-center fw-bold' style={{ fontSize: '12px' }}>${product.productPrice} USD</p>
                                     <br />
                                     {userInfo.accountType === "admin" && (
-                                    <button onClick={() => deleteProduct(product.id)}>Delete</button>
+                                    <button className="btn btn-outline-dark" onClick={() => deleteProduct(product.id)}>Delete</button>
                         )}
                                     {userInfo.accountType === "admin" && (
-                                                <button onClick={() => editProduct(product.id)}>Edit</button>
+                                                <button className="btn btn-outline-dark" onClick={() => editProduct(product.id)}>Edit</button>
                                     )}
                                 </div>
                             </div>

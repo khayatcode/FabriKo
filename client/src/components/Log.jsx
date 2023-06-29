@@ -36,6 +36,7 @@ const Log = (props) => {
                     setErrors({});
                     setSessionId(data.email);
                     navigate("/");
+                    window.location.reload(true);
             })
             .catch(err => console.log(err))
     }
