@@ -28,28 +28,6 @@ const FormProduct = (props) => {
     }
 
     const createProduct = (e) => {
-<<<<<<< HEAD
-        e.preventDefault()
-        fetch("http://localhost:8080/product/add", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(productInfo)
-        })
-          .then(res => {
-            if (!res.ok) {
-                throw new Error("Add Product failed. Please try again.");
-            }
-            return res.json();
-          })
-          .then (data => {
-            setProductInfo({
-                productName : "",
-                productCategory : "",
-                productPrice : "",
-                productDescription : "",
-=======
         e.preventDefault();
         const formData = new FormData();
         formData.append("productName", productInfo.productName);
@@ -62,7 +40,6 @@ const FormProduct = (props) => {
            console.log(productInfo.productPrice);
            console.log(productInfo.productDescription);
            console.log(productInfo.productImage1);
->>>>>>> c5afee931f8362462c3049491def87883dc6db89
 
         axios.post("http://localhost:8080/product/add", formData)
           .then(res => {
