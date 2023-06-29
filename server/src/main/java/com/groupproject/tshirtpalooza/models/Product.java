@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -35,21 +36,22 @@ public class Product {
 	@NotBlank(message="Description is required!")
 	private String productDescription;
 	
-//	private String fileName;
+	@NotNull
+    private String productImage1;
 	
-//	@Lob
-//	@Column(name="content", columnDefinition = "BLOB")
-//	private byte[] content;
+	private String productImage2;
 	
+	private String productImage3;
+	
+	private String productImage4;
+	
+	private String productImage5;
 	
     @Column(updatable=false)
     private Date createdAt;
+    
     private Date updatedAt;
-    
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name="user_id")
-//    private User user;
-    
+
     public Product() {}
     
     @PrePersist
@@ -116,6 +118,48 @@ public class Product {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+
+	public String getProductImage1() {
+		return productImage1;
+	}
+
+	public void setProductImage1(String productImage1) {
+		this.productImage1 = productImage1;
+	}
+
+	public String getProductImage2() {
+		return productImage2;
+	}
+
+	public void setProductImage2(String productImage2) {
+		this.productImage2 = productImage2;
+	}
+
+	public String getProductImage3() {
+		return productImage3;
+	}
+
+	public void setProductImage3(String productImage3) {
+		this.productImage3 = productImage3;
+	}
+
+	public String getProductImage4() {
+		return productImage4;
+	}
+
+	public void setProductImage4(String productImage4) {
+		this.productImage4 = productImage4;
+	}
+
+	public String getProductImage5() {
+		return productImage5;
+	}
+
+	public void setProductImage5(String productImage5) {
+		this.productImage5 = productImage5;
+	}
+
+
 
     
     //================== GETTERS AND SETTERS ===========================
