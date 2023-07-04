@@ -3,11 +3,39 @@ import { useState, useEffect } from 'react'
 import ViewProduct1 from '../images/ViewProduct1.webp'
 import ViewProduct3 from '../images/ViewProduct3.webp'
 import ViewProduct4 from '../images/ViewProduct4.webp'
+import { useParams } from "react-router-dom";
 
 const ViewProduct = (props) => {
-
+    const { productId } = useParams()
+    const [product, setProduct] = useState({
+        productId: productId,
+        productName: "",
+        productPrice: "",
+        productDescription: "",
+        productCategory: "",
+        productImage1: "",
+        productImage2: "",
+        productImage3: "",
+        productImage4: "",
+        productImage5: ""
+    })
+    const [cart, setCart] = useState({
+            productId: 0,
+            quantity: 0,
+            size: '',
+            total: 0
+        })
+    const [errors, setErrors] = useState({})
     const [currentImage, setCurrentImage] = useState(0);
-    const images = [ViewProduct1, ViewProduct3, ViewProduct4];
+
+    const onChange = (e) => {
+        setCart({
+            ...cart,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const images = [product.productImage1, product.productImage2, product.productImage3, product.productImage4, product.productImage5];
 
     const nextImage = () => {
         setCurrentImage((currentImage + 1) % images.length);
@@ -23,23 +51,15 @@ const ViewProduct = (props) => {
         }, 5000);
         return () => clearInterval(interval);
     }, [images.length]);
-    // const { productId } = props
-    // const [product, setProduct] = useState({})
-    // const [cart, setCart] = useState({
-    //     productId: 0,
-    //     quantity: 0,
-    //     size: '',
-    //     total: 0
-    // })
-    // const [errors, setErrors] = useState({})2
-    // const [totalPrice, setTotalPrice] = useState(0);
 
-    // const onChange = (e) => {
-    //     setCart({
-    //         ...cart,
-    //         [e.target.name]: e.target.value
-    //     })
-    // }
+    useEffect(() => {
+        fetch(`http://localhost:3000/products/${productId}`)
+            .then(response => response.json())
+            .then(product => {
+                setProduct(product);
+            });
+      }, [])
+
 
     // const handleChange = (event) => {
     //     const { name, value } = event.target;
@@ -52,40 +72,28 @@ const ViewProduct = (props) => {
     //     }
     //   };
 
-    // useEffect(() => {
-    //     fetch(`http://localhost:3000/products/${productId}`)
-    //       .then(response => response.json())
-    //       .then(product => {
-    //         setProduct(product);
-    //         setTotalPrice(product.price);
-    //       });
-    //   }, [productId])
-
-    // const handleSubmit = (e) => {
-    //     e.preventDefault()
-    //     console.log(cart)
-    //     fetch("http://localhost:8080/api/cart", {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify(cart)
-    //     })
-    //         .then(res => {
-    //             console.log(res)
-    //             if (res.data && res.data.errors) {
-    //                 setErrors(res.data.errors)
-    //             } else {
-    //                 setCart({
-    //                     productId: 0,
-    //                     quantity: 0,
-    //                     size: ''
-    //                 })
-    //                 setErrors({})
-    //             }
-    //         })
-    //         .catch(err => console.log(err))
-    // }
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        console.log(cart)
+        fetch("http://localhost:8080/api/cart", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(cart)
+        })
+            .then(res => {
+                console.log(res)
+                    setCart({
+                        productId: 0,
+                        quantity: 0,
+                        size: ''
+                    })
+                    setErrors({})
+                }
+            )
+            .catch(err => console.log(err))
+    }
 
     return (
         // create a page to view a product and select wich picture to view. Create a form to choose size and quantity and add to cart
@@ -107,10 +115,10 @@ const ViewProduct = (props) => {
                 </div>
                 <div className='col-md-6' style={{ borderLeft: '1px solid #ccc', paddingLeft: '10%' }}>
                     <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>Product Example</h1>
-                    <form className='view-product-form'>
+                    <form className='view-product-form' onSubmit={handleSubmit}>
                         <div className='mb-4'>
                             <label htmlFor='size' className='form-label'>Size</label>
-                            <select className='form-select' id='size'>
+                            <select className='form-select' id='size' onChange={onChange}>
                                 <option value='XS'>XS</option>
                                 <option value='S'>S</option>
                                 <option value='M' selected>M</option>
@@ -120,7 +128,7 @@ const ViewProduct = (props) => {
                         </div>
                         <div className='mb-4'>
                             <label htmlFor='quantity' className='form-label'>Quantity</label>
-                            <input type='number' className='form-control' id='quantity' min='1' max='10' />
+                            <input type='number' className='form-control' id='quantity' min='1' max='10' onChange={onChange}/>
                         </div>
                         <button type='submit' className='btn btn-outline-dark'>Add to Cart</button>
                     </form>
