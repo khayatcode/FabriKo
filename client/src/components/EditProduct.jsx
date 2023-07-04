@@ -1,6 +1,8 @@
 import React from 'react'
 import FormProduct from './FormProduct'
 import { useState, useEffect } from 'react'
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 
 const EditProduct = () => {
@@ -9,30 +11,33 @@ const EditProduct = () => {
         productPrice: "",
         productDescription: "",
         productCategory: "",
-        productImage1: "",
-        productImage2: "",
-        productImage3: "",
-        productImage4: "",
-        productImage5: ""
+        productImage1: null,
+        productImage2: null,
+        productImage3: null,
+        productImage4: null,
+        productImage5: null
     })
     const [errors, setErrors] = useState({})
+    const navigate = useNavigate()
+    const { productId } = useParams()
 
     const changeHandler = (e) => {
+        const name = e.target.name;
+        const value = e.target.type === "file" ? e.target.files[0] : e.target.value;
         setProductInfo({
             ...productInfo,
-            [e.target.name]: e.target.value
-        })
-    }
+            [name]: value
+        });
+      };
 
-    // useEffect(() => {
-    //     fetch("http://localhost:8080/api/product/" + productId)
-    //         .then(res => res.json())
-    //         .then(res => {
-    //             console.log(res)
-    //             setProductInfo(res)
-    //         })
-    //         .catch(err => console.log(err))
-    // }, [])
+    useEffect(() => {
+        fetch("http://localhost:8080/product/" + productId)
+            .then(res => res.json())
+            .then(res => {
+                setProductInfo(res)
+            })
+            .catch(err => console.log(err))
+    }, [])
 
 
     const editProduct = (e) => {
@@ -51,25 +56,25 @@ const EditProduct = () => {
             method: "POST",
             body: formData
         })
+            .then(res => res.json())
             .then(res => {
                 console.log(res)
-                if (res.data && res.data.errors) {
-                    setErrors(res.data.errors)
-                } else {
+                var categoryName = productInfo.productCategory
                     setProductInfo({
                         productName: "",
                         productPrice: "",
                         productDescription: "",
                         productCategory: "",
-                        productImage1: "",
-                        productImage2: "",
-                        productImage3: "",
-                        productImage4: "",
-                        productImage5: ""
+                        productImage1: null,
+                        productImage2: null,
+                        productImage3: null,
+                        productImage4: null,
+                        productImage5: null
                     })
                     setErrors({})
+                    navigate("/category/" + categoryName)
                 }
-            })
+            )
             .catch(err => console.log(err))
     }
     

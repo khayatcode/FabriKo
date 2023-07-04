@@ -1,6 +1,7 @@
 import React from 'react'
 import FormProduct from './FormProduct'
 import { useState } from 'react'
+import { useNavigate, Link } from "react-router-dom";
 
 const CreateProduct = () => {
     const [productInfo, setProductInfo] = useState({
@@ -8,20 +9,23 @@ const CreateProduct = () => {
         productCategory: "",
         productPrice: "",
         productDescription: "",
-        productImage1: "",
-        productImage2: "",
-        productImage3: "",
-        productImage4: "",
-        productImage5: ""
+        productImage1: null,
+        productImage2: null,
+        productImage3: null,
+        productImage4: null,
+        productImage5: null
     })
     const [errors, setErrors] = useState({})
+    const navigate = useNavigate()
 
     const changeHandler = (e) => {
-        setProductInfo({
-            ...productInfo,
-            [e.target.name]: e.target.value
-        })
-    }
+      const name = e.target.name;
+      const value = e.target.type === "file" ? e.target.files[0] : e.target.value;
+      setProductInfo({
+        ...productInfo,
+        [name]: value
+      });
+    };
 
     const createProduct = (e) => {
       const formData = new FormData()
@@ -39,25 +43,25 @@ const CreateProduct = () => {
         method: "POST",
         body: formData
       })
+        .then(res => res.json())
         .then(res => {
           console.log(res)
-          if (res.data && res.data.errors) {
-            setErrors(res.data.errors)
-          } else {
+          var categoryName = productInfo.productCategory
             setProductInfo({
               productName: "",
               productCategory: "",
               productPrice: "",
               productDescription: "",
-              productImage1: "",
-              productImage2: "",
-              productImage3: "",
-              productImage4: "",
-              productImage5: ""
+              productImage1: null,
+              productImage2: null,
+              productImage3: null,
+              productImage4: null,
+              productImage5: null
             })
             setErrors({})
+            navigate("/category/" + categoryName)
           }
-        })
+        )
         .catch(err => console.log(err))
     }
 
