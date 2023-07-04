@@ -2,6 +2,7 @@ import React from 'react'
 import FaceBook from '../images/facebook.svg'
 import Twitter from '../images/twitter.svg'
 import Instagram from '../images/instagram.svg'
+import Link from 'react-router-dom'
 
 const Footer = () => {
     const handleLinkClick = (e) => {
@@ -31,24 +32,24 @@ const Footer = () => {
                     <div className="mt-3 d-inline-block" style={{ borderRight: '1px solid #ccc', borderLeft: '1px solid #ccc', paddingRight: '150px', paddingLeft: '150px' }}>
                         <h5 className='text-dark text-decoration-underline'>Shop</h5>
                         <div className="mt-3 d-flex flex-column gap-2">
-                            <a href="#" className="text-secondary mx-3"  style={{ textDecoration: 'none'}} onClick={handleLinkClick}>Upperwear</a>
-                            <a href="#" className="text-secondary mx-3" style={{ textDecoration: 'none'}} onClick={handleLinkClick}>Bottomwear</a>
-                            <a href="#" className="text-secondary mx-3" style={{ textDecoration: 'none'}} onClick={handleLinkClick}>Shoes</a>
+                            <Link to={'/category/upper'} className="text-secondary mx-3"  style={{ textDecoration: 'none'}} onClick={handleLinkClick}>Upperwear</Link>
+                            <Link to={'/category/bottom'} className="text-secondary mx-3" style={{ textDecoration: 'none'}} onClick={handleLinkClick}>Bottomwear</Link>
+                            <Link to={'/category/shoes'} className="text-secondary mx-3" style={{ textDecoration: 'none'}} onClick={handleLinkClick}>Shoes</Link>
                         </div>
                     </div>
                     <div className="mt-3 d-inline-block">
                         <h5 className='text-dark  text-decoration-underline'>Company</h5>
                         <div className="mt-3 d-flex flex-column gap-2">
-                            <a href="#" className="text-secondary mx-3" style={{ textDecoration: 'none'}} onClick={handleLinkClick}>Home</a>
-                            <a href="#" className="text-secondary mx-3" style={{ textDecoration: 'none'}} onClick={handleLinkClick}>Contact Us</a>
+                            <Link to={'/'} className="text-secondary mx-3" style={{ textDecoration: 'none'}} onClick={handleLinkClick}>Home</Link>
+                            <Link to={'/contact'} className="text-secondary mx-3" style={{ textDecoration: 'none'}} onClick={handleLinkClick}>Contact Us</Link>
                         </div>
                     </div>
                 </div>
                 <div className="text-center p-3" style={{ backgroundColor: "#F5F4EF" }}>
-                    <p className="text-dark" >@2023 Fabriko: <a className="text-dark" href="#" onClick={handleLinkClick}>fabriko.com</a> </p>
+                    <p className="text-dark" >@2023 Fabriko: <Link className="text-dark" to={'/'} onClick={handleLinkClick}>fabriko.com</Link> </p>
                     <div className="mt-3">
-                        <a href="#" className="text-dark mx-3">Terms and Conditions</a>
-                        <a href="#" className="text-dark mx-3">Privacy Policy</a>
+                        <Link to={'/terms'} className="text-dark mx-3">Terms and Conditions</Link>
+                        <Link to={'/privacy'} className="text-dark mx-3">Privacy Policy</Link>
                     </div>
                 </div>
             </footer>

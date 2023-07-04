@@ -32,11 +32,14 @@ const Reg = (props) => {
             },
             body: JSON.stringify(userInfo)
         })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error("Registration failed. Please try again.");
+            }
+            return res.json();
+            })
             .then(res => {
                 console.log(res)
-                if (res.data && res.data.errors) {
-                    setErrors(res.data.errors)
-                } else {
                     setUserInfo({
                         firstName: "",
                         lastName: "",
@@ -46,9 +49,10 @@ const Reg = (props) => {
                         accountType: ""
                     })
                     setErrors({})
-                    setSessionId(res.data.sessionId)
-                    navigate("/dashboard")
-                }
+                    setSessionId(res.email)
+                    navigate("/")
+                    window.location.reload(true);
+                
             })
             .catch(err => console.log(err))
     }

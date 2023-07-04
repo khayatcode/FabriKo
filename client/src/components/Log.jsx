@@ -28,24 +28,16 @@ const Log = (props) => {
             body: JSON.stringify(user)
         })
             .then(res => {
-                console.log(res)
-                if (res.data && res.data.errors) {
-                    setErrors(res.data.errors)
-                } else {
-                    setUser({
-                        email: "",
-                        password: ""
-                    })
-                    setErrors({})
-                    setSessionId(res.data.sessionId)
-                    navigate("/dashboard")
-                }
+                if (!res.ok) {
+                    throw new Error("Login failed. Please try again.");}
+                    return res.json();})
+                .then(data => {
+                    setErrors({});
+                    setSessionId(data.email);
+                    navigate("/");
             })
             .catch(err => console.log(err))
     }
-
-
-
 
     return (
         <div className='container d-flex justify-content-center' style={{ padding: '18%' }}>

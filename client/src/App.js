@@ -27,15 +27,27 @@ import { Privacy } from './components/Privacy';
 
 function App() {
   const [sessionId, setSessionId] = useState(Cookies.get("sessionId") || "");
+  const [userInfo, setUserInfo] = useState({})
 
   useEffect(() => {
     console.log("sessionId changed:", sessionId);
     Cookies.set("sessionId", sessionId);
   }, [sessionId]);
 
+  useEffect(() => {
+    fetch('http://localhost:8080/api/getuser?sessionId=' + sessionId)
+    .then(response => response.json()) 
+    .then(data => {
+            setUserInfo({...data, password : ""});
+    })
+    .catch(err => {
+        console.log(err)
+    })
+   }, [])
+
   return (
     <div className="App">
-      <NavBar />
+      <NavBar sessionId={sessionId} setSessionId={setSessionId} userInfo={userInfo} setUserInfo={setUserInfo}/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Reg sessionId={sessionId} setSessionId={setSessionId}/>} /> 
@@ -44,18 +56,17 @@ function App() {
         <Route path="/category/bottom" element={<BottomCategory />} />
         <Route path="/category/shoes" element={<ShoesCategory />} />
         <Route path="/createProduct" element={<CreateProduct />} />
-        <Route path="/editProduct/example" element={<EditProduct />} />
-        <Route path="/viewProduct/example" element={<ViewProduct />} />
+        <Route path="/product/edit/:productId" element={<EditProduct />} />
+        <Route path="/product/view/:productId" element={<ViewProduct />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/billing" element={<BillingInfo/>} />
         <Route path="/shippingInfo" element={<Shipping/>} />
-        <Route path="/shoppingCart" element={<ShoppingCart/>} />
-        <Route path="/shoppingCart/confirm" element={<ShoppingCartConf/>} />
-        <Route path="/orderSuccess" element={<OrderSuccessPage/>} />
+        <Route path="/shopping/cart" element={<ShoppingCart/>} />
+        <Route path="/shopping/cart/confirm" element={<ShoppingCartConf/>} />
+        <Route path="/order/success" element={<OrderSuccessPage/>} />
         <Route path="/terms" element={<Terms/>} />
         <Route path="/privacy" element={<Privacy/>} />
         <Route path="*" element={<h1>Not Found</h1>} /> 
-
       </Routes> 
       <Footer />
     </div>
