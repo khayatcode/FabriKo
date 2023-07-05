@@ -24,10 +24,10 @@ const FormProduct = (props) => {
                     </div>
                     <div className='form-floating mb-3'>
                         <select className='form-select' id='floatingSelect' aria-label='Floating label select example' name='productCategory' value={productInfo.productCategory} onChange={changeHandler}>
-                            <option value=''>Select Category</option>
-                            <option value=''>UpperWear</option>
-                            <option value=''>BottomWear</option>
-                            <option value=''>Shoes</option>
+                            <option disabled value=''>Select Category</option>
+                            <option value='upper'>UpperWear</option>
+                            <option value='bottom'>BottomWear</option>
+                            <option value='shoes'>Shoes</option>
                         </select>
                         <label htmlFor='floatingSelect'>Product Category</label>
                     </div>
@@ -37,9 +37,9 @@ const FormProduct = (props) => {
                     </div>
                     <div className='mb-3'>
                         <label htmlFor='formFile' className='form-label'>Product Image 1</label>
-                        <input type='file' className='form-control' id='formFile' placeholder='Product Image 1' name='productImage1' value={productInfo.productImage1} onChange={changeHandler} />
+                        <input type='file' className='form-control' id='formFile' placeholder='Product Image 1' name='productImage1' onChange={changeHandler} />
                     </div>
-                    <div className='mb-3'>
+                    {/* <div className='mb-3'>
                         <label htmlFor='formFile' className='form-label'>Product Image 2</label>
                         <input type='file' className='form-control' id='formFile' placeholder='Product Image 2' name='productImage2' value={productInfo.productImage2} onChange={changeHandler} />
                     </div>
@@ -54,7 +54,7 @@ const FormProduct = (props) => {
                     <div className='mb-3'>
                         <label htmlFor='formFile' className='form-label'>Product Image 5</label>
                         <input type='file' className='form-control' id='formFile' placeholder='Product Image 5' name='productImage5' value={productInfo.productImage5} onChange={changeHandler} />
-                    </div>
+                    </div> */}
                     <button type='submit' className='btn btn-outline-dark'>{submitValue}</button>
                 </form>
             </div>

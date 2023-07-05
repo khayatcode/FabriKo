@@ -15,6 +15,8 @@ const NavBar = (props) => {
         window.location.reload(true);
     }
 
+    console.log()
+
 
   return (
     <div>
@@ -47,21 +49,21 @@ const NavBar = (props) => {
                         <li className="nav-item">
                             <Link to={"/shopping/cart"} className="nav-link" >Shopping Cart</Link>
                         </li>
+                        {userInfo.accountType === "admin" && (
+                        <li className="nav-item mx-auto">
+                            <Link className="btn btn-outline-dark" to={"/createProduct"}>
+                            Add Product
+                            </Link>
+                        </li>
+                        )}
                         {sessionId === "" ? (
                             <li className="nav-item">
                                 <Link to={"/login"} className="nav-link" >Login</Link>
                             </li>
                         ) : (
                             <li className="nav-item">
-                                <Link className="nav-link" onClick={logOut}>Logout</Link>
+                                <Link className="nav-link" onClick={logOut}>Log out</Link>
                             </li>
-                        )}
-                        {userInfo.accountType === "admin" && (
-                        <li className="nav-item mx-auto">
-                            <button className="btn btn-outline-dark" onClick={addProduct}>
-                            Add Product
-                            </button>
-                        </li>
                         )}
                     </ul>
                 </div>

@@ -9,23 +9,37 @@ const CreateProduct = () => {
         productCategory: "",
         productPrice: "",
         productDescription: "",
-        productImage1: null,
-        productImage2: null,
-        productImage3: null,
-        productImage4: null,
-        productImage5: null
+        productImage1: null
+        // productImage2: null,
+        // productImage3: null,
+        // productImage4: null,
+        // productImage5: null
     })
     const [errors, setErrors] = useState({})
     const navigate = useNavigate()
 
+    // const changeHandler = (e) => {
+    //   const name = e.target.name;
+    //   const value = e.target.type == "file" ? e.target.files[0] : e.target.value;
+    //   setProductInfo({
+    //     ...productInfo,
+    //     [name]: value
+    //   });
+    // };
+
     const changeHandler = (e) => {
-      const name = e.target.name;
-      const value = e.target.type === "file" ? e.target.files[0] : e.target.value;
+      if(e.target.name === "productImage1"){
+          setProductInfo({
+              ...productInfo,
+              productImage1: e.target.files[0],
+          })
+      } else {
       setProductInfo({
-        ...productInfo,
-        [name]: value
-      });
-    };
+          ...productInfo,
+          [e.target.name]: e.target.value
+      })
+    }
+  }
 
     const createProduct = (e) => {
       const formData = new FormData()
@@ -34,32 +48,31 @@ const CreateProduct = () => {
       formData.append("productPrice", productInfo.productPrice)
       formData.append("productDescription", productInfo.productDescription)
       formData.append("productImage1", productInfo.productImage1)
-      formData.append("productImage2", productInfo.productImage2)
-      formData.append("productImage3", productInfo.productImage3)
-      formData.append("productImage4", productInfo.productImage4)
-      formData.append("productImage5", productInfo.productImage5)
+      // formData.append("productImage2", productInfo.productImage2)
+      // formData.append("productImage3", productInfo.productImage3)
+      // formData.append("productImage4", productInfo.productImage4)
+      // formData.append("productImage5", productInfo.productImage5)
       e.preventDefault()
-      fetch("http://localhost:8080/api/create/product", {
+      fetch("http://localhost:8080/product/add", {
         method: "POST",
         body: formData
       })
         .then(res => res.json())
         .then(res => {
           console.log(res)
-          var categoryName = productInfo.productCategory
             setProductInfo({
               productName: "",
               productCategory: "",
               productPrice: "",
               productDescription: "",
-              productImage1: null,
-              productImage2: null,
-              productImage3: null,
-              productImage4: null,
-              productImage5: null
+              productImage1: null
+              // productImage2: null,
+              // productImage3: null,
+              // productImage4: null,
+              // productImage5: null
             })
             setErrors({})
-            navigate("/category/" + categoryName)
+            navigate("/")
           }
         )
         .catch(err => console.log(err))

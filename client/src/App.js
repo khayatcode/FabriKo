@@ -36,6 +36,7 @@ function App() {
   }, [sessionId]);
 
   useEffect(() => {
+    if(!sessionId) return;
     fetch('http://localhost:8080/api/getuser?sessionId=' + sessionId)
     .then(response => response.json()) 
     .then(data => {
@@ -44,7 +45,7 @@ function App() {
     .catch(err => {
         console.log(err)
     })
-   }, [])
+   }, [sessionId])
 
   return (
     <div className="App">

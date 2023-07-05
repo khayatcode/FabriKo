@@ -11,24 +11,25 @@ const EditProduct = () => {
         productPrice: "",
         productDescription: "",
         productCategory: "",
-        productImage1: null,
-        productImage2: null,
-        productImage3: null,
-        productImage4: null,
-        productImage5: null
+        productImage1: ""
     })
     const [errors, setErrors] = useState({})
     const navigate = useNavigate()
     const { productId } = useParams()
 
     const changeHandler = (e) => {
-        const name = e.target.name;
-        const value = e.target.type === "file" ? e.target.files[0] : e.target.value;
+        if(e.target.name === "productImage1"){
+            setProductInfo({
+                ...productInfo,
+                productImage1: e.target.files[0],
+            })
+        } else {
         setProductInfo({
             ...productInfo,
-            [name]: value
-        });
-      };
+            [e.target.name]: e.target.value
+        })
+      }
+    }
 
     useEffect(() => {
         fetch("http://localhost:8080/product/" + productId)
@@ -47,35 +48,34 @@ const EditProduct = () => {
         formData.append("productDescription", productInfo.productDescription)
         formData.append("productCategory", productInfo.productCategory)
         formData.append("productImage1", productInfo.productImage1)
-        formData.append("productImage2", productInfo.productImage2)
-        formData.append("productImage3", productInfo.productImage3)
-        formData.append("productImage4", productInfo.productImage4)
-        formData.append("productImage5", productInfo.productImage5)
+        // formData.append("productImage2", productInfo.productImage2)
+        // formData.append("productImage3", productInfo.productImage3)
+        // formData.append("productImage4", productInfo.productImage4)
+        // formData.append("productImage5", productInfo.productImage5)
         e.preventDefault()
-        fetch("http://localhost:8080/api/edit/product", {
-            method: "POST",
+        fetch("http://localhost:8080/product/edit/" + productId, {
+            method: "PUT",
             body: formData
         })
             .then(res => res.json())
             .then(res => {
+                console.log("edit product response")
                 console.log(res)
-                var categoryName = productInfo.productCategory
                     setProductInfo({
                         productName: "",
                         productPrice: "",
                         productDescription: "",
                         productCategory: "",
-                        productImage1: null,
-                        productImage2: null,
-                        productImage3: null,
-                        productImage4: null,
-                        productImage5: null
+                        productImage1: ""
                     })
                     setErrors({})
-                    navigate("/category/" + categoryName)
+                    navigate("/")
                 }
             )
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.log(err)
+                console.log("edit product error")
+            })
     }
     
   return (
@@ -85,7 +85,7 @@ const EditProduct = () => {
             productInfo={productInfo}
             setProductInfo={setProductInfo}
             changeHandler={changeHandler}
-            submitHandler={editProduct}
+            submitProduct={editProduct}
             errors={errors}
             submitValue={"Edit Product"}
         />

@@ -140,20 +140,46 @@ public class ProductController {
 
 	
 	@PutMapping("/edit/{id}")
-	public ResponseEntity<Product> update(@PathVariable Long id, @Valid @RequestBody Product updatedProduct) {
-	    Optional<Product> optionalProduct = productServ.findById(id);
-	    if (optionalProduct.isPresent()) {
-	        Product product = optionalProduct.get();
-	        product.setProductName(updatedProduct.getProductName());
-	        product.setProductPrice(updatedProduct.getProductPrice());
-	        product.setProductDescription(updatedProduct.getProductDescription());
-	        product.setProductCategory(updatedProduct.getProductCategory());
-	        Product savedProduct = productServ.save(product);
-	        return ResponseEntity.status(HttpStatus.OK).body(savedProduct);
-	    } else {
-	        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-	    }
-	}
+public ResponseEntity<Product> update(
+        @PathVariable Long id,
+        @RequestParam("productImage1") MultipartFile productImage1,
+        @RequestParam("productName") String productName,
+        @RequestParam("productCategory") String productCategory,
+        @RequestParam("productPrice") String productPrice,
+        @RequestParam("productDescription") String productDescription,
+        HttpServletRequest request
+) throws IOException {
+    Optional<Product> optionalProduct = productServ.findById(id);
+    if (optionalProduct.isPresent()) {
+        Product product = optionalProduct.get();
+        product.setProductName(productName);
+        product.setProductCategory(productCategory);
+        product.setProductPrice(Double.parseDouble(productPrice));
+        product.setProductDescription(productDescription);
+
+        // Handle file upload
+        String uploadDir = servletContext.getRealPath("/images/product/");
+        String fileName = productImage1.getOriginalFilename();
+        String serverFileName = uploadDir + File.separator + fileName;
+        File directory = new File(uploadDir);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        File serverFile = new File(serverFileName);
+        productImage1.transferTo(serverFile);
+        String baseUrl = request.getRequestURL().toString();
+        String imageUrl = baseUrl.substring(0, baseUrl.length() - request.getRequestURI().length()) + request.getContextPath() + "/images/product/" + fileName;
+        product.setProductImage1(imageUrl);
+
+        // Save the product to the database
+        Product savedProduct = productServ.save(product);
+
+        // Return the saved product
+        return ResponseEntity.status(HttpStatus.OK).body(savedProduct);
+    } else {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+}
 
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<Product> delete(@PathVariable Long id){

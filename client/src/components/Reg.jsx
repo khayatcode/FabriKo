@@ -51,7 +51,6 @@ const Reg = (props) => {
                     setErrors({})
                     setSessionId(res.email)
                     navigate("/")
-                    window.location.reload(true);
                 
             })
             .catch(err => console.log(err))
@@ -85,7 +84,7 @@ const Reg = (props) => {
                     </div>
                     <div className='form-floating mb-3'>
                         <select className='form-select' id='accountType' aria-label='Floating label select example' name='accountType' value={userInfo.accountType} onChange={changeHandler}>
-                            <option selected disabled>Select Account Type</option>
+                            <option disabled>Select Account Type</option>
                             <option value='shopper'>Shopper</option>
                             <option value='admin'>Admin</option>
                         </select>

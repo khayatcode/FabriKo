@@ -11,6 +11,7 @@ const Shipping = () => {
         zip: '',
         phone: ''
     })
+    const [errors, setErrors] = useState({})
 
     const onChange = (e) => {
         setShippingAddress({
