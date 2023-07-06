@@ -6,6 +6,7 @@ import ViewProduct4 from '../images/ViewProduct4.webp'
 import { useParams } from "react-router-dom";
 
 const ViewProduct = (props) => {
+    const { sessionId} = props
     const { productId } = useParams()
     const [product, setProduct] = useState({
         productId: productId,
@@ -13,29 +14,35 @@ const ViewProduct = (props) => {
         productPrice: "",
         productDescription: "",
         productCategory: "",
-        productImage1: "",
-        productImage2: "",
-        productImage3: "",
-        productImage4: "",
-        productImage5: ""
+        productImage1: ""
     })
     const [cart, setCart] = useState({
-            productId: 0,
-            quantity: 0,
+            user_id: sessionId,
+            product_id: productId,
+            quantity: "",
             size: '',
-            total: 0
+            total: "",
+            complete: false
         })
     const [errors, setErrors] = useState({})
     const [currentImage, setCurrentImage] = useState(0);
 
     const onChange = (e) => {
-        setCart({
-            ...cart,
-            [e.target.name]: e.target.value
-        })
+    const { name, value } = e.target;
+    let total = 0;
+    if (name === 'quantity') {
+        total = value * product.productPrice;
+    } else {
+        total = cart.quantity * product.productPrice;
     }
+    setCart({
+        ...cart,
+        [name]: value,
+        total: total
+    });
+}
 
-    const images = [product.productImage1, product.productImage2, product.productImage3, product.productImage4, product.productImage5];
+    const images = [product.productImage1, ViewProduct1, ViewProduct3, ViewProduct4];
 
     const nextImage = () => {
         setCurrentImage((currentImage + 1) % images.length);
@@ -53,29 +60,18 @@ const ViewProduct = (props) => {
     }, [images.length]);
 
     useEffect(() => {
-        fetch(`http://localhost:3000/products/${productId}`)
+        fetch(`http://localhost:8080/product/${productId}`)
             .then(response => response.json())
             .then(product => {
+                console.log(product)
                 setProduct(product);
             });
       }, [])
 
-
-    // const handleChange = (event) => {
-    //     const { name, value } = event.target;
-    //     setCart({
-    //       ...cart,
-    //       [name]: value
-    //     });
-    //     if (name === 'quantity') {
-    //       setTotalPrice(product.price * value);
-    //     }
-    //   };
-
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log(cart)
-        fetch("http://localhost:8080/api/cart", {
+        fetch(`http://localhost:8080/cart/create`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -85,9 +81,12 @@ const ViewProduct = (props) => {
             .then(res => {
                 console.log(res)
                     setCart({
-                        productId: 0,
-                        quantity: 0,
-                        size: ''
+                        user_id: sessionId,
+                        product_id: productId,
+                        quantity: "",
+                        size: '',
+                        total: "",
+                        complete: false
                     })
                     setErrors({})
                 }
@@ -114,21 +113,28 @@ const ViewProduct = (props) => {
                     </div>
                 </div>
                 <div className='col-md-6' style={{ borderLeft: '1px solid #ccc', paddingLeft: '10%' }}>
-                    <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>Product Example</h1>
+                    <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>{product.productName}</h1>
+                    <div className='mb-4'>
+                            <p className='text-center' style={{ fontWeight: 300 }}>Description: {product.productDescription}</p>
+                    </div>
+                    <div className='mb-4'>
+                        <p className='text-center' style={{ fontWeight: 300 }}>Price: ${product.productPrice}</p>
+                    </div>
                     <form className='view-product-form' onSubmit={handleSubmit}>
-                        <div className='mb-4'>
-                            <label htmlFor='size' className='form-label'>Size</label>
-                            <select className='form-select' id='size' onChange={onChange}>
+                        <div className='form-floating mb-4'>
+                            <select className='form-select' id='floatingSelect' name='size' onChange={onChange} value={cart.size}> 
+                                <option disabled value=''>Select Size</option>
                                 <option value='XS'>XS</option>
                                 <option value='S'>S</option>
-                                <option value='M' selected>M</option>
+                                <option value='M'>M</option>
                                 <option value='L'>L</option>
                                 <option value='XL'>XL</option>
                             </select>
+                            <label htmlFor='size' className='form-label'>Size</label>
                         </div>
-                        <div className='mb-4'>
-                            <label htmlFor='quantity' className='form-label'>Quantity</label>
-                            <input type='number' className='form-control' id='quantity' min='1' max='10' onChange={onChange}/>
+                        <div className='form-floating mb-4'>
+                            <input type='number' className='form-control' placeholder='Quantity' id='floatingInput' min='1' name='quantity' onChange={onChange} value={cart.quantity}/>
+                            <label htmlFor='quantity' className='floatingInput'>Quantity</label>
                         </div>
                         <button type='submit' className='btn btn-outline-dark'>Add to Cart</button>
                     </form>

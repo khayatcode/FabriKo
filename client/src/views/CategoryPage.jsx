@@ -19,6 +19,7 @@ const CategoryPage = (props) => {
         fetch('http://localhost:8080/product/api/' + categoryName)
             .then(res => res.json())
             .then(res => {
+                console.log(res)
                 setProductsInCategory(res)
             })
             .catch(err => console.log(err))
@@ -56,7 +57,9 @@ const CategoryPage = (props) => {
             </div>
             <div >
                 <div className="row p-3">
-                    {productsInCategory.map((product, index) => {
+                    {productsInCategory.length == 0 ? <h1 className='text-center mt-5'>No products in this category.</h1>
+                        :
+                    productsInCategory.map((product, index) => {
                         return (
                             <div className="col-sm-4 d-flex flex-column align-items-center gap-2" key={index}>
                                 <Link to={"/product/view/" + product.id}>
@@ -81,7 +84,8 @@ const CategoryPage = (props) => {
                             </div>
                         )
                     }
-                    )}
+                    )
+                    }
                 </div>
             </div>
 

@@ -7,8 +7,8 @@ import Shoes from '../images/shoes2.webp'
 
 
 const ShoppingCart = (props) => {
-    // const { firstName, total} = props
-    // const [cart, setCart] = useState([])
+    const { sessionId } = props
+    const [allCartItems, setAllCartItems] = useState([])
 
   return (
     // do a row for each product having picture, product name, quantity, and total for product. make it spaced out evenly and have a button to remove it from the cart. have a total at the bottom with continue to checkout button. 

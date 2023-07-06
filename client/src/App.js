@@ -29,6 +29,7 @@ import CategoryPage from './views/CategoryPage';
 function App() {
   const [sessionId, setSessionId] = useState(Cookies.get("sessionId") || "");
   const [userInfo, setUserInfo] = useState({})
+  const [allCart, setAllCart] = useState([])
 
   useEffect(() => {
     console.log("sessionId changed:", sessionId);
@@ -37,7 +38,7 @@ function App() {
 
   useEffect(() => {
     if(!sessionId) return;
-    fetch('http://localhost:8080/api/getuser?sessionId=' + sessionId)
+    fetch('http://localhost:8080/api/getuser/' + sessionId)
     .then(response => response.json()) 
     .then(data => {
             setUserInfo({...data, password : ""});
@@ -60,11 +61,11 @@ function App() {
         <Route path="/category/:categoryName" element={<CategoryPage sessionId={sessionId} />} />
         <Route path="/createProduct" element={<CreateProduct />} />
         <Route path="/product/edit/:productId" element={<EditProduct />} />
-        <Route path="/product/view/:productId" element={<ViewProduct />} />
+        <Route path="/product/view/:productId" element={<ViewProduct allCart={allCart} setAllCart={setAllCart} sessionId={sessionId}/>} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/billing" element={<BillingInfo/>} />
         <Route path="/shippingInfo" element={<Shipping/>} />
-        <Route path="/shopping/cart" element={<ShoppingCart/>} />
+        <Route path="/shopping/cart" element={<ShoppingCart sessionId={sessionId}/>} />
         <Route path="/shopping/cart/confirm" element={<ShoppingCartConf/>} />
         <Route path="/order/success" element={<OrderSuccessPage/>} />
         <Route path="/terms" element={<Terms/>} />

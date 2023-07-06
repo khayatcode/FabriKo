@@ -33,7 +33,7 @@ const Log = (props) => {
                     return res.json();})
                 .then(data => {
                     setErrors({});
-                    setSessionId(data.email);
+                    setSessionId(data.id);
                     navigate("/");
             })
             .catch(err => console.log(err))

@@ -1,0 +1,105 @@
+package com.groupproject.tshirtpalooza.models;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table(name="cart")
+public class Cart {
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Min(value=1, message="Quantity must be greater than 0")
+    private Integer quantity;
+
+    @NotBlank(message="Please choose a size")
+    private String size;
+
+    @Min(value=1, message="Total must be greater than 0")
+    private Double total;
+
+    @NotNull(message="Please choose a wether its complete or not")
+    private Boolean complete;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="product_id")
+    private Product product;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id")
+    private User user;
+    
+    public Cart() {
+    	
+    }
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
+	}
+
+	public Double getTotal() {
+		return total;
+	}
+
+	public void setTotal(Double total) {
+		this.total = total;
+	}
+	
+
+	public Boolean getComplete() {
+		return complete;
+	}
+
+	public void setComplete(Boolean complete) {
+		this.complete = complete;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+}
+

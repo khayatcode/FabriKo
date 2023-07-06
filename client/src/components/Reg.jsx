@@ -49,7 +49,7 @@ const Reg = (props) => {
                         accountType: ""
                     })
                     setErrors({})
-                    setSessionId(res.email)
+                    setSessionId(res.id)
                     navigate("/")
                 
             })

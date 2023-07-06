@@ -1,12 +1,15 @@
 package com.groupproject.tshirtpalooza.models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -52,11 +55,14 @@ public class User {
     private Date createdAt;
     private Date updatedAt;
     
-//    @OneToMany(mappedBy="user", fetch=FetchType.LAZY)
-//    private List<Billing> billing;
-//    
-//    @OneToMany(mappedBy="user", fetch=FetchType.LAZY)
-//    private List<Shipping> shipping;
+    @OneToMany(mappedBy="user", fetch=FetchType.LAZY)
+    private List<Billing> billing;
+    
+    @OneToMany(mappedBy="user", fetch=FetchType.LAZY)
+    private List<Shipping> shipping;
+
+	@OneToMany(mappedBy="user", fetch=FetchType.LAZY)
+	private List<Cart> cart;
     
 //    @OneToMany(mappedBy="user", fetch=FetchType.LAZY)
 //    private List<Product> product;
@@ -147,21 +153,21 @@ public class User {
 		this.accountType = accountType;
 	}
 
-//	public List<Billing> getBilling() {
-//		return billing;
-//	}
-//
-//	public void setBilling(List<Billing> billing) {
-//		this.billing = billing;
-//	}
-//
-//	public List<Shipping> getShipping() {
-//		return shipping;
-//	}
-//
-//	public void setShipping(List<Shipping> shipping) {
-//		this.shipping = shipping;
-//	}
+	public List<Billing> getBilling() {
+		return billing;
+	}
+
+	public void setBilling(List<Billing> billing) {
+		this.billing = billing;
+	}
+
+	public List<Shipping> getShipping() {
+		return shipping;
+	}
+
+	public void setShipping(List<Shipping> shipping) {
+		this.shipping = shipping;
+	}
 
 //	public List<Product> getProduct() {
 //		return product;
