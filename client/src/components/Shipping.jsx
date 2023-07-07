@@ -1,17 +1,21 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-const Shipping = () => {
+const Shipping = (props) => {
+    const { sessionId } = props
     const [shippingAddress, setShippingAddress] = useState({
-        firstName: '',
-        lastName: '',
+        name: '',
         address: '',
         city: '',
         state: '',
         zip: '',
-        phone: ''
+        country: '',
+        phone: '',
+        user: {}
     })
     const [errors, setErrors] = useState({})
+    const navigate = useNavigate()
 
     const onChange = (e) => {
         setShippingAddress({
@@ -20,10 +24,27 @@ const Shipping = () => {
         })
     }
 
+    useEffect(() => {
+        fetch(`http://localhost:8080/shipping/user/${sessionId}`)
+            .then(res => res.json())
+            .then(res => {
+                console.log("shipping res", res)
+                if (res.status == 404) {
+                    console.log("shipping res is null")
+                } else {
+                    // const { user, ...shippingWithoutUser } = res
+                    console.log(res)
+                    setShippingAddress(res)
+                }
+            })
+            .catch(err => console.log(err))
+    }, [])
+
+
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log(shippingAddress)
-        fetch("http://localhost:8080/api/shipping", {
+        fetch(`http://localhost:8080/shipping/add/${sessionId}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -32,34 +53,43 @@ const Shipping = () => {
         })
             .then(res => {
                 console.log(res)
-                if (res.data && res.data.errors) {
-                    setErrors(res.data.errors)
-                } else {
                     setShippingAddress({
-                        firstName: '',
-                        lastName: '',
+                        name: '',
                         address: '',
                         city: '',
                         state: '',
                         zip: '',
-                        phone: ''
+                        country: '',
+                        phone: '',
+                        user: {}
                     })
+                    navigate('/order/success')
                 }
-            })
+            )
             .catch(err => console.log(err))
     }
+
+    useEffect(() => {
+        fetch(`http://localhost:8080/api/getuser/${sessionId}`)
+            .then(res => res.json())
+            .then(res => {
+                setShippingAddress({
+                    ...shippingAddress,
+                    user: res
+                })
+            })
+            .catch(err => console.log(err))
+    }, [])
+
+
   return (
     <div className='container d-flex justify-content-center' style={{ padding: '8%' }}>
         <div className='col-md-6'>
             <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>Shipping</h1>
             <form onSubmit={handleSubmit}>
                 <div className='form-floating mb-3'>
-                    <input type="text" className='form-control' placeholder='First Name' name="firstName" value={shippingAddress.firstName} onChange={onChange} />
-                    <label htmlFor='firstName'>First Name:</label>
-                </div>
-                <div className='form-floating mb-3'>
-                    <input type="text" className='form-control' placeholder='Last Name' name="lastName" value={shippingAddress.lastName} onChange={onChange} />
-                    <label htmlFor='lasstName'>Last Name:</label>
+                    <input type="text" className='form-control' placeholder='Name' name="name" value={shippingAddress.name} onChange={onChange} />
+                    <label htmlFor='name'> Name:</label>
                 </div>
                 <div className='form-floating mb-3'>
                     <input type="text" className='form-control' placeholder='Address' name="address" value={shippingAddress.address} onChange={onChange} />
@@ -78,7 +108,11 @@ const Shipping = () => {
                     <label htmlFor='zip'>Zip:</label>
                 </div>
                 <div className='form-floating mb-3'>
-                    <input type="text" className='form-control' placeholder='Phone' name="phone" value={shippingAddress.phone} onChange={onChange} />
+                    <input type="text" className='form-control' placeholder='Country' name="country" value={shippingAddress.country} onChange={onChange} />
+                    <label htmlFor='country'>Country:</label>
+                </div>
+                <div className='form-floating mb-3'>
+                    <input type="number" className='form-control' placeholder='Phone' name="phone" value={shippingAddress.phone} onChange={onChange} />
                     <label htmlFor='phone'>Phone:</label>
                 </div>
                 <input type="submit" value="Submit" className='btn btn-outline-dark' />

@@ -1,12 +1,14 @@
 package com.groupproject.tshirtpalooza.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.groupproject.tshirtpalooza.models.Shipping;
 import com.groupproject.tshirtpalooza.services.ShippingService;
 
+@CrossOrigin
 @RestController
 public class ShippingController {
 	
@@ -31,24 +34,38 @@ public class ShippingController {
 		return ResponseEntity.status(200).body(this.shippingServ.all());
 	}
 	
-	@GetMapping("/shipping/{id}")
-	public ResponseEntity<Shipping> getOneById(@PathVariable Long id){
-		return ResponseEntity.status(200).body(this.shippingServ.getOne(id));
+//	@GetMapping("/shipping/{id}")
+//	public ResponseEntity<Shipping> getOneById(@PathVariable Long id){
+//		return ResponseEntity.status(200).body(this.shippingServ.getOne(id));
+//	}
+	
+	@GetMapping("/shipping/user/{id}")
+	public ResponseEntity<Optional<Shipping>> findByUserId(@PathVariable Long id){
+		Optional<Shipping> optShipping = Optional.ofNullable(this.shippingServ.findByUserId(id));
+		if(optShipping.isPresent()) {
+			return ResponseEntity.status(200).body(optShipping);
+		}
+		return ResponseEntity.notFound().build();
 	}
 	
-	@PostMapping("/shipping/add")
-	public ResponseEntity<Shipping> add(@Valid @RequestBody Shipping shipping
-//			HttpSession session
-			){
-//		if(session.getAttribute("userId") == null) {
-//			return ResponseEntity.badRequest().build();
-//		}
-//		User user = userServ.getOne((Long)session.getAttribute("userId"));
-//		
-//		if(user.getAccountType().equals("Admin")) {
-			Shipping savedProduct = shippingServ.create(shipping);
-			return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);
-//		}
+	@PostMapping("/shipping/add/{id}")
+	public ResponseEntity<Shipping> add(@Valid @RequestBody Shipping shipping, @PathVariable Long id){
+		System.out.println("shipping controller add method");
+		Optional<Shipping> optShipping = Optional.ofNullable(this.shippingServ.findByUserId(id));
+		if(optShipping.isPresent()) {
+			Shipping existingShipping = optShipping.get();
+			existingShipping.setName(shipping.getName());
+			existingShipping.setAddress(shipping.getAddress());
+			existingShipping.setCity(shipping.getCity());
+			existingShipping.setState(shipping.getState());
+			existingShipping.setZip(shipping.getZip());
+			existingShipping.setCountry(shipping.getCountry());
+			existingShipping.setPhoneNumber(shipping.getPhoneNumber());
+			Shipping savedShipping = shippingServ.update(existingShipping);
+			return ResponseEntity.status(HttpStatus.CREATED).body(savedShipping);
+		}
+		Shipping savedShipping = shippingServ.create(shipping);
+		return ResponseEntity.status(HttpStatus.CREATED).body(savedShipping);
 	}
 	
 	@PostMapping("/shipping/update")

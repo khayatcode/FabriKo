@@ -43,17 +43,7 @@ public ResponseEntity<Optional<Billing>> findByUserId(@PathVariable Long id) {
 	public ResponseEntity<Billing> create(@RequestBody Billing billing, @PathVariable Long id) {
 		Optional<Billing> optBilling = Optional.ofNullable(this.billingSer.findByUserId(id));
 		if (optBilling.isPresent()) {
-			Billing existingBilling = optBilling.get();
-			existingBilling.setName(billing.getName());
-			existingBilling.setEmail(billing.getEmail());
-			existingBilling.setAddress(billing.getAddress());
-			existingBilling.setCity(billing.getCity());
-			existingBilling.setState(billing.getState());
-			existingBilling.setZip(billing.getZip());
-			existingBilling.setCard(billing.getCard());
-			existingBilling.setExp(billing.getExp());
-			existingBilling.setCvv(billing.getCvv());
-			Billing updatedBilling = this.billingSer.create(existingBilling);
+			Billing updatedBilling = this.billingSer.create(billing);
 			return ResponseEntity.ok(updatedBilling);
 		} else {
 			System.out.println("Billing date: " + billing.getExp());

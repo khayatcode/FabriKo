@@ -53,7 +53,6 @@ public class Billing {
 	private String city;
 	
 	@NotBlank(message="State is required!")
-	@Size(max=2)
 	private String state;
 	
 	@NotBlank(message="Country is required")

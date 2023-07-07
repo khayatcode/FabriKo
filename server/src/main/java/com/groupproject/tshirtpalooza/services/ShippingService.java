@@ -30,6 +30,10 @@ public class ShippingService {
 		return repo.findAll();
 	}
 	
+	public Shipping findByUserId(Long id) {
+		return repo.findByUserId(id);
+	}
+	
 	public Shipping create(Shipping shipping) {
 		return repo.save(shipping);
 	}

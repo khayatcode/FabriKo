@@ -39,9 +39,9 @@ useEffect(() => {
             if(res.status == 404) {
                 console.log("billing res is null");
             } else {
-                const { user, ...billingWithoutUser } = res;
-                console.log(billingWithoutUser);
-                setBillingForm(billingWithoutUser);
+                // const { user, ...billingWithoutUser } = res;
+                console.log(res);
+                setBillingForm(res);
             }
         })
         .catch((err) => console.log(err));
@@ -78,7 +78,7 @@ useEffect(() => {
                     card: '',
                     exp: '',
                     cvv: '',
-                    user: userInfo,
+                    user: {userInfo},
                 });
                 navigate('/shippingInfo');
             }
@@ -91,6 +91,7 @@ useEffect(() => {
             <div className='col-md-12'>
                 <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>Billing Info</h1>
                 <form onSubmit={handleSubmit} className="row">
+                    {/* Error below */}
                     <input type="hidden" name="user" value={billingForm.user} />
                     <div className="col-md-6">
                         <div className="form-floating mb-3">

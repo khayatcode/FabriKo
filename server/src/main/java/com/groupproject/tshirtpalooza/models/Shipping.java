@@ -17,6 +17,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -33,9 +34,7 @@ public class Shipping {
 	private String name;
     
     @NotBlank(message="Street address is required!")
-	private String address1;
-    
-	private String address2;
+	private String address;
 	
 	@NotBlank(message="City is required!")
 	private String city;
@@ -44,8 +43,13 @@ public class Shipping {
 	private String state;
 	
 	@NotBlank(message="Zip is required!")
-	@Size(max=5)
 	private Integer zip;
+	
+	@NotBlank(message="Country is required")
+	private String country;
+	
+	@NotBlank(message="Phone Number is required")
+	private String phoneNumber;
 	
     @Column(updatable=false)
     private Date createdAt;
@@ -53,7 +57,7 @@ public class Shipping {
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Add this line to ignore the "hibernateLazyInitializer" and "handler" properties
     private User user;
 	
     public Shipping() {}
@@ -85,20 +89,28 @@ public class Shipping {
 		this.name = name;
 	}
 
-	public String getAddress1() {
-		return address1;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAddress1(String address1) {
-		this.address1 = address1;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
-	public String getAddress2() {
-		return address2;
+	public String getCountry() {
+		return country;
 	}
 
-	public void setAddress2(String address2) {
-		this.address2 = address2;
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public String getCity() {

@@ -10,5 +10,7 @@ public interface ShippingRepository extends CrudRepository<Shipping, Long>{
 	
 	List<Shipping> findAll();
 	
+	Shipping findByUserId(Long id);
+	
 }
 
