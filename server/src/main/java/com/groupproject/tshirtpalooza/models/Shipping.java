@@ -16,8 +16,12 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name="shipping")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Shipping {
 	
 	@Id
@@ -49,6 +53,7 @@ public class Shipping {
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     private User user;
 	
     public Shipping() {}

@@ -5,7 +5,7 @@ import { Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Reg from './components/Reg';
 import Log from './components/Log';
-import BillingInfo from './components/BillingInfo';
+import BillingForm from './components/BillingForm';
 import Cookies from 'js-cookie';
 import Home from './views/Home';
 import Footer from './components/Footer';
@@ -63,8 +63,8 @@ function App() {
         <Route path="/product/edit/:productId" element={<EditProduct />} />
         <Route path="/product/view/:productId" element={<ViewProduct allCart={allCart} setAllCart={setAllCart} sessionId={sessionId}/>} />
         <Route path="/contact" element={<ContactUs />} />
-        <Route path="/billing" element={<BillingInfo/>} />
-        <Route path="/shippingInfo" element={<Shipping/>} />
+        <Route path="/billing" element={<BillingForm userInfo={userInfo} sessionId={sessionId}/>} />
+        <Route path="/shippingInfo" element={<Shipping userInfo={userInfo} sessionId={sessionId}/>} />
         <Route path="/shopping/cart" element={<ShoppingCart sessionId={sessionId}/>} />
         <Route path="/shopping/cart/confirm" element={<ShoppingCartConf/>} />
         <Route path="/order/success" element={<OrderSuccessPage/>} />

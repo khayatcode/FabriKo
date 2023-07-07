@@ -30,6 +30,11 @@ public class BillingService {
 		return repo.findAll();
 	}
 	
+	// get Billing by user id
+	public Billing findByUserId(Long id) {
+		return repo.findByUserId(id);
+	}
+	
 	public Billing create(Billing billing) {
 		return repo.save(billing);
 	}

@@ -20,8 +20,13 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name="billing")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Billing {
 
 	@Id
@@ -36,16 +41,14 @@ public class Billing {
     private BigInteger card;
     
     @DateTimeFormat(pattern="yyyy-MM-dd")
-    @NotNull(message="Experation date is required!")
-    private Date experationDate;
+    @NotNull(message="Expiration date is required!")
+    private Date exp;
     
     @NotNull(message="CVV is required!")
     private Integer cvv;
     
     @NotBlank(message="Street address is required!")
-	private String address1;
-    
-	private String address2;
+	private String address;
 	
 	@NotBlank(message="City is required!")
 	private String city;
@@ -54,9 +57,15 @@ public class Billing {
 	@Size(max=2)
 	private String state;
 	
+	@NotBlank(message="Country is required")
+	private String country;
+	
 	@NotNull(message="Zip is required!")
-	@Size(max=5)
 	private Integer zip;
+	
+	
+	@NotBlank(message="Email address is required")
+	private String email;
 	
     @Column(updatable=false)
     private Date createdAt;
@@ -64,6 +73,7 @@ public class Billing {
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User user;
     
     public Billing() {}
@@ -103,13 +113,6 @@ public class Billing {
 		this.card = card;
 	}
 
-	public Date getExperationDate() {
-		return experationDate;
-	}
-
-	public void setExperationDate(Date experationDate) {
-		this.experationDate = experationDate;
-	}
 
 	public Integer getCvv() {
 		return cvv;
@@ -118,21 +121,30 @@ public class Billing {
 	public void setCvv(Integer cvv) {
 		this.cvv = cvv;
 	}
+	
 
-	public String getAddress1() {
-		return address1;
+	public Date getExp() {
+		return exp;
 	}
 
-	public void setAddress1(String address1) {
-		this.address1 = address1;
+	public void setExp(Date exp) {
+		this.exp = exp;
 	}
 
-	public String getAddress2() {
-		return address2;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAddress2(String address2) {
-		this.address2 = address2;
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getCity() {
@@ -149,6 +161,16 @@ public class Billing {
 
 	public void setState(String state) {
 		this.state = state;
+	}
+	
+	
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
 	public Integer getZip() {

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import ViewProduct1 from '../images/ViewProduct1.webp'
 import ViewProduct3 from '../images/ViewProduct3.webp'
 import ViewProduct4 from '../images/ViewProduct4.webp'
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const ViewProduct = (props) => {
     const { sessionId } = props
@@ -20,6 +20,7 @@ const ViewProduct = (props) => {
     })
     const [errors, setErrors] = useState({})
     const [currentImage, setCurrentImage] = useState(0);
+    const navigate = useNavigate()
 
 useEffect(() => {
     Promise.all([
@@ -95,6 +96,7 @@ useEffect(() => {
                     complete: false
                 })
                 setErrors({})
+                navigate("/shopping/cart")
             }
             )
             .catch(err => console.log(err))

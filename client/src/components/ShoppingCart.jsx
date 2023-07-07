@@ -26,6 +26,23 @@ const ShoppingCart = (props) => {
             .catch(err => console.log(err))
     }, [])
 
+const removeItem = (cartId) => {
+    fetch(`http://localhost:8080/cart/delete/${cartId}`, {
+        method: 'DELETE'
+    })
+        .then(res => {
+            console.log(res)
+            setAllCartItems(allCartItems.filter(cart => cart.id != cartId))
+            let sum = 0;
+            allCartItems.filter(cart => cart.id != cartId).forEach(cart => {
+                sum += cart.total;
+            });
+            setTotal(sum);
+        })
+        .catch(err => console.log(err))
+}
+
+
     return (
         // do a row for each product having picture, product name, quantity, and total for product. make it spaced out evenly and have a button to remove it from the cart. have a total at the bottom with continue to checkout button. 
         <div className='container d-flex justify-content-center' style={{ padding: '8%' }}>
@@ -59,6 +76,7 @@ const ShoppingCart = (props) => {
                             </div>
                             <div className='col-3'>
                                 <h6 style={{ fontWeight: 300 }}>Total: ${item.total}</h6>
+                                <button className='btn btn-outline-dark' onClick={() => removeItem(item.id)}>Remove</button>
                             </div>
                         </div>
                     )
@@ -69,7 +87,7 @@ const ShoppingCart = (props) => {
                         <h4 style={{ fontWeight: 300 }}>Total: ${total}</h4>
                     </div>
                     <div className='col-3'>
-                        <Link to='/billing'><button className='btn btn-outline-dark'>Continue to Checkout</button></Link>
+                        <Link to='/billing' className='btn btn-outline-dark'>Continue to Checkout</Link>
                     </div>
                 </div>
 

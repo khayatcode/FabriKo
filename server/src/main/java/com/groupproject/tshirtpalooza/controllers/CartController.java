@@ -37,6 +37,7 @@ public class CartController {
 
     @PostMapping("/create")
     public ResponseEntity<Cart> create(@RequestBody Cart cart) {
+    	System.out.println("Create Billing");
         return ResponseEntity.status(HttpStatus.CREATED).body(this.cartServ.create(cart));
     }
 
