@@ -35,6 +35,7 @@ const EditProduct = () => {
         fetch("http://localhost:8080/product/" + productId)
             .then(res => res.json())
             .then(res => {
+                console.log("edit product response" + res)
                 setProductInfo(res)
             })
             .catch(err => console.log(err))

@@ -31,25 +31,21 @@ const BillingForm = (props) => {
             .catch((err) => console.log(err));
     }, []);
 
-// useEffect(() => {
-//     fetch(`http://localhost:8080/billing/find/${sessionId}`)
-//         // .then((res) => {
-//         //     if (res.ok) {
-//         //         return res.json();
-//         //     } else {
-//         //         throw new Error('Billing info not found');
-//         //     }
-//         // })
-//         .then((res) => {
-//             console.log("billing res", res);
-//             if(res.status == 404) {
-//                 console.log("billing res is null");
-//             } else {
-//                 setBillingForm(res);
-//             }
-//         })
-//         .catch((err) => console.log(err));
-// }, []);
+useEffect(() => {
+    fetch(`http://localhost:8080/billing/find/${sessionId}`)
+        .then((res) => res.json())
+        .then((res) => {
+            console.log("billing res", res);
+            if(res.status == 404) {
+                console.log("billing res is null");
+            } else {
+                const { user, ...billingWithoutUser } = res;
+                console.log(billingWithoutUser);
+                setBillingForm(billingWithoutUser);
+            }
+        })
+        .catch((err) => console.log(err));
+}, []);
 
 
     const onChange = (e) => {

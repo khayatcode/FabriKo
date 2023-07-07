@@ -1,5 +1,7 @@
 package com.groupproject.tshirtpalooza.controllers;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +28,16 @@ public class BillingController {
 	private BillingService billingSer;
 
 	@GetMapping("/find/{id}")
-	public ResponseEntity<Billing> findByUserId(@PathVariable Long id) {
-		Billing billing = this.billingSer.findByUserId(id);
-		if (billing == null) {
-			return ResponseEntity.notFound().build();
-		}
-		return ResponseEntity.ok(billing);
-	}
+public ResponseEntity<Optional<Billing>> findByUserId(@PathVariable Long id) {
+    Optional<Billing> optBilling = Optional.ofNullable(this.billingSer.findByUserId(id));
+    if (optBilling.isPresent()) {
+		System.out.println("Billing Controller" + optBilling.get().getExp());
+        return ResponseEntity.status(200).body(optBilling);
+    } else {
+		System.out.println("Billing Controller Failed");
+        return ResponseEntity.notFound().build();
+    }
+}
 	
 	@PostMapping("/create/{id}")
 	public ResponseEntity<Billing> create(@RequestBody Billing billing, @PathVariable Long id) {
@@ -51,7 +56,7 @@ public class BillingController {
 			Billing updatedBilling = this.billingSer.create(existingBilling);
 			return ResponseEntity.ok(updatedBilling);
 		} else {
-	//        billing.setUser(this.userSer.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id)));
+			System.out.println("Billing date: " + billing.getExp());
 			Billing newBilling = this.billingSer.create(billing);
 			return ResponseEntity.ok(newBilling);
 		}

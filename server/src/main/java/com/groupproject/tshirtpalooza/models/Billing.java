@@ -16,9 +16,8 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -40,9 +39,9 @@ public class Billing {
     @NotNull(message="Card Number is required!")
     private BigInteger card;
     
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-    @NotNull(message="Expiration date is required!")
-    private Date exp;
+    @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "Expiration date must be in the format yyyy-MM-dd")
+	@NotNull(message = "Expiration date is required!")
+	private String exp;
     
     @NotNull(message="CVV is required!")
     private Integer cvv;
@@ -123,11 +122,11 @@ public class Billing {
 	}
 	
 
-	public Date getExp() {
+	public String getExp() {
 		return exp;
 	}
 
-	public void setExp(Date exp) {
+	public void setExp(String exp) {
 		this.exp = exp;
 	}
 
