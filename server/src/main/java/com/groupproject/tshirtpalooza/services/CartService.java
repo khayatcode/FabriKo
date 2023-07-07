@@ -36,23 +36,26 @@ public class CartService {
     }
 
     public List<Cart> findByUserId(Long id) {
-        return this.cartRepo.findByUserId(id);
-    }
-
-    // Get all carts where completed is false
-    public List<Cart> findByCompletedFalse(Long id) {
+        System.out.println("CART SERVICE");
         List<Cart> carts = this.cartRepo.findByUserId(id);
-
-        List<Cart> incompleteCarts = new ArrayList<Cart>();
-
-        for (Cart cart : carts) {
-            if (cart.getComplete() == false) {
-                incompleteCarts.add(cart);
-            }
-        }
-
-        return incompleteCarts;
-
+        System.out.println("CARTS: " + carts);
+        return carts;
     }
+
+    public List<Cart> findByCompletedFalse(Long id) {
+    List<Cart> carts = this.cartRepo.findByUserId(id);
+
+    List<Cart> incompleteCarts = new ArrayList<Cart>();
+
+    for (Cart cart : carts) {
+        if (cart.getComplete() == false) {
+            incompleteCarts.add(cart);
+        }
+    }
+    System.out.println("INCOMPLETE CARTS: " + incompleteCarts);
+    return incompleteCarts;
+}
+
+    
 
 }

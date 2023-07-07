@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.groupproject.tshirtpalooza.models.Cart;
@@ -52,8 +53,15 @@ public class CartController {
 
     @GetMapping("/find/uncomplete/{id}")
     public ResponseEntity<List<Cart>> findByUserIdAndIsCompletedFalse(@PathVariable Long id) {
-        return ResponseEntity.ok(this.cartServ. findByCompletedFalse(id));
-    }
+    	System.out.println("CART Controller");
+        List<Cart> carts = this.cartServ.findByCompletedFalse(id);
+        for (Cart cart : carts) {
+            System.out.println("Single Cart Controller: " + cart.getProduct().getProductImage1());
+        }
+        System.out.println("CART Controller Final");
+
+        return ResponseEntity.ok(carts);
+    } 
 
 
     @DeleteMapping("/delete/{id}")

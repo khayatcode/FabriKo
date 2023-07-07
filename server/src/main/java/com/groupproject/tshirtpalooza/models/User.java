@@ -17,6 +17,8 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
     
 @Entity
 @Table(name="users")
@@ -62,6 +64,7 @@ public class User {
     private List<Shipping> shipping;
 
 	@OneToMany(mappedBy="user", fetch=FetchType.LAZY)
+//	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Add this annotation to ignore the hibernateLazyInitializer and handler fields when serializing to JSON
 	private List<Cart> cart;
     
 //    @OneToMany(mappedBy="user", fetch=FetchType.LAZY)

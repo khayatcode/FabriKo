@@ -18,10 +18,15 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 
 
 @Entity
 @Table(name="products")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Product {
 	
 	@Id
@@ -44,6 +49,7 @@ public class Product {
     private String productImage1;
 
 	@OneToMany(mappedBy="product", fetch=FetchType.LAZY)
+//	@JsonIdentityReference(alwaysAsId = true) // Add this line to always serialize the "carts" field as a list of IDs
 	private List<Cart> carts;
 
 	

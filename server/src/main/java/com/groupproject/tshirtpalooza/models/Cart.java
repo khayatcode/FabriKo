@@ -12,8 +12,13 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name="cart")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Cart {
 	
 	@Id
@@ -34,10 +39,12 @@ public class Cart {
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="product_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Add this line to ignore the "hibernateLazyInitializer" and "handler" properties
     private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Add this line to ignore the "hibernateLazyInitializer" and "handler" properties
     private User user;
     
     public Cart() {
