@@ -42,6 +42,19 @@ public class CartService {
         return carts;
     }
 
+    // make a method to find all carts by user id and completed = false, and make complete = true/
+    public List<Cart> makeComplete(Long id) {
+        List<Cart> carts = this.cartRepo.findByUserId(id);
+
+        for (Cart cart : carts) {
+            if (cart.getComplete() == false) {
+                cart.setComplete(true);
+                this.cartRepo.save(cart);
+            }
+        }
+        return carts;
+    }
+
     public List<Cart> findByCompletedFalse(Long id) {
     List<Cart> carts = this.cartRepo.findByUserId(id);
 

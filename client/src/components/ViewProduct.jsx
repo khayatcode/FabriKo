@@ -9,7 +9,7 @@ const ViewProduct = (props) => {
     const { sessionId } = props
     const { productId } = useParams()
     const [productInfo, setProductInfo] = useState({})
-    const [userInfo, setUserInfo] = useState({})
+
     const [cart, setCart] = useState({
         user: {},
         product: {},
@@ -24,21 +24,24 @@ const ViewProduct = (props) => {
 
 useEffect(() => {
     Promise.all([
-        fetch(`http://localhost:8080/api/getuser/${sessionId}`),
-        fetch(`http://localhost:8080/product/${productId}`)
+        fetch(`http://localhost:8080/api/getuser/${sessionId}`).then(res => res.json()),
+        fetch(`http://localhost:8080/product/${productId}`).then(res => res.json())
     ])
-    .then(responses => Promise.all(responses.map(response => response.json())))
-    .then(data => {
-        const [user, product] = data;
-        setUserInfo(user);
-        setProductInfo(product);
+    .then(([user, product]) => {
+        const { id, firstName, lastName, email, accountType } = user;
+        const { id: productId, productName, productDescription, productPrice, productImage1 } = product;
         setCart({
             ...cart,
-            user: user,
-            product: product
+            user: { id, firstName, lastName, email, accountType },
+            product: { id: productId, productName, productDescription, productPrice, productImage1 }
         });
-    });
+        setProductInfo(product);
+    })
+    .catch(err => console.log(err));
 }, []);
+
+
+
 
       const images = [productInfo.productImage1, ViewProduct1, ViewProduct3, ViewProduct4];
 
@@ -88,8 +91,8 @@ useEffect(() => {
             .then(res => {
                 console.log("cart response", res)
                 setCart({
-                    user: userInfo,
-                    product: productInfo,
+                    user: {},
+                    product: {},
                     quantity: "",
                     size: '',
                     total: "",
@@ -129,10 +132,6 @@ useEffect(() => {
                         <p className='text-center' style={{ fontWeight: 300 }}>Price: ${productInfo.productPrice}</p>
                     </div>
                     <form className='view-product-form' onSubmit={handleSubmit}>
-                        <input type='hidden' name='user' value={cart.user} />
-                        <input type='hidden' name='product' value={cart.product} />
-                        <input type='hidden' name='total' value={cart.total} />
-                        <input type='hidden' name='complete' value={cart.complete} />
                         <div className='form-floating mb-4'>
                             <select className='form-select' id='floatingSelect' name='size' onChange={onChange} value={cart.size}>
                                 <option disabled value=''>Select Size</option>

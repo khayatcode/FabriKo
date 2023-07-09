@@ -14,6 +14,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -42,7 +43,7 @@ public class Shipping {
 	@NotBlank(message="State is required!")
 	private String state;
 	
-	@NotBlank(message="Zip is required!")
+	@NotNull(message="Zip is required!")
 	private Integer zip;
 	
 	@NotBlank(message="Country is required")

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const BillingForm = (props) => {
-    const { userInfo, sessionId } = props;
+    const { sessionId } = props;
     const [billingForm, setBillingForm] = useState({
         name: '',
         email: '',
@@ -19,32 +19,21 @@ const BillingForm = (props) => {
     });
     const navigate = useNavigate();
 
-    useEffect(() => {
-        fetch(`http://localhost:8080/api/getuser/${sessionId}`)
-            .then((res) => res.json())
-            .then((res) => {
-                setBillingForm({
-                    ...billingForm,
-                    user: res,
-                });
-            })
-            .catch((err) => console.log(err));
-    }, []);
 
 useEffect(() => {
-    fetch(`http://localhost:8080/billing/find/${sessionId}`)
-        .then((res) => res.json())
-        .then((res) => {
-            console.log("billing res", res);
-            if(res.status == 404) {
-                console.log("billing res is null");
-            } else {
-                // const { user, ...billingWithoutUser } = res;
-                console.log(res);
-                setBillingForm(res);
-            }
-        })
-        .catch((err) => console.log(err));
+    Promise.all([
+        fetch(`http://localhost:8080/api/getuser/${sessionId}`).then(res => res.json()),
+        fetch(`http://localhost:8080/billing/find/${sessionId}`).then(res => res.json())
+    ])
+    .then(([user, billing]) => {
+        const { id, firstName, lastName, email, accountType } = user;
+        const { user: billingUser, ...billingWithoutUser } = billing;
+        setBillingForm({
+            ...billingWithoutUser,
+            user: { id, firstName, lastName, email, accountType }
+        });
+    })
+    .catch(err => console.log(err));
 }, []);
 
 
@@ -78,7 +67,7 @@ useEffect(() => {
                     card: '',
                     exp: '',
                     cvv: '',
-                    user: {userInfo},
+                    user: {},
                 });
                 navigate('/shippingInfo');
             }
@@ -92,7 +81,7 @@ useEffect(() => {
                 <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>Billing Info</h1>
                 <form onSubmit={handleSubmit} className="row">
                     {/* Error below */}
-                    <input type="hidden" name="user" value={billingForm.user} />
+                    
                     <div className="col-md-6">
                         <div className="form-floating mb-3">
                             <input

@@ -29,7 +29,6 @@ import CategoryPage from './views/CategoryPage';
 function App() {
   const [sessionId, setSessionId] = useState(Cookies.get("sessionId") || "");
   const [userInfo, setUserInfo] = useState({})
-  const [allCart, setAllCart] = useState([])
 
   useEffect(() => {
     console.log("sessionId changed:", sessionId);
@@ -61,13 +60,13 @@ function App() {
         <Route path="/category/:categoryName" element={<CategoryPage sessionId={sessionId} />} />
         <Route path="/createProduct" element={<CreateProduct />} />
         <Route path="/product/edit/:productId" element={<EditProduct />} />
-        <Route path="/product/view/:productId" element={<ViewProduct allCart={allCart} setAllCart={setAllCart} sessionId={sessionId}/>} />
+        <Route path="/product/view/:productId" element={<ViewProduct sessionId={sessionId}/>} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/billing" element={<BillingForm userInfo={userInfo} sessionId={sessionId}/>} />
-        <Route path="/shippingInfo" element={<Shipping userInfo={userInfo} sessionId={sessionId}/>} />
+        <Route path="/shippingInfo" element={<Shipping sessionId={sessionId}/>} />
         <Route path="/shopping/cart" element={<ShoppingCart sessionId={sessionId}/>} />
         <Route path="/shopping/cart/confirm" element={<ShoppingCartConf/>} />
-        <Route path="/order/success" element={<OrderSuccessPage/>} />
+        <Route path="/order/success" element={<OrderSuccessPage firstName={userInfo.firstName}/>} />
         <Route path="/terms" element={<Terms/>} />
         <Route path="/privacy" element={<Privacy/>} />
         <Route path="/category/error" element={<h1>Category Not Found</h1>} />

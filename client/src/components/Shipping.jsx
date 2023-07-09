@@ -11,7 +11,7 @@ const Shipping = (props) => {
         state: '',
         zip: '',
         country: '',
-        phone: '',
+        phoneNumber: '',
         user: {}
     })
     const [errors, setErrors] = useState({})
@@ -24,21 +24,21 @@ const Shipping = (props) => {
         })
     }
 
-    useEffect(() => {
-        fetch(`http://localhost:8080/shipping/user/${sessionId}`)
-            .then(res => res.json())
-            .then(res => {
-                console.log("shipping res", res)
-                if (res.status == 404) {
-                    console.log("shipping res is null")
-                } else {
-                    // const { user, ...shippingWithoutUser } = res
-                    console.log(res)
-                    setShippingAddress(res)
-                }
-            })
-            .catch(err => console.log(err))
-    }, [])
+useEffect(() => {
+    Promise.all([
+        fetch(`http://localhost:8080/api/getuser/${sessionId}`).then(res => res.json()),
+        fetch(`http://localhost:8080/shipping/user/${sessionId}`).then(res => res.json())
+    ])
+    .then(([user, shipping]) => {
+        const { id, firstName, lastName, email, accountType } = user;
+        const { user: shippingUser, ...shippingWithoutUser } = shipping;
+        setShippingAddress({
+            ...shippingWithoutUser,
+            user: { id, firstName, lastName, email, accountType }
+        });
+    })
+    .catch(err => console.log(err));
+}, []);
 
 
     const handleSubmit = (e) => {
@@ -51,6 +51,7 @@ const Shipping = (props) => {
             },
             body: JSON.stringify(shippingAddress)
         })
+            .then(res => res.json())
             .then(res => {
                 console.log(res)
                     setShippingAddress({
@@ -60,7 +61,7 @@ const Shipping = (props) => {
                         state: '',
                         zip: '',
                         country: '',
-                        phone: '',
+                        phoneNumber: '',
                         user: {}
                     })
                     navigate('/order/success')
@@ -68,18 +69,6 @@ const Shipping = (props) => {
             )
             .catch(err => console.log(err))
     }
-
-    useEffect(() => {
-        fetch(`http://localhost:8080/api/getuser/${sessionId}`)
-            .then(res => res.json())
-            .then(res => {
-                setShippingAddress({
-                    ...shippingAddress,
-                    user: res
-                })
-            })
-            .catch(err => console.log(err))
-    }, [])
 
 
   return (
@@ -112,10 +101,11 @@ const Shipping = (props) => {
                     <label htmlFor='country'>Country:</label>
                 </div>
                 <div className='form-floating mb-3'>
-                    <input type="number" className='form-control' placeholder='Phone' name="phone" value={shippingAddress.phone} onChange={onChange} />
-                    <label htmlFor='phone'>Phone:</label>
+                    <input type="number" className='form-control' placeholder='Phone' name="phoneNumber" value={shippingAddress.phoneNumber} onChange={onChange} />
+                    <label htmlFor='phoneNumber'>Phone:</label>
                 </div>
-                <input type="submit" value="Submit" className='btn btn-outline-dark' />
+                <p>Order Created Upon Form Submission</p>
+                <input type="submit" value="Create Order" className='btn btn-outline-dark' />
             </form>
         </div>
     </div>

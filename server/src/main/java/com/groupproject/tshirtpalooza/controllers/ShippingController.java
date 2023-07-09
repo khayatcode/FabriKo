@@ -13,17 +13,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.groupproject.tshirtpalooza.models.Shipping;
+import com.groupproject.tshirtpalooza.services.CartService;
 import com.groupproject.tshirtpalooza.services.ShippingService;
 
 @CrossOrigin
 @RestController
+@RequestMapping("/shipping")
 public class ShippingController {
 	
 	@Autowired
 	private ShippingService shippingServ;
+
+	@Autowired
+	private CartService cartServ;
 	
 //	@Autowired
 //	private UserService userServ;
@@ -39,7 +45,7 @@ public class ShippingController {
 //		return ResponseEntity.status(200).body(this.shippingServ.getOne(id));
 //	}
 	
-	@GetMapping("/shipping/user/{id}")
+	@GetMapping("/user/{id}")
 	public ResponseEntity<Optional<Shipping>> findByUserId(@PathVariable Long id){
 		Optional<Shipping> optShipping = Optional.ofNullable(this.shippingServ.findByUserId(id));
 		if(optShipping.isPresent()) {
@@ -48,9 +54,10 @@ public class ShippingController {
 		return ResponseEntity.notFound().build();
 	}
 	
-	@PostMapping("/shipping/add/{id}")
-	public ResponseEntity<Shipping> add(@Valid @RequestBody Shipping shipping, @PathVariable Long id){
+	@PostMapping("/add/{id}")
+	public ResponseEntity<Shipping> add(@RequestBody Shipping shipping, @PathVariable Long id){
 		System.out.println("shipping controller add method");
+		System.out.println("Request body: " + shipping);
 		Optional<Shipping> optShipping = Optional.ofNullable(this.shippingServ.findByUserId(id));
 		if(optShipping.isPresent()) {
 			Shipping existingShipping = optShipping.get();
@@ -62,10 +69,12 @@ public class ShippingController {
 			existingShipping.setCountry(shipping.getCountry());
 			existingShipping.setPhoneNumber(shipping.getPhoneNumber());
 			Shipping savedShipping = shippingServ.update(existingShipping);
-			return ResponseEntity.status(HttpStatus.CREATED).body(savedShipping);
+			this.cartServ.makeComplete(id);
+			return ResponseEntity.ok(savedShipping);
 		}
 		Shipping savedShipping = shippingServ.create(shipping);
-		return ResponseEntity.status(HttpStatus.CREATED).body(savedShipping);
+		this.cartServ.makeComplete(id);
+		return ResponseEntity.ok(savedShipping);
 	}
 	
 	@PostMapping("/shipping/update")
