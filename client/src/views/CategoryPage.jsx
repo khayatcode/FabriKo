@@ -24,7 +24,7 @@ const CategoryPage = (props) => {
             })
             .catch(err => console.log(err))
             }
-    }, [])
+    }, [categoryName])
 
     const deleteProduct = (productId) => {
         console.log(productId)

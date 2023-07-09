@@ -69,6 +69,13 @@ public class CartService {
     return incompleteCarts;
 }
 
+    public List<Cart> findByProductIdAndUserIdAndFalse(Long productId, Long userId) {
+        System.out.println("CART SERVICE ProductId and UserId");
+        List<Cart> cart = this.cartRepo.findByProductIdAndUserIdAndCompleteFalse(productId, userId);
+        System.out.println("List CART: " + cart);
+        return cart;
+    }
+
     
 
 }

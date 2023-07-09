@@ -7,24 +7,38 @@ import Shoes from '../images/shoes2.webp'
 
 
 const ShoppingCart = (props) => {
-    const { sessionId } = props
+    const { sessionId, firstName } = props
     const [allCartItems, setAllCartItems] = useState([])
     const [total, setTotal] = useState(0)
 
-    useEffect(() => {
-        fetch(`http://localhost:8080/cart/find/uncomplete/${sessionId}`)
-            .then(res => res.json())
-            .then(res => {
-                console.log(res)
-                setAllCartItems(res)
-                let sum = 0;
-                res.forEach(cart => {
-                    sum += cart.total;
-                });
-                setTotal(sum);
-            })
-            .catch(err => console.log(err))
-    }, [])
+useEffect(() => {
+    fetch(`http://localhost:8080/cart/find/uncomplete/${sessionId}`)
+        .then(res => res.json())
+        .then(res => {
+            console.log("all cart items: ", res)
+            let updatedRes = res.map(cart => {
+                return {
+                    id: cart.id,
+                    quantity: cart.quantity,
+                    size: cart.size,
+                    total: cart.total,
+                    complete: cart.complete,
+                    product: {
+                        id: cart.product.id,
+                        productName: cart.product.productName,
+                        productImage1: cart.product.productImage1
+                    }
+                };
+            });
+            setAllCartItems(updatedRes);
+            let sum = 0;
+            updatedRes.forEach(cart => {
+                sum += cart.total;
+            });
+            setTotal(sum);
+        })
+        .catch(err => console.log(err))
+}, [])
 
 const removeItem = (cartId) => {
     fetch(`http://localhost:8080/cart/delete/${cartId}`, {
@@ -47,7 +61,7 @@ const removeItem = (cartId) => {
         // do a row for each product having picture, product name, quantity, and total for product. make it spaced out evenly and have a button to remove it from the cart. have a total at the bottom with continue to checkout button. 
         <div className='container d-flex justify-content-center' style={{ padding: '8%' }}>
             <div className='col-10'>
-                <h1 className='mb-5' style={{ fontWeight: 300 }}>First Name Shopping Cart</h1>
+                <h1 className='mb-5' style={{ fontWeight: 300 }}>{firstName} Shopping Cart</h1>
                 {/* <div className='row d-flex justify-content-between align-items-center mb-5'>
                 <div className='col-3'>
                     <img src={UpperWear} style={{height: '250px' }}/>
@@ -68,13 +82,18 @@ const removeItem = (cartId) => {
                             <div className='col-3'>
                                 <img src={item.product.productImage1} style={{ height: '250px' }} />
                             </div>
-                            <div className='col-3'>
-                                <h6 style={{ fontWeight: 300 }}>Product Name: {item.product.productName}</h6>
+                            <div className='col-2'>
+                                <h6 style={{ fontWeight: 300 }}>Product Name: 
+                                    <Link to={`/product/view/${item.product.id}`} style={{ textDecoration: 'none', color: 'black' }}> {item.product.productName}</Link>
+                                </h6>
                             </div>
-                            <div className='col-3'>
+                            <div className='col-2'>
+                                <h6 style={{ fontWeight: 300 }}>size: {item.size}</h6>
+                            </div>
+                            <div className='col-2'>
                                 <h6 style={{ fontWeight: 300 }}>Quantity: {item.quantity}</h6>
                             </div>
-                            <div className='col-3'>
+                            <div className='col-2'>
                                 <h6 style={{ fontWeight: 300 }}>Total: ${item.total}</h6>
                                 <button className='btn btn-outline-dark' onClick={() => removeItem(item.id)}>Remove</button>
                             </div>

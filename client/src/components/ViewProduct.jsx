@@ -80,7 +80,7 @@ useEffect(() => {
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log(cart)
-        fetch(`http://localhost:8080/cart/create`, {
+        fetch(`http://localhost:8080/cart/create/${productId}/${sessionId}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
