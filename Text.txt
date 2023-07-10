@@ -1,3 +1,1 @@
 What to fix:
-* Cant have more than 1 cart with the same product.
-* When I submit the billing form for edit, it doesnt take the userId

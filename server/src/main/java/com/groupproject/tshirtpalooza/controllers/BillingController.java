@@ -1,11 +1,16 @@
 package com.groupproject.tshirtpalooza.controllers;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,18 +44,27 @@ public ResponseEntity<Optional<Billing>> findByUserId(@PathVariable Long id) {
     }
 }
 	
-	@PostMapping("/create/{id}")
-	public ResponseEntity<Billing> create(@RequestBody Billing billing, @PathVariable Long id) {
-		Optional<Billing> optBilling = Optional.ofNullable(this.billingSer.findByUserId(id));
-		if (optBilling.isPresent()) {
-			Billing updatedBilling = this.billingSer.create(billing);
-			return ResponseEntity.ok(updatedBilling);
-		} else {
-			System.out.println("Billing date: " + billing.getExp());
-			Billing newBilling = this.billingSer.create(billing);
-			return ResponseEntity.ok(newBilling);
-		}
-	}
+@PostMapping("/create/{id}")
+public ResponseEntity<Object> create(@Valid @RequestBody Billing billing, BindingResult result, @PathVariable Long id) {
+    if (result.hasErrors()) {
+        List<String> errorMessages = new ArrayList<>();
+        for (ObjectError error : result.getAllErrors()) {
+            errorMessages.add(error.getDefaultMessage());
+        }
+		// Sort the error messages alphabetically
+		Collections.sort(errorMessages);
+        return ResponseEntity.status(400).body(errorMessages);
+    }
+    Optional<Billing> optBilling = Optional.ofNullable(this.billingSer.findByUserId(id));
+    if (optBilling.isPresent()) {
+        Billing updatedBilling = this.billingSer.create(billing);
+        return ResponseEntity.status(200).body(updatedBilling);
+    } else {
+        System.out.println("Billing date: " + billing.getExp());
+        Billing newBilling = this.billingSer.create(billing);
+        return ResponseEntity.status(200).body(newBilling);
+    }
+}
 
 	@PutMapping("/update")
 	public ResponseEntity<Billing> update(@RequestBody Billing billing) {

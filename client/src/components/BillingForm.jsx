@@ -17,6 +17,7 @@ const BillingForm = (props) => {
         cvv: '',
         user: {}
     });
+    const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
 
 
@@ -56,20 +57,25 @@ useEffect(() => {
         })
             .then((res) => res.json())
             .then((res) => {
-                console.log('billing Form response', res);
-                setBillingForm({
-                    name: '',
-                    email: '',
-                    address: '',
-                    city: '',
-                    state: '',
-                    zip: '',
-                    card: '',
-                    exp: '',
-                    cvv: '',
-                    user: {},
-                });
-                navigate('/shippingInfo');
+                if(res.status === 200) {;
+                    console.log('billing Form response', res);
+                    setBillingForm({
+                        name: '',
+                        email: '',
+                        address: '',
+                        city: '',
+                        state: '',
+                        zip: '',
+                        card: '',
+                        exp: '',
+                        cvv: '',
+                        user: {},
+                    });
+                    navigate('/shippingInfo');
+                } else {
+                    console.log('billing Form response', res);
+                    setErrors(res);
+                }
             }
             )
             .catch((err) => console.log(err));
@@ -79,8 +85,14 @@ useEffect(() => {
         <div className='container d-flex justify-content-center' style={{ padding: '10%' }}>
             <div className='col-md-12'>
                 <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>Billing Info</h1>
+                {errors.length > 0 && (
+                    <div className='alert alert-danger'>
+                        {errors.map((error, index) => (
+                            <div key={index}>{error}</div>
+                        ))}
+                    </div>
+                )}
                 <form onSubmit={handleSubmit} className="row">
-                    {/* Error below */}
                     
                     <div className="col-md-6">
                         <div className="form-floating mb-3">
