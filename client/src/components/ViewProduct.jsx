@@ -15,10 +15,10 @@ const ViewProduct = (props) => {
         product: {},
         quantity: "",
         size: '',
-        total: "",
+        total: 0,
         complete: false
     })
-    const [errors, setErrors] = useState({})
+    const [errors, setErrors] = useState([])
     const [currentImage, setCurrentImage] = useState(0);
     const navigate = useNavigate()
 
@@ -87,21 +87,26 @@ useEffect(() => {
             },
             body: JSON.stringify(cart)
         })
-            .then(res => res.json())
-            .then(res => {
-                console.log("cart response", res)
+        .then(async (res) => {
+            if (res.status >= 200 && res.status < 300) {
+                const data = await res.json();
+                console.log(data);
                 setCart({
                     user: {},
                     product: {},
                     quantity: "",
                     size: '',
-                    total: "",
+                    total: 0,
                     complete: false
                 })
-                setErrors({})
+                setErrors([])
                 navigate("/shopping/cart")
+            } else {
+                const data = await res.json();
+                console.log(data);
+                setErrors(data);
             }
-            )
+        })
             .catch(err => console.log(err))
     }
 
@@ -131,6 +136,13 @@ useEffect(() => {
                     <div className='mb-4'>
                         <p className='text-center' style={{ fontWeight: 300 }}>Price: ${productInfo.productPrice}</p>
                     </div>
+                    {errors.length > 0 && (
+                    <div className='alert alert-danger'>
+                        {errors.map((error, index) => (
+                            <div key={index}>{error}</div>
+                        ))}
+                    </div>
+                    )}
                     <form className='view-product-form' onSubmit={handleSubmit}>
                         <div className='form-floating mb-4'>
                             <select className='form-select' id='floatingSelect' name='size' onChange={onChange} value={cart.size}>
@@ -144,7 +156,7 @@ useEffect(() => {
                             <label htmlFor='size' className='form-label'>Size</label>
                         </div>
                         <div className='form-floating mb-4'>
-                            <input type='number' className='form-control' placeholder='Quantity' id='floatingInput' min='1' name='quantity' onChange={onChange} value={cart.quantity} />
+                            <input type='number' className='form-control' placeholder='Quantity' id='floatingInput' name='quantity' onChange={onChange} value={cart.quantity} />
                             <label htmlFor='quantity' className='floatingInput'>Quantity</label>
                         </div>
                         <button type='submit' className='btn btn-outline-dark'>Add to Cart</button>

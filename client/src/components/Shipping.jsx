@@ -14,7 +14,7 @@ const Shipping = (props) => {
         phoneNumber: '',
         user: {}
     })
-    const [errors, setErrors] = useState({})
+    const [errors, setErrors] = useState([])
     const navigate = useNavigate()
 
     const onChange = (e) => {
@@ -44,16 +44,17 @@ useEffect(() => {
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log(shippingAddress)
-        fetch(`http://localhost:8080/shipping/add/${sessionId}`, {
+        fetch(`http://localhost:8080/shipping/add/update/${sessionId}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(shippingAddress)
         })
-            .then(res => res.json())
-            .then(res => {
-                console.log(res)
+            .then(async (res) => {
+                if (res.status >= 200 && res.status < 300) {
+                    const data = await res.json()
+                    console.log(data)
                     setShippingAddress({
                         name: '',
                         address: '',
@@ -64,9 +65,13 @@ useEffect(() => {
                         phoneNumber: '',
                         user: {}
                     })
+                    setErrors([])
                     navigate('/order/success')
+                } else {
+                    const data = await res.json()
+                    setErrors(data)
                 }
-            )
+            })
             .catch(err => console.log(err))
     }
 
@@ -75,6 +80,13 @@ useEffect(() => {
     <div className='container d-flex justify-content-center' style={{ padding: '8%' }}>
         <div className='col-md-6'>
             <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>Shipping</h1>
+            {errors.length > 0 && (
+                    <div className='alert alert-danger'>
+                        {errors.map((error, index) => (
+                            <div key={index}>{error}</div>
+                        ))}
+                    </div>
+                )}
             <form onSubmit={handleSubmit}>
                 <div className='form-floating mb-3'>
                     <input type="text" className='form-control' placeholder='Name' name="name" value={shippingAddress.name} onChange={onChange} />

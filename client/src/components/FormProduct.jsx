@@ -7,13 +7,13 @@ const FormProduct = (props) => {
             <div className='col-md-6'>
                 <h1 className='text-center mb-3' style={{ fontWeight: 300 }}>{message}</h1>
                 <form onSubmit={submitProduct}>
-                    {Object.keys(errors).length > 0 ? (
+                    {/* {Object.keys(errors).length > 0 ? (
                         <div>
                             {Object.keys(errors).map((key, index) => (
                                 <p key={index}>{errors}</p>
                             ))}
                         </div>
-                    ) : null}
+                    ) : null} */}
                     <div className='form-floating mb-3'>
                         <input type='text' className='form-control' id='floatingInput' placeholder='Product Name' name='productName' value={productInfo.productName} onChange={changeHandler} />
                         <label htmlFor='floatingInput'>Product Name</label>
@@ -37,7 +37,7 @@ const FormProduct = (props) => {
                     </div>
                     <div className='mb-3'>
                         <label htmlFor='formFile' className='form-label'>Product Image 1</label>
-                        <input type='file' className='form-control' id='formFile' placeholder='Product Image 1' name='productImage1' onChange={changeHandler} />
+                        <input type='file' className='form-control' id='formFile' placeholder='Product Image 1' name='productImageTest' onChange={changeHandler} />
                     </div>
                     {/* <div className='mb-3'>
                         <label htmlFor='formFile' className='form-label'>Product Image 2</label>

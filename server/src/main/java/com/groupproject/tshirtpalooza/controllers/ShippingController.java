@@ -1,5 +1,7 @@
 package com.groupproject.tshirtpalooza.controllers;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +10,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,19 +35,10 @@ public class ShippingController {
 	@Autowired
 	private CartService cartServ;
 	
-//	@Autowired
-//	private UserService userServ;
-//  NOTE: for email domain name check fabriko.com prevent from creating an "admin" account type
-
 	@GetMapping("/shipping")
 	public ResponseEntity<List<Shipping>> items(){
 		return ResponseEntity.status(200).body(this.shippingServ.all());
 	}
-	
-//	@GetMapping("/shipping/{id}")
-//	public ResponseEntity<Shipping> getOneById(@PathVariable Long id){
-//		return ResponseEntity.status(200).body(this.shippingServ.getOne(id));
-//	}
 	
 	@GetMapping("/user/{id}")
 	public ResponseEntity<Optional<Shipping>> findByUserId(@PathVariable Long id){
@@ -54,27 +49,19 @@ public class ShippingController {
 		return ResponseEntity.notFound().build();
 	}
 	
-	@PostMapping("/add/{id}")
-	public ResponseEntity<Shipping> add(@RequestBody Shipping shipping, @PathVariable Long id){
-		System.out.println("shipping controller add method");
-		System.out.println("Request body: " + shipping);
-		Optional<Shipping> optShipping = Optional.ofNullable(this.shippingServ.findByUserId(id));
-		if(optShipping.isPresent()) {
-			Shipping existingShipping = optShipping.get();
-			existingShipping.setName(shipping.getName());
-			existingShipping.setAddress(shipping.getAddress());
-			existingShipping.setCity(shipping.getCity());
-			existingShipping.setState(shipping.getState());
-			existingShipping.setZip(shipping.getZip());
-			existingShipping.setCountry(shipping.getCountry());
-			existingShipping.setPhoneNumber(shipping.getPhoneNumber());
-			Shipping savedShipping = shippingServ.update(existingShipping);
-			this.cartServ.makeComplete(id);
-			return ResponseEntity.ok(savedShipping);
+	@PostMapping("/add/update/{id}")
+	public ResponseEntity<Object> add(@Valid @RequestBody Shipping shipping, BindingResult result, @PathVariable Long id){
+		if (result.hasErrors()) {
+			List<String> errorMessages = new ArrayList<>();
+			for (ObjectError error : result.getAllErrors()) {
+				errorMessages.add(error.getDefaultMessage());
+			}
+			Collections.sort(errorMessages);
+			return ResponseEntity.status(400).body(errorMessages);
 		}
 		Shipping savedShipping = shippingServ.create(shipping);
 		this.cartServ.makeComplete(id);
-		return ResponseEntity.ok(savedShipping);
+		return ResponseEntity.status(HttpStatus.CREATED).body(savedShipping);
 	}
 	
 	@PostMapping("/shipping/update")

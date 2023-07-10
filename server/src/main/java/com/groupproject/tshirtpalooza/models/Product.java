@@ -18,9 +18,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.springframework.web.multipart.MultipartFile;
 
 
 
@@ -33,19 +31,22 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Size(min=3, message="Item Name must be at least 3 characters long")
+	@NotBlank(message="Product name is required")
+	@Size(min=3, message="Product name must be at least 3 characters long")
 	private String productName;
 	
 	@NotBlank(message="Category is required!")
 	private String productCategory;
 	
+	@NotNull(message="Product price is required")
 	@Min(value=1, message="Price must be at least greater than 0")
 	private Double productPrice;
 	
 	@NotBlank(message="Description is required!")
+	@Size(min=3, message="Description must be at least 3 characters long")
 	private String productDescription;
 	
-	@NotNull
+	// @NotNull(message="Product image is required!")
     private String productImage1;
 
 	@OneToMany(mappedBy="product", fetch=FetchType.LAZY)
@@ -124,6 +125,7 @@ public class Product {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+
 
 	public String getProductImage1() {
 		return productImage1;

@@ -25,16 +25,17 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+	@NotNull(message="Choose quantity amount")
     @Min(value=1, message="Quantity must be greater than 0")
     private Integer quantity;
 
     @NotBlank(message="Please choose a size")
     private String size;
-
-    @Min(value=1, message="Total must be greater than 0")
+    
+    @NotNull(message="Total cant be null")
     private Double total;
 
-    @NotNull(message="Please choose a wether its complete or not")
+    @NotNull(message="Complete cant be null")
     private Boolean complete;
     
     @ManyToOne(fetch = FetchType.LAZY)

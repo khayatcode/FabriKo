@@ -45,27 +45,19 @@ public ResponseEntity<Optional<Billing>> findByUserId(@PathVariable Long id) {
     }
 }
 	
-@PostMapping("/create/{id}")
+@PostMapping("/create/update/{id}")
 public ResponseEntity<Object> create(@Valid @RequestBody Billing billing, BindingResult result, @PathVariable Long id) {
     if (result.hasErrors()) {
         List<String> errorMessages = new ArrayList<>();
         for (ObjectError error : result.getAllErrors()) {
             errorMessages.add(error.getDefaultMessage());
         }
-		// Sort the error messages alphabetically
 		Collections.sort(errorMessages);
         return ResponseEntity.status(400).body(errorMessages);
-        
     }
-    Optional<Billing> optBilling = Optional.ofNullable(this.billingSer.findByUserId(id));
-    if (optBilling.isPresent()) {
-        Billing updatedBilling = this.billingSer.create(billing);
-        return ResponseEntity.status(200).body(updatedBilling);
-    } else {
         System.out.println("Billing date: " + billing.getExp());
         Billing newBilling = this.billingSer.create(billing);
         return ResponseEntity.status(200).body(newBilling);
-    }
 }
 
 	@PutMapping("/update")

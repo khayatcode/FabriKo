@@ -1,12 +1,17 @@
 package com.groupproject.tshirtpalooza.controllers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,9 +42,16 @@ public class CartController {
 	private ProductService productServ;
 
 	@PostMapping("/create/{productId}/{userId}")
-	public ResponseEntity<Cart> create(@RequestBody Cart cart, @PathVariable Long productId,
+	public ResponseEntity<Object> create(@Valid @RequestBody Cart cart, BindingResult result, @PathVariable Long productId,
 			@PathVariable Long userId) {
-		System.out.println("Create Billing");
+		if (result.hasErrors()) {
+			List<String> errorMessages = new ArrayList<>();
+			for (ObjectError error : result.getAllErrors()) {
+				errorMessages.add(error.getDefaultMessage());
+			}
+			Collections.sort(errorMessages);
+			return ResponseEntity.status(400).body(errorMessages);
+		}
 		// check if cart exists. if it does, update the quantity and total price
 		List<Cart> existingCart = this.cartServ.findByProductIdAndUserIdAndFalse(productId, userId);
 		// do a loop to see if the size matches

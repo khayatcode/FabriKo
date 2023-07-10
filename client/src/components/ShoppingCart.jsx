@@ -100,14 +100,17 @@ const removeItem = (cartId) => {
                         </div>
                     )
                 }
-                )}
+                )
+                }
                 <div className='row'>
                     <div className='col-9'>
                         <h4 style={{ fontWeight: 300 }}>Total: ${total}</h4>
                     </div>
-                    <div className='col-3'>
-                        <Link to='/billing' className='btn btn-outline-dark'>Continue to Checkout</Link>
-                    </div>
+                    { allCartItems.length > 0 && (
+                        <div className='col-3'>
+                            <Link to='/billing' className='btn btn-outline-dark'>Continue to Checkout</Link>
+                        </div>
+                    )}
                 </div>
 
             </div>

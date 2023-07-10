@@ -48,7 +48,7 @@ useEffect(() => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(billingForm);
-        fetch(`http://localhost:8080/billing/create/${sessionId}`, {
+        fetch(`http://localhost:8080/billing/create/update/${sessionId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -71,6 +71,7 @@ useEffect(() => {
                         cvv: '',
                         user: {},
                     });
+                    setErrors([]);
                     navigate('/shippingInfo');
                 } else {
                     const data = await res.json();

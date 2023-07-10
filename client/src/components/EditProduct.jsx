@@ -13,7 +13,7 @@ const EditProduct = () => {
         productCategory: "",
         productImage1: ""
     })
-    const [errors, setErrors] = useState({})
+    const [errors, setErrors] = useState([])
     const navigate = useNavigate()
     const { productId } = useParams()
 
@@ -69,7 +69,7 @@ const EditProduct = () => {
                         productCategory: "",
                         productImage1: ""
                     })
-                    setErrors({})
+                    setErrors([])
                     navigate("/")
                 }
             )
