@@ -55,6 +55,7 @@ public ResponseEntity<Object> create(@Valid @RequestBody Billing billing, Bindin
 		// Sort the error messages alphabetically
 		Collections.sort(errorMessages);
         return ResponseEntity.status(400).body(errorMessages);
+        
     }
     Optional<Billing> optBilling = Optional.ofNullable(this.billingSer.findByUserId(id));
     if (optBilling.isPresent()) {
