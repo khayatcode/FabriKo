@@ -55,10 +55,10 @@ useEffect(() => {
             },
             body: JSON.stringify(billingForm),
         })
-            .then((res) => res.json())
-            .then((res) => {
-                if(res.status === 200) {;
-                    console.log('billing Form response', res);
+            .then(async (res) => {
+                if (res.status >= 200 && res.status < 300) {
+                    const data = await res.json();
+                    console.log(data);
                     setBillingForm({
                         name: '',
                         email: '',
@@ -73,11 +73,10 @@ useEffect(() => {
                     });
                     navigate('/shippingInfo');
                 } else {
-                    console.log('billing Form response', res);
-                    setErrors(res);
+                    const data = await res.json();
+                    setErrors(data);
                 }
-            }
-            )
+            })
             .catch((err) => console.log(err));
     };
 
