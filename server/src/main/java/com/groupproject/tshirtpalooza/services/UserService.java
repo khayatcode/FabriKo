@@ -49,14 +49,14 @@ public class UserService {
 	    	Optional<User> potentialUser = repo.findByEmail(newLoginObject.getEmail());
 	    	
 	    	if(!potentialUser.isPresent()) {
-	    		result.rejectValue("email", "Matches", "Invalid Credentials");
+	    		result.rejectValue("email", "Matches", "Email/Password is incorrect!");
 	    		return null;
 	    	}
 	    	
 	    	User user = potentialUser.get();
 	        
 	    	if(!BCrypt.checkpw(newLoginObject.getPassword(), user.getPassword())) {
-	    	    result.rejectValue("password", "Matches", "Invalid Credentials!");
+	    	    result.rejectValue("password", "Matches", "Email/Password is incorrect!");
 	    	}
 	    	
 	    	if(result.hasErrors()) {

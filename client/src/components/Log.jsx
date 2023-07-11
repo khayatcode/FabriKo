@@ -8,7 +8,7 @@ const Log = (props) => {
         email: "",
         password: ""
     })
-    const [errors, setErrors] = useState({})
+    const [errors, setErrors] = useState([])
     const navigate = useNavigate()
 
     const changeHandler = (e) => {
@@ -27,14 +27,23 @@ const Log = (props) => {
             },
             body: JSON.stringify(user)
         })
-            .then(res => {
-                if (!res.ok) {
-                    throw new Error("Login failed. Please try again.");}
-                    return res.json();})
-                .then(data => {
-                    setErrors({});
-                    setSessionId(data.id);
-                    navigate("/");
+            .then(async (res) => {
+                if (res.status >= 200 && res.status < 300) {
+                    const data = await res.json();
+                    console.log("login data" + data)
+                    setUser({
+                        email: "",
+                        password: ""
+                    })
+                    setErrors([])
+                    console.log(data)
+                    setSessionId(data.id)
+                    navigate("/")
+                } else {
+                    const data = await res.json();
+                    console.log("login data" + data)
+                    setErrors(data)
+                }
             })
             .catch(err => console.log(err))
     }
@@ -43,6 +52,13 @@ const Log = (props) => {
         <div className='container d-flex justify-content-center' style={{ padding: '18%' }}>
             <div className='col-md-6'>
                 <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>Login</h1>
+                {errors.length > 0 && (
+                    <div className='alert alert-danger'>
+                        {errors.map((err, index) => (
+                            <p key={index}>{err}</p>
+                        ))}
+                    </div>
+                )}
                 <form onSubmit={submitLog}>
                     <div className='form-floating mb-3'>
                         <input type='email' className='form-control' id='email' placeholder='Email' name='email' value={user.email} onChange={changeHandler} />

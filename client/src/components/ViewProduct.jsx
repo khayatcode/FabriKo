@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import ViewProduct1 from '../images/ViewProduct1.webp'
 import ViewProduct3 from '../images/ViewProduct3.webp'
 import ViewProduct4 from '../images/ViewProduct4.webp'
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 
 const ViewProduct = (props) => {
     const { sessionId } = props
@@ -22,23 +22,30 @@ const ViewProduct = (props) => {
     const [currentImage, setCurrentImage] = useState(0);
     const navigate = useNavigate()
 
-useEffect(() => {
-    Promise.all([
-        fetch(`http://localhost:8080/api/getuser/${sessionId}`).then(res => res.json()),
-        fetch(`http://localhost:8080/product/${productId}`).then(res => res.json())
-    ])
-    .then(([user, product]) => {
-        const { id, firstName, lastName, email, accountType } = user;
-        const { id: productId, productName, productDescription, productPrice, productImage1 } = product;
-        setCart({
-            ...cart,
-            user: { id, firstName, lastName, email, accountType },
-            product: { id: productId, productName, productDescription, productPrice, productImage1 }
-        });
-        setProductInfo(product);
-    })
-    .catch(err => console.log(err));
-}, []);
+    useEffect(() => {
+    if (sessionId) {
+        Promise.all([
+            fetch(`http://localhost:8080/api/getuser/${sessionId}`).then(res => res.json()),
+            fetch(`http://localhost:8080/product/${productId}`).then(res => res.json())
+        ])
+        .then(([user, product]) => {
+            const { id, firstName, lastName, email, accountType } = user;
+            const { id: productId, productName, productDescription, productPrice, productImage1 } = product;
+            setCart({
+                ...cart,
+                user: { id, firstName, lastName, email, accountType },
+                product: { id: productId, productName, productDescription, productPrice, productImage1 }
+            });
+            setProductInfo(product);
+        })
+        .catch(err => console.log(err));
+    } else {
+        fetch(`http://localhost:8080/product/${productId}`)
+            .then(res => res.json())
+            .then(res => setProductInfo(res))
+            .catch(err => console.log(err));
+    }
+}, [sessionId]);
 
 
 
@@ -159,7 +166,11 @@ useEffect(() => {
                             <input type='number' className='form-control' placeholder='Quantity' id='floatingInput' name='quantity' onChange={onChange} value={cart.quantity} />
                             <label htmlFor='quantity' className='floatingInput'>Quantity</label>
                         </div>
-                        <button type='submit' className='btn btn-outline-dark'>Add to Cart</button>
+                        {sessionId ? (
+                            <button type='submit' className='btn btn-outline-dark'>Add to Cart</button>
+                        ) : (
+                            <Link to='/login' className='btn btn-outline-dark'>Login to Add to Cart</Link>
+                        )}
                     </form>
                 </div>
             </div>

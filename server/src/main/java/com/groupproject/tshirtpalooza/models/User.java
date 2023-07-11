@@ -48,10 +48,9 @@ public class User {
     @Size(min=8, max=128, message="Confirm Password must be at least 8 characters and matches PW")
     private String confirmPassword;
     
-    @NotBlank(message="Profile is required!")
+    @NotBlank(message="Account Type is required!")
     private String accountType;
     
-  
     @Column(updatable=false)
     private Date createdAt;
     private Date updatedAt;

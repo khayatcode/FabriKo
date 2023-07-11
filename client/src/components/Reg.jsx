@@ -12,7 +12,7 @@ const Reg = (props) => {
         confirmPassword: "",
         accountType: ""
     })
-    const [errors, setErrors] = useState({})
+    const [errors, setErrors] = useState([])
     const navigate = useNavigate()
 
     const changeHandler = (e) => {
@@ -32,14 +32,10 @@ const Reg = (props) => {
             },
             body: JSON.stringify(userInfo)
         })
-        .then(res => {
-            if (!res.ok) {
-                throw new Error("Registration failed. Please try again.");
-            }
-            return res.json();
-            })
-            .then(res => {
-                console.log(res)
+        .then(async (res) => {
+            if (res.status >= 200 && res.status < 300) {
+                const data = await res.json();
+                console.log("register data" + data)
                     setUserInfo({
                         firstName: "",
                         lastName: "",
@@ -48,10 +44,14 @@ const Reg = (props) => {
                         confirmPassword: "",
                         accountType: ""
                     })
-                    setErrors({})
-                    setSessionId(res.id)
+                    setErrors([])
+                    setSessionId(data.id)
                     navigate("/")
-                
+                } else {
+                    const data = await res.json();
+                    console.log("register data" + data)
+                    setErrors(data)
+                }
             })
             .catch(err => console.log(err))
     }
@@ -61,6 +61,13 @@ const Reg = (props) => {
         <div className='container d-flex justify-content-center' style={{ padding: '8%' }}>
             <div className='col-md-6'>
                 <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>Registers</h1>
+                {errors.length > 0 && (
+                    <div className='alert alert-danger'>
+                        {errors.map((err, index) => (
+                            <p key={index}>{err}</p>
+                        ))}
+                    </div>
+                )}
                 <form onSubmit={submitReg}>
                     <div className='form-floating mb-3'>
                         <input type='text' className='form-control' id='firstName' placeholder='First Name' name='firstName' value={userInfo.firstName} onChange={changeHandler} />
