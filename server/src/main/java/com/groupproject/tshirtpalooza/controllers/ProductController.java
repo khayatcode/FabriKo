@@ -119,155 +119,123 @@ public class ProductController {
 // 		return ResponseEntity.status(HttpStatus.CREATED).body(product);
 // 	}
 
-	// Continue from here. You now are able to show the error messages
+	// Continue from here. You now are able to show the error messages. Keep @Valid
+	// @ModelAttribute Product productForm, BindingResult result
 	@PostMapping("/add")
-	public ResponseEntity<Object> add(@RequestParam("productImageTest") MultipartFile productImageTest, @Valid @ModelAttribute Product productForm, BindingResult result, HttpServletRequest request)
-        throws IOException {
+	public ResponseEntity<Object> add(
+			@RequestParam(value = "productImage1File", required = false) MultipartFile productImage1File,
+			@RequestParam(value = "productImage2File", required = false) MultipartFile productImage2File,
+			@RequestParam(value = "productImage3File", required = false) MultipartFile productImage3File,
+			@Valid @ModelAttribute Product productForm, BindingResult result, HttpServletRequest request)
+			throws IOException {
 		System.out.println("We Got 1 here");
-		System.out.println("product Image Test " + productImageTest);
-		if (result.hasErrors()) {
+		System.out.println("product Image Test " + productImage1File);
+		if (result.hasErrors() || productImage1File == null || productImage2File == null || productImage3File == null) {
 			List<String> errorMessages = new ArrayList<>();
 			for (ObjectError error : result.getAllErrors()) {
 				errorMessages.add(error.getDefaultMessage());
+			}
+			if (productImage1File == null || productImage2File == null || productImage3File == null) {
+				errorMessages.add("All Product images is required.");
 			}
 			System.out.println("errorMessages " + errorMessages);
 			Collections.sort(errorMessages);
 			return ResponseEntity.status(400).body(errorMessages);
 		}
-		Product product = new Product();
-		product.setProductName(productForm.getProductName());
-		product.setProductCategory(productForm.getProductCategory());
-		product.setProductPrice(productForm.getProductPrice());
-		product.setProductDescription(productForm.getProductDescription());
-		System.out.println("We Got 2 here");
 
 		String uploadDir = servletContext.getRealPath("/images/product/");
-		System.out.println("upload Dir " + uploadDir);
-
-		String fileName = productImageTest.getOriginalFilename();
-		String serverFileName = uploadDir + File.separator + fileName;
-		System.out.println("Full Path " + serverFileName);
-
 		File directory = new File(uploadDir);
 		if (!directory.exists()) {
 			directory.mkdirs();
 		}
 
-		File serverFile = new File(serverFileName);
-		productImageTest.transferTo(serverFile);
+		MultipartFile[] files = { productImage1File, productImage2File, productImage3File };
+		String[] imageUrls = new String[3];
 
-		// This gets base URL. It will be used to construct the URL of the image. It can
-		// be eaither localhost for the back end or IP address for AWS deployment
-		String baseUrl = request.getRequestURL().toString();
-		System.out.println("Base URL" + baseUrl);
-		String imageUrl = baseUrl.substring(0, baseUrl.length() - request.getRequestURI().length())
-				+ request.getContextPath() + "/images/product/" + fileName;
-		System.out.println("Image Url " + imageUrl);
-//	    String imageUrl = "http://localhost:8080/images/product/" + fileName; // Use the relative path
-		product.setProductImage1(imageUrl);
+		for (int i = 0; i < files.length; i++) {
+			MultipartFile file = files[i];
+			if (file != null) {
+				String fileName = file.getOriginalFilename();
+				String serverFileName = uploadDir + File.separator + fileName;
+				File serverFile = new File(serverFileName);
+				file.transferTo(serverFile);
 
-		System.out.println("IMAGE " + product.getProductImage1());
+				String baseUrl = request.getRequestURL().toString();
+				String imageUrl = baseUrl.substring(0, baseUrl.length() - request.getRequestURI().length())
+						+ request.getContextPath() + "/images/product/" + fileName;
+				imageUrls[i] = imageUrl;
+			}
+		}
 
-		this.productServ.save(product);
+		productForm.setProductImage1(imageUrls[0]);
+		productForm.setProductImage2(imageUrls[1]);
+		productForm.setProductImage3(imageUrls[2]);
 
-		System.out.println("Product " + product);
+		this.productServ.save(productForm);
 
 		// Return the saved product
-		return ResponseEntity.status(HttpStatus.CREATED).body(product);
+		return ResponseEntity.status(HttpStatus.CREATED).body(productForm);
 	}
 
-
-// 	@PostMapping("/add")
-// 	public ResponseEntity<Object> add(@RequestParam("productImageTest") MultipartFile productImageTest,
-//         @Valid @RequestParam("productName") String productName, BindingResult result, @RequestParam("productCategory") String productCategory,
-//         @RequestParam("productPrice") String productPrice,
-//         @RequestParam("productDescription") String productDescription, HttpServletRequest request)
-//         throws IOException {
-// 		if (result.hasErrors()) {
-// 			List<String> errorMessages = new ArrayList<>();
-// 			for (ObjectError error : result.getAllErrors()) {
-// 				errorMessages.add(error.getDefaultMessage());
-// 			}
-// 			System.out.println("errorMessages " + errorMessages);
-// 			Collections.sort(errorMessages);
-// 			return ResponseEntity.status(400).body(errorMessages);
-// 		}
-// 		Product product = new Product();
-// 		product.setProductName(productName);
-// 		product.setProductCategory(productCategory);
-// 		product.setProductPrice(Double.parseDouble(productPrice));
-// 		product.setProductDescription(productDescription);
-// 		System.out.println("We Got 2 here");
-
-// 		String uploadDir = servletContext.getRealPath("/images/product/");
-// 		System.out.println("upload Dir " + uploadDir);
-
-// 		String fileName = productImageTest.getOriginalFilename();
-// 		String serverFileName = uploadDir + File.separator + fileName;
-// 		System.out.println("Full Path " + serverFileName);
-
-// 		File directory = new File(uploadDir);
-// 		if (!directory.exists()) {
-// 			directory.mkdirs();
-// 		}
-
-// 		File serverFile = new File(serverFileName);
-// 		productImageTest.transferTo(serverFile);
-
-// 		// This gets base URL. It will be used to construct the URL of the image. It can
-// 		// be eaither localhost for the back end or IP address for AWS deployment
-// 		String baseUrl = request.getRequestURL().toString();
-// 		System.out.println("Base URL" + baseUrl);
-// 		String imageUrl = baseUrl.substring(0, baseUrl.length() - request.getRequestURI().length())
-// 				+ request.getContextPath() + "/images/product/" + fileName;
-// 		System.out.println("Image Url " + imageUrl);
-// //	    String imageUrl = "http://localhost:8080/images/product/" + fileName; // Use the relative path
-// 		product.setProductImage1(imageUrl);
-
-// 		System.out.println("IMAGE " + product.getProductImage1());
-
-// 		this.productServ.save(product);
-
-// 		System.out.println("Product " + product);
-
-// 		// Return the saved product
-// 		return ResponseEntity.status(HttpStatus.CREATED).body(product);
-// 	}
-
 	@PutMapping("/edit/{id}")
-	public ResponseEntity<Product> update(@PathVariable Long id,
-			@RequestParam("productImage1") MultipartFile productImage1, @RequestParam("productName") String productName,
-			@RequestParam("productCategory") String productCategory, @RequestParam("productPrice") String productPrice,
-			@RequestParam("productDescription") String productDescription, HttpServletRequest request)
+	public ResponseEntity<Object> update(@PathVariable Long id,
+			@RequestParam(value = "productImage1File", required = false) MultipartFile productImage1File,
+			@RequestParam(value = "productImage2File", required = false) MultipartFile productImage2File,
+			@RequestParam(value = "productImage3File", required = false) MultipartFile productImage3File,
+			@Valid @ModelAttribute Product productForm, BindingResult result, HttpServletRequest request)
 			throws IOException {
+		if (result.hasErrors() || productImage1File == null || productImage2File == null || productImage3File == null) {
+			List<String> errorMessages = new ArrayList<>();
+			for (ObjectError error : result.getAllErrors()) {
+				errorMessages.add(error.getDefaultMessage());
+			}
+			if (productImage1File == null || productImage2File == null || productImage3File == null) {
+				errorMessages.add("All Product images is required.");
+			}
+			Collections.sort(errorMessages);
+			return ResponseEntity.status(400).body(errorMessages);
+		}
+
 		Optional<Product> optionalProduct = productServ.findById(id);
 		if (optionalProduct.isPresent()) {
 			Product product = optionalProduct.get();
-			product.setProductName(productName);
-			product.setProductCategory(productCategory);
-			product.setProductPrice(Double.parseDouble(productPrice));
-			product.setProductDescription(productDescription);
+			product.setProductName(productForm.getProductName());
+			product.setProductCategory(productForm.getProductCategory());
+			product.setProductPrice(productForm.getProductPrice());
+			product.setProductDescription(productForm.getProductDescription());
 
-			// Handle file upload
 			String uploadDir = servletContext.getRealPath("/images/product/");
-			String fileName = productImage1.getOriginalFilename();
-			String serverFileName = uploadDir + File.separator + fileName;
 			File directory = new File(uploadDir);
 			if (!directory.exists()) {
 				directory.mkdirs();
 			}
-			File serverFile = new File(serverFileName);
-			productImage1.transferTo(serverFile);
-			String baseUrl = request.getRequestURL().toString();
-			String imageUrl = baseUrl.substring(0, baseUrl.length() - request.getRequestURI().length())
-					+ request.getContextPath() + "/images/product/" + fileName;
-			product.setProductImage1(imageUrl);
 
-			// Save the product to the database
-			Product savedProduct = productServ.save(product);
+			MultipartFile[] files = { productImage1File, productImage2File, productImage3File };
+			String[] imageUrls = new String[3];
+
+			for (int i = 0; i < files.length; i++) {
+				MultipartFile file = files[i];
+				if (file != null) {
+					String fileName = file.getOriginalFilename();
+					String serverFileName = uploadDir + File.separator + fileName;
+					File serverFile = new File(serverFileName);
+					file.transferTo(serverFile);
+
+					String baseUrl = request.getRequestURL().toString();
+					String imageUrl = baseUrl.substring(0, baseUrl.length() - request.getRequestURI().length())
+							+ request.getContextPath() + "/images/product/" + fileName;
+					imageUrls[i] = imageUrl;
+				}
+			}
+
+			product.setProductImage1(imageUrls[0]);
+			product.setProductImage2(imageUrls[1]);
+			product.setProductImage3(imageUrls[2]);
+
+			this.productServ.save(product);
 
 			// Return the saved product
-			return ResponseEntity.status(HttpStatus.OK).body(savedProduct);
+			return ResponseEntity.status(HttpStatus.OK).body(product);
 		} else {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}

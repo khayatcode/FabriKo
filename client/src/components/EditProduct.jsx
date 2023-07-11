@@ -11,24 +11,27 @@ const EditProduct = () => {
         productPrice: "",
         productDescription: "",
         productCategory: "",
-        productImage1: ""
+        productImage1File: null,
+        productImage2File: null,
+        productImage3File: null,
     })
     const [errors, setErrors] = useState([])
+    const [productCategory, setProductCategory] = useState("")
     const navigate = useNavigate()
     const { productId } = useParams()
 
     const changeHandler = (e) => {
-        if(e.target.name === "productImage1"){
+        if (e.target.name === "productImage1File" || e.target.name === "productImage2File" || e.target.name === "productImage3File") {
             setProductInfo({
                 ...productInfo,
-                productImage1: e.target.files[0],
+                [e.target.name]: e.target.files[0]
             })
         } else {
-        setProductInfo({
-            ...productInfo,
-            [e.target.name]: e.target.value
-        })
-      }
+            setProductInfo({
+                ...productInfo,
+                [e.target.name]: e.target.value
+            })
+        }
     }
 
     useEffect(() => {
@@ -37,9 +40,18 @@ const EditProduct = () => {
             .then(res => {
                 console.log("edit product response" + res)
                 setProductInfo(res)
+                console.log("Product Category" + res.productCategory)
+                setProductCategory(res.productCategory)
             })
             .catch(err => console.log(err))
     }, [])
+
+    // change the productCategory state every time the productInfo.productCategory changes
+    useEffect(() => {
+        setProductCategory(productInfo.productCategory)
+        console.log("Change product category " + productInfo.productCategory)
+    }, [productInfo.productCategory])
+
 
 
     const editProduct = (e) => {
@@ -48,50 +60,54 @@ const EditProduct = () => {
         formData.append("productPrice", productInfo.productPrice)
         formData.append("productDescription", productInfo.productDescription)
         formData.append("productCategory", productInfo.productCategory)
-        formData.append("productImage1", productInfo.productImage1)
-        // formData.append("productImage2", productInfo.productImage2)
-        // formData.append("productImage3", productInfo.productImage3)
-        // formData.append("productImage4", productInfo.productImage4)
-        // formData.append("productImage5", productInfo.productImage5)
+        formData.append("productImage1File", productInfo.productImage1File)
+        formData.append("productImage2File", productInfo.productImage2File)
+        formData.append("productImage3File", productInfo.productImage3File)
         e.preventDefault()
         fetch("http://localhost:8080/product/edit/" + productId, {
             method: "PUT",
             body: formData
         })
-            .then(res => res.json())
-            .then(res => {
-                console.log("edit product response")
-                console.log(res)
+            .then(async (res) => {
+                if (res.status >= 200 && res.status < 300) {
+                    const data = await res.json();
+                    console.log("Edit product data" + data)
                     setProductInfo({
                         productName: "",
+                        productCategory: "",
                         productPrice: "",
                         productDescription: "",
-                        productCategory: "",
-                        productImage1: ""
+                        productImage1File: null,
+                        productImage2File: null,
+                        productImage3File: null
                     })
                     setErrors([])
-                    navigate("/")
+                    navigate("/category/" + productCategory)
+                } else {
+                    const data = await res.json();
+                    console.log(data)
+                    setErrors(data);
                 }
-            )
+            })
             .catch(err => {
                 console.log(err)
                 console.log("edit product error")
             })
     }
-    
-  return (
-    <div>
-        <FormProduct
-            message={"Edit Product"}
-            productInfo={productInfo}
-            setProductInfo={setProductInfo}
-            changeHandler={changeHandler}
-            submitProduct={editProduct}
-            errors={errors}
-            submitValue={"Edit Product"}
-        />
-    </div>
-  )
+
+    return (
+        <div>
+            <FormProduct
+                message={"Edit Product"}
+                productInfo={productInfo}
+                setProductInfo={setProductInfo}
+                changeHandler={changeHandler}
+                submitProduct={editProduct}
+                errors={errors}
+                submitValue={"Edit Product"}
+            />
+        </div>
+    )
 }
 
 export default EditProduct

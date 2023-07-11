@@ -3,6 +3,7 @@ package com.groupproject.tshirtpalooza.models;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,8 +18,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.springframework.web.multipart.MultipartFile;
 
 
 
@@ -49,7 +48,11 @@ public class Product {
 	// @NotNull(message="Product image is required!")
     private String productImage1;
 
-	@OneToMany(mappedBy="product", fetch=FetchType.LAZY)
+	private String productImage2;
+
+	private String productImage3;
+
+	@OneToMany(mappedBy="product", fetch=FetchType.LAZY, cascade=CascadeType.REMOVE)
 //	@JsonIdentityReference(alwaysAsId = true) // Add this line to always serialize the "carts" field as a list of IDs
 	private List<Cart> carts;
 
@@ -133,6 +136,23 @@ public class Product {
 
 	public void setProductImage1(String productImage1) {
 		this.productImage1 = productImage1;
+	}
+	
+
+	public String getProductImage2() {
+		return productImage2;
+	}
+
+	public void setProductImage2(String productImage2) {
+		this.productImage2 = productImage2;
+	}
+
+	public String getProductImage3() {
+		return productImage3;
+	}
+
+	public void setProductImage3(String productImage3) {
+		this.productImage3 = productImage3;
 	}
 
 	public List<Cart> getCarts() {

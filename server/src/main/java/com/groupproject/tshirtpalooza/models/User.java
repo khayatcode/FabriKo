@@ -3,6 +3,7 @@ package com.groupproject.tshirtpalooza.models;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,8 +18,6 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
     
 @Entity
 @Table(name="users")
@@ -57,13 +56,13 @@ public class User {
     private Date createdAt;
     private Date updatedAt;
     
-    @OneToMany(mappedBy="user", fetch=FetchType.LAZY)
+    @OneToMany(mappedBy="user", fetch=FetchType.LAZY, cascade=CascadeType.REMOVE)
     private List<Billing> billing;
     
-    @OneToMany(mappedBy="user", fetch=FetchType.LAZY)
+    @OneToMany(mappedBy="user", fetch=FetchType.LAZY, cascade=CascadeType.REMOVE)
     private List<Shipping> shipping;
 
-	@OneToMany(mappedBy="user", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="user", fetch=FetchType.LAZY, cascade=CascadeType.REMOVE)
 //	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Add this annotation to ignore the hibernateLazyInitializer and handler fields when serializing to JSON
 	private List<Cart> cart;
     

@@ -43,7 +43,7 @@ useEffect(() => {
 
 
 
-      const images = [productInfo.productImage1, ViewProduct1, ViewProduct3, ViewProduct4];
+      const images = [productInfo.productImage1, productInfo.productImage2, productInfo.productImage3]; 
 
     const nextImage = () => {
         setCurrentImage((currentImage + 1) % images.length);
