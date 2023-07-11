@@ -60,7 +60,7 @@ const Reg = (props) => {
     return (
         <div className='container d-flex justify-content-center' style={{ padding: '8%' }}>
             <div className='col-md-6'>
-                <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>Registers</h1>
+                <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>Register</h1>
                 {errors.length > 0 && (
                     <div className='alert alert-danger'>
                         {errors.map((err, index) => (
