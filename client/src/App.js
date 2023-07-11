@@ -54,9 +54,6 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Reg sessionId={sessionId} setSessionId={setSessionId}/>} /> 
         <Route path="/login" element={<Log sessionId={sessionId} setSessionId={setSessionId}/>} />
-        {/* <Route path="/category/upper" element={<UpperCategory />} />
-        <Route path="/category/bottom" element={<BottomCategory />} />
-        <Route path="/category/shoes" element={<ShoesCategory />} /> */}
         <Route path="/category/:categoryName" element={<CategoryPage sessionId={sessionId} />} />
         <Route path="/createProduct" element={<CreateProduct />} />
         <Route path="/product/edit/:productId" element={<EditProduct />} />
