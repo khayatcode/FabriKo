@@ -37,7 +37,7 @@ public class BillingController {
 public ResponseEntity<Optional<Billing>> findByUserId(@PathVariable Long id) {
     Optional<Billing> optBilling = Optional.ofNullable(this.billingSer.findByUserId(id));
     if (optBilling.isPresent()) {
-		System.out.println("Billing Controller" + optBilling.get().getExp());
+		System.out.println("Billing Controller " + optBilling.get().getExp());
         return ResponseEntity.status(200).body(optBilling);
     } else {
 		System.out.println("Billing Controller Failed");
