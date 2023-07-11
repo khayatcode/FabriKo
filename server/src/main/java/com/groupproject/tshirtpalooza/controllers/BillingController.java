@@ -40,7 +40,7 @@ public ResponseEntity<Optional<Billing>> findByUserId(@PathVariable Long id) {
 		System.out.println("Billing Controller " + optBilling.get().getExp());
         return ResponseEntity.status(200).body(optBilling);
     } else {
-		System.out.println("Billing Controller Failed");
+		System.out.println("Billing Controller Failed ");
         return ResponseEntity.notFound().build();
     }
 }
