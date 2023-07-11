@@ -1,9 +1,21 @@
 import React from 'react'
 import {useNavigate} from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import Cookies from 'js-cookie'
 import '../css/NavBar.css'
 
-const NavBar = () => {
+const NavBar = (props) => {
+    const {sessionId, setSessionId, userInfo, setUserInfo} = props;
     const navigate = useNavigate()
+
+    const logOut = () => {
+        setSessionId("")
+        navigate("/login");
+        Cookies.remove("sessionId");
+        window.location.reload(true);
+    }
+
+    console.log()
 
 
   return (
@@ -18,7 +30,7 @@ const NavBar = () => {
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup" >
                     <ul className="navbar-nav me-auto gap-3">
                         <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" href="#">Home</a>
+                            <Link to={"/"} className="nav-link active" aria-current="page">Home</Link>
                         </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
@@ -26,20 +38,33 @@ const NavBar = () => {
                                 Categories
                             </a>
                             <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a className="dropdown-item" href="#">Category 1</a>
-                                <a className="dropdown-item" href="#">Category 2</a>
-                                <a className="dropdown-item" href="#">Category 3</a>
+                                <Link to={"/category/upper"} className="dropdown-item" >Upper</Link>
+                                <Link to={"/category/bottom"} className="dropdown-item" >Bottom</Link>
+                                <Link to={'/category/shoes'} className="dropdown-item" >Shoes</Link>
                             </ul>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Contact us</a>
+                            <Link to={"/contact"} className="nav-link" >Contact us</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Shopping Cart</a>
+                            <Link to={"/shopping/cart"} className="nav-link" >Shopping Cart</Link>
                         </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Log out</a>
+                        {userInfo.accountType === "admin" && (
+                        <li className="nav-item mx-auto">
+                            <Link className="btn btn-outline-dark" to={"/createProduct"}>
+                            Add Product
+                            </Link>
                         </li>
+                        )}
+                        {sessionId === "" ? (
+                            <li className="nav-item">
+                                <Link to={"/login"} className="nav-link" >Login</Link>
+                            </li>
+                        ) : (
+                            <li className="nav-item">
+                                <Link className="nav-link" onClick={logOut}>Log out</Link>
+                            </li>
+                        )}
                     </ul>
                 </div>
             </div>

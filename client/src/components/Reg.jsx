@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate, Link } from "react-router-dom";
 
 const Reg = (props) => {
@@ -12,7 +12,7 @@ const Reg = (props) => {
         confirmPassword: "",
         accountType: ""
     })
-    const [errors, setErrors] = useState({})
+    const [errors, setErrors] = useState([])
     const navigate = useNavigate()
 
     const changeHandler = (e) => {
@@ -32,11 +32,10 @@ const Reg = (props) => {
             },
             body: JSON.stringify(userInfo)
         })
-            .then(res => {
-                console.log(res)
-                if (res.data && res.data.errors) {
-                    setErrors(res.data.errors)
-                } else {
+        .then(async (res) => {
+            if (res.status >= 200 && res.status < 300) {
+                const data = await res.json();
+                console.log("register data" + data)
                     setUserInfo({
                         firstName: "",
                         lastName: "",
@@ -45,9 +44,13 @@ const Reg = (props) => {
                         confirmPassword: "",
                         accountType: ""
                     })
-                    setErrors({})
-                    setSessionId(res.data.sessionId)
-                    navigate("/dashboard")
+                    setErrors([])
+                    setSessionId(data.id)
+                    navigate("/")
+                } else {
+                    const data = await res.json();
+                    console.log("register data" + data)
+                    setErrors(data)
                 }
             })
             .catch(err => console.log(err))
@@ -57,7 +60,14 @@ const Reg = (props) => {
     return (
         <div className='container d-flex justify-content-center' style={{ padding: '8%' }}>
             <div className='col-md-6'>
-                <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>Registers</h1>
+                <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>Register</h1>
+                {errors.length > 0 && (
+                    <div className='alert alert-danger'>
+                        {errors.map((err, index) => (
+                            <p key={index}>{err}</p>
+                        ))}
+                    </div>
+                )}
                 <form onSubmit={submitReg}>
                     <div className='form-floating mb-3'>
                         <input type='text' className='form-control' id='firstName' placeholder='First Name' name='firstName' value={userInfo.firstName} onChange={changeHandler} />
@@ -81,7 +91,7 @@ const Reg = (props) => {
                     </div>
                     <div className='form-floating mb-3'>
                         <select className='form-select' id='accountType' aria-label='Floating label select example' name='accountType' value={userInfo.accountType} onChange={changeHandler}>
-                            <option selected disabled>Select Account Type</option>
+                            <option disabled>Select Account Type</option>
                             <option value='shopper'>Shopper</option>
                             <option value='admin'>Admin</option>
                         </select>

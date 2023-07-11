@@ -10,30 +10,57 @@ import UpperWear6 from '../images/upperWear6.webp'
 import UpperWear7 from '../images/upperWear7.webp'
 
 const UpperCategory = (props) => {
-    // const { categoryId, sessionId } =  props
-    // const [productsInCategory, setProductsInCategory] = useState([])
-    // const [category, setCategory] = useState({})
+    const { sessionId } = props
+    const [productsInCategory, setProductsInCategory] = useState([])
 
-    // useEffect(() => {
-    //     fetch('http://localhost:8080/api/category/' + categoryId)
-    //         .then(res => res.json())
-    //         .then(res => {
-    //             console.log(res)
-    //             setCategory(res)
-    //         })
-    //         .catch(err => console.log(err))
-    // }, [])
+    useEffect(() => {
+        fetch('http://localhost:8080/product/api/upper')
+            .then(res => res.json())
+            .then(res => {
+                setProductsInCategory(res)
+            })
+            .catch(err => console.log(err))
+    }, [])
 
+    const deleteProduct = (productId) => {
+        console.log(productId)
+        fetch("http://localhost:8080/product/delete/" + productId, {
+            method: "DELETE"
+        })
+            .then(res => {
+                window.location.reload(true);
+            })
+            .catch(err => console.log(err))
+    }
 
-    // useEffect(() => {
-    //     fetch('http://localhost:8080/api/showProducts/category/' + categoryId)
-    //         .then(res => res.json())
-    //         .then(res => {
-    //             console.log(res)
-    //             setProductsInCategory(res)
-    //         })
-    //         .catch(err => console.log(err))
-    // }, [])
+    const editProduct = (productId) => {
+        fetch("http://localhost:8080/product/edit/" + productId)
+            .then(res => res.json()
+            )
+            .then(res => {
+                setProduct(res);
+                console.log("from Category ---" + productId);
+                setProductId(productId)
+            }
+            )
+            .catch(err => console.log(err))
+        navigate("/product/edit/" + productId)
+    }
+
+    const viewProduct = (productId) => {
+        fetch("http://localhost:8080/product/" + productId)
+            .then(res => res.json()
+            )
+            .then(res => {
+                setProduct(res)
+                setProductId(res.id)
+                console.log(res)
+                navigate("/product/view/" + productId)
+            }
+            )
+            .catch(err => console.log(err))
+
+    }
 
 
     return (
@@ -43,7 +70,33 @@ const UpperCategory = (props) => {
             </div>
             <div >
                 <div className="row p-3">
-                    <div className="col-sm-4 d-flex flex-column align-items-center gap-2">
+                    {productsInCategory.map((product, index) => {
+                        return (
+                            <div className="col-sm-4 d-flex flex-column align-items-center gap-2" key={index}>
+                                <Link to={"/product/view/" + product.id}>
+                                    <img src={product.image} alt={product.name} style={{ height: '300px', backgroundColor: '#E8E8E8', transition: 'transform 0.2s', paddingRight: '30px', paddingLeft: '30px' }} onMouseOver={(e) => {
+                                        e.currentTarget.style.transform = 'scale(1.05)';
+                                    }}
+                                        onMouseOut={(e) => {
+                                            e.currentTarget.style.transform = 'scale(1)';
+                                        }} />
+                                </Link>
+                                <div className='d-flex flex-column flex-wrap pb-2' style={{ width: '52%' }}>
+                                    <p className='text-start text-muted' style={{ fontSize: '15px' }}>{product.name}</p>
+                                    <p className='text-start fw-bold' style={{ fontSize: '12px' }}>${product.price}USD</p>
+                                </div>
+                                <div className='d-flex flex-row gap-2'>
+                                    <button className='btn btn-outline-primary btn-sm' onClick={() => viewProduct(product.id)}>View</button>
+                                    {sessionId ? <div>
+                                        <button className='btn btn-outline-primary btn-sm' onClick={() => editProduct(product.id)}>Edit</button>
+                                        <button className='btn btn-outline-primary btn-sm' onClick={() => deleteProduct(product.id)}>Delete</button>
+                                    </div> : null}
+                                </div>
+                            </div>
+                        )
+                    }
+                    )}
+                    {/* <div className="col-sm-4 d-flex flex-column align-items-center gap-2">
                         <Link to="/product/1">
                             <img src={UpperWear1} alt="UpperWear1" style={{ height: '300px', backgroundColor: '#E8E8E8', transition: 'transform 0.2s', paddingRight: '30px', paddingLeft: '30px' }} onMouseOver={(e) => {
                                 e.currentTarget.style.transform = 'scale(1.05)';
@@ -140,7 +193,7 @@ const UpperCategory = (props) => {
                             <p className='text-start text-muted' style={{ fontSize: '15px' }}> Beige Linen Suit  </p>
                             <p className='text-start fw-bold' style={{ fontSize: '12px' }}>$392USD</p>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
 

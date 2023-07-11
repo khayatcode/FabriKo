@@ -1,19 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-const BillingInfo = () => {
+const BillingForm = (props) => {
+    const { sessionId } = props;
     const [billingForm, setBillingForm] = useState({
         name: '',
         email: '',
         address: '',
         city: '',
         state: '',
+        country: '',
         zip: '',
         card: '',
         exp: '',
         cvv: '',
-        billing: false,
+        user: {}
     });
+    const [errors, setErrors] = useState([]);
+    const navigate = useNavigate();
+
+
+useEffect(() => {
+    Promise.all([
+        fetch(`http://localhost:8080/api/getuser/${sessionId}`).then(res => res.json()),
+        fetch(`http://localhost:8080/billing/find/${sessionId}`).then(res => res.json())
+    ])
+    .then(([user, billing]) => {
+        const { id, firstName, lastName, email, accountType } = user;
+        const { user: billingUser, ...billingWithoutUser } = billing;
+        setBillingForm({
+            ...billingWithoutUser,
+            user: { id, firstName, lastName, email, accountType }
+        });
+    })
+    .catch(err => console.log(err));
+}, []);
 
 
     const onChange = (e) => {
@@ -23,16 +45,55 @@ const BillingInfo = () => {
         });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-
+        console.log(billingForm);
+        fetch(`http://localhost:8080/billing/create/update/${sessionId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(billingForm),
+        })
+            .then(async (res) => {
+                if (res.status >= 200 && res.status < 300) {
+                    const data = await res.json();
+                    console.log(data);
+                    setBillingForm({
+                        name: '',
+                        email: '',
+                        address: '',
+                        city: '',
+                        state: '',
+                        zip: '',
+                        card: '',
+                        exp: '',
+                        cvv: '',
+                        user: {},
+                    });
+                    setErrors([]);
+                    navigate('/shippingInfo');
+                } else {
+                    const data = await res.json();
+                    setErrors(data);
+                }
+            })
+            .catch((err) => console.log(err));
     };
 
     return (
         <div className='container d-flex justify-content-center' style={{ padding: '10%' }}>
             <div className='col-md-12'>
                 <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>Billing Info</h1>
+                {errors.length > 0 && (
+                    <div className='alert alert-danger'>
+                        {errors.map((error, index) => (
+                            <div key={index}>{error}</div>
+                        ))}
+                    </div>
+                )}
                 <form onSubmit={handleSubmit} className="row">
+                    
                     <div className="col-md-6">
                         <div className="form-floating mb-3">
                             <input
@@ -91,8 +152,21 @@ const BillingInfo = () => {
                                 name="state"
                                 value={billingForm.state}
                                 onChange={onChange}
+                                maxLength={2}
                             />
                             <label htmlFor="floatingInput">State</label>
+                        </div>
+                        <div className="form-floating mb-3">
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="floatingInput"
+                                placeholder="Country"
+                                name="country"
+                                value={billingForm.country}
+                                onChange={onChange}
+                            />
+                            <label htmlFor="floatingInput">Country</label>
                         </div>
                         <div className="form-floating mb-3">
                             <input
@@ -110,7 +184,7 @@ const BillingInfo = () => {
                     <div className="col-md-6">
                         <div className="form-floating mb-3">
                             <input
-                                type="text"
+                                type="number"
                                 className="form-control"
                                 id="floatingInput"
                                 placeholder="Card"
@@ -122,7 +196,7 @@ const BillingInfo = () => {
                         </div>
                         <div className="form-floating mb-3">
                             <input
-                                type="text"
+                                type="date"
                                 className="form-control"
                                 id="floatingInput"
                                 placeholder="Exp"
@@ -134,7 +208,7 @@ const BillingInfo = () => {
                         </div>
                         <div className="form-floating mb-3">
                             <input
-                                type="text"
+                                type="number"
                                 className="form-control"
                                 id="floatingInput"
                                 placeholder="CVV"
@@ -154,4 +228,4 @@ const BillingInfo = () => {
     );
 };
 
-export default BillingInfo;
+export default BillingForm;
