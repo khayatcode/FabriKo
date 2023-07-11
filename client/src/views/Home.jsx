@@ -5,8 +5,15 @@ import FitPerfect from '../components/FitPerfect'
 import AboutUs from '../components/AboutUs'
 import Featured from '../components/Featured'
 import Footer from '../components/Footer'
+import { useEffect } from 'react'
 
 const Home = () => {
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        })
+    }, [])
     return (
         <div className=''>
             <div style={{

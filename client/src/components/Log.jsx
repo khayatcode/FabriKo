@@ -18,6 +18,13 @@ const Log = (props) => {
         })
     }
 
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        })
+    }, [])
+
     const submitLog = (e) => {
         e.preventDefault()
         fetch("http://localhost:8080/api/login", {

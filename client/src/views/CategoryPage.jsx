@@ -11,6 +11,14 @@ const CategoryPage = (props) => {
     const { categoryName } = useParams()
     const navigate = useNavigate()
 
+    // Do everytime I run this component it will scroll to the top of the page in smooth fashion
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        })
+    }, [categoryName])
+
     useEffect(() => {
         if (categoryName !== "upper" && categoryName !== "bottom" && categoryName !== "shoes") {
             navigate("/category/error")

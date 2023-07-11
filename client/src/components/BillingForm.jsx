@@ -19,6 +19,13 @@ const BillingForm = (props) => {
     });
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
+    
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        })
+    }, [])
 
 
 useEffect(() => {

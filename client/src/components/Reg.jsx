@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate, Link } from "react-router-dom";
 
 const Reg = (props) => {
@@ -21,6 +21,13 @@ const Reg = (props) => {
             [e.target.name]: e.target.value
         })
     }
+
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        })
+    }, [])
 
     const submitReg = (e) => {
         e.preventDefault()

@@ -1,6 +1,14 @@
 import React from 'react'
+import { useEffect } from 'react'
+
 
 export const Privacy = () => {
+  useEffect(() => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    })
+}, [])
   return (
     <div className='container d-flex justify-content-center' style={{ padding: '8%' }}>
         <div className='col-10'>

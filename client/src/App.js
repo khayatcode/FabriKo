@@ -59,7 +59,6 @@ function App() {
         <Route path="/billing" element={<BillingForm userInfo={userInfo} sessionId={sessionId}/>} />
         <Route path="/shippingInfo" element={<Shipping sessionId={sessionId}/>} />
         <Route path="/shopping/cart" element={<ShoppingCart sessionId={sessionId} firstName={userInfo.firstName}/>} />
-        <Route path="/shopping/cart/confirm" element={<ShoppingCartConf/>} />
         <Route path="/order/success" element={<OrderSuccessPage firstName={userInfo.firstName}/>} />
         <Route path="/terms" element={<Terms/>} />
         <Route path="/privacy" element={<Privacy/>} />

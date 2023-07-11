@@ -23,6 +23,13 @@ const ViewProduct = (props) => {
     const navigate = useNavigate()
 
     useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        })
+    }, [])
+
+    useEffect(() => {
     if (sessionId) {
         Promise.all([
             fetch(`http://localhost:8080/api/getuser/${sessionId}`).then(res => res.json()),

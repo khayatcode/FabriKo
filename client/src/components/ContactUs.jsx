@@ -1,7 +1,13 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const ContactUs = () => {
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        })
+    }, [])
 
     return (
         <div className='container d-flex justify-content-center' style={{ padding: '14%' }}>

@@ -1,6 +1,13 @@
 import React from 'react'
+import { useEffect } from 'react'
 
 const Terms = () => {
+  useEffect(() => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    })
+}, [])
   return (
     <div className='container d-flex justify-content-center' style={{ padding: '8%' }}>
         <div className='col-10'>
