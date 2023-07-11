@@ -11,6 +11,13 @@ const ShoppingCart = (props) => {
     const [allCartItems, setAllCartItems] = useState([])
     const [total, setTotal] = useState(0)
 
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        })
+    }, [])
+
 useEffect(() => {
     fetch(`http://localhost:8080/cart/find/uncomplete/${sessionId}`)
         .then(res => res.json())

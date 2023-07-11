@@ -32,6 +32,13 @@ const CreateProduct = () => {
   }
 
   useEffect(() => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    })
+}, [])
+
+  useEffect(() => {
     setProductCategory(productInfo.productCategory)
     console.log("Change product category " + productInfo.productCategory)
   }, [productInfo.productCategory])

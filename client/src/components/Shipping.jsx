@@ -24,6 +24,13 @@ const Shipping = (props) => {
         })
     }
 
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        })
+    }, [])
+
 useEffect(() => {
     Promise.all([
         fetch(`http://localhost:8080/api/getuser/${sessionId}`).then(res => res.json()),

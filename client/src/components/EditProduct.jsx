@@ -35,6 +35,13 @@ const EditProduct = () => {
     }
 
     useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        })
+    }, [])
+
+    useEffect(() => {
         fetch("http://localhost:8080/product/" + productId)
             .then(res => res.json())
             .then(res => {

@@ -1,10 +1,18 @@
 import React from 'react'
+import { useEffect } from 'react'
 
 const OrderSuccessPage = (props) => {
     const { firstName} = props
 
     // Generate a random order number
     const orderNumber = Math.floor(Math.random() * 1000000000)
+
+    useEffect(() => {
+      window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+      })
+  }, [])
 
   return (
     <div className='container d-flex justify-content-center' style={{ padding: '12%' }}>

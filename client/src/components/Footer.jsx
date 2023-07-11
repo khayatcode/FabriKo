@@ -4,13 +4,14 @@ import Twitter from '../images/twitter.svg'
 import Instagram from '../images/instagram.svg'
 import { Link } from 'react-router-dom';
 const Footer = () => {
-    // const handleLinkClick = (e) => {
-    //     e.preventDefault();
-    //     window.scrollTo({
-    //         top: 0,
-    //         behavior: 'smooth'
-    //     });
-    // }
+    const scrollToTop = () => {
+        if (window.location.pathname === "/") {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            })
+        }
+    }
 
     return (
         <div>
@@ -45,7 +46,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="text-center p-3" style={{ backgroundColor: "#F5F4EF" }}>
-                    <p className="text-dark" >@2023 Fabriko: <Link className="text-dark" to={'/'} >fabriko.com</Link> </p>
+                    <p className="text-dark" >@2023 Fabriko: <Link className="text-dark" to={'/'} onClick={scrollToTop}>fabriko.com</Link> </p>
                     <div className="mt-3">
                         <Link to={'/terms'} className="text-dark mx-3">Terms and Conditions</Link>
                         <Link to={'/privacy'} className="text-dark mx-3">Privacy Policy</Link>
