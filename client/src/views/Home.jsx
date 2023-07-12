@@ -19,13 +19,14 @@ const Home = () => {
             <div style={{
                 backgroundImage: `url(${SuitsPic})`,
                 backgroundSize: 'cover',
+                backgroundPosition: 'center center',
+                backgroundRepeat: 'no-repeat',
                 height: '100vh',
-                width: '100vw',
                 position: 'relative'
             }}>
                 <h1 style={{
                     position: 'absolute',
-                    bottom: '20%',
+                    bottom: '30%',
                     left: '5%',
                     color: 'black',
                     // fontFamily: 'Roboto',
@@ -33,7 +34,7 @@ const Home = () => {
                 }}>Unlock Your Style</h1>
                 <h4 style={{
                     position: 'absolute',
-                    bottom: '15%',
+                    bottom: '25%',
                     left: '5%',
                     color: 'black',
                     // fontFamily: 'Roboto',

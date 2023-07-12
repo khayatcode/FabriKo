@@ -31,21 +31,29 @@ const Shipping = (props) => {
         })
     }, [])
 
-useEffect(() => {
-    Promise.all([
-        fetch(`http://localhost:8080/api/getuser/${sessionId}`).then(res => res.json()),
-        fetch(`http://localhost:8080/shipping/user/${sessionId}`).then(res => res.json())
-    ])
-    .then(([user, shipping]) => {
-        const { id, firstName, lastName, email, accountType } = user;
-        const { user: shippingUser, ...shippingWithoutUser } = shipping;
-        setShippingAddress({
-            ...shippingWithoutUser,
-            user: { id, firstName, lastName, email, accountType }
-        });
-    })
-    .catch(err => console.log(err));
-}, []);
+    useEffect(() => {
+        fetch(`http://localhost:8080/api/getuser/${sessionId}`)
+            .then(res => res.json())
+            .then(user => {
+                const { id, firstName, lastName, email, accountType } = user;
+                setShippingAddress(prevShippingAddress => ({
+                    ...prevShippingAddress,
+                    user: { id, firstName, lastName, email, accountType }
+                }));
+            })
+            .catch(err => console.log(err));
+    
+        fetch(`http://localhost:8080/shipping/user/${sessionId}`)
+            .then(res => res.json())
+            .then(shipping => {
+                const { user: shippingUser, ...shippingWithoutUser } = shipping;
+                setShippingAddress(prevShippingAddress => ({
+                    ...prevShippingAddress,
+                    ...shippingWithoutUser
+                }));
+            })
+            .catch(err => console.log(err));
+    }, [sessionId]);
 
 
     const handleSubmit = (e) => {

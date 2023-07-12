@@ -16,7 +16,6 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -39,9 +38,11 @@ public class Billing {
     @NotNull(message="Card Number is required!")
     private BigInteger card;
     
-    @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "Expiration date must be in the format yyyy-MM-dd")
-	@NotNull(message = "Expiration date is required!")
-	private String exp;
+    // @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "Expiration date must be in the format yyyy-MM-dd")
+	// private String exp;
+
+	@NotNull(message="Expiration date is required!")
+	private Date exp;
     
     @NotNull(message="CVV is required!")
     private Integer cvv;
@@ -121,11 +122,11 @@ public class Billing {
 	}
 	
 
-	public String getExp() {
+	public Date getExp() {
 		return exp;
 	}
 
-	public void setExp(String exp) {
+	public void setExp(Date exp) {
 		this.exp = exp;
 	}
 

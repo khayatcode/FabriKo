@@ -51,7 +51,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Reg sessionId={sessionId} setSessionId={setSessionId}/>} /> 
         <Route path="/login" element={<Log sessionId={sessionId} setSessionId={setSessionId}/>} />
-        <Route path="/category/:categoryName" element={<CategoryPage sessionId={sessionId} />} />
+        <Route path="/category/:categoryName" element={<CategoryPage sessionId={sessionId} userInfo={userInfo} />} />
         <Route path="/createProduct" element={<CreateProduct />} />
         <Route path="/product/edit/:productId" element={<EditProduct />} />
         <Route path="/product/view/:productId" element={<ViewProduct sessionId={sessionId}/>} />
