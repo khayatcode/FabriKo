@@ -13,8 +13,10 @@ const Footer = () => {
         }
     }
 
+
+
     return (
-        <div>
+        <div className='container-fluid'>
             <footer className="bg-light text-center text-white">
                 <div className="container p-5 d-flex justify-content-evenly align-items-center">
                     <section className="mb-4">

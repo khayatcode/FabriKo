@@ -66,7 +66,7 @@ const removeItem = (cartId) => {
 
     return (
         // do a row for each product having picture, product name, quantity, and total for product. make it spaced out evenly and have a button to remove it from the cart. have a total at the bottom with continue to checkout button. 
-        <div className='container d-flex justify-content-center' style={{ padding: '8%' }}>
+        <div className='container d-flex justify-content-center' style={{ padding: '13%' }}>
             <div className='col-10'>
                 <h1 className='mb-5' style={{ fontWeight: 300 }}>{firstName} Shopping Cart</h1>
                 {/* <div className='row d-flex justify-content-between align-items-center mb-5'>

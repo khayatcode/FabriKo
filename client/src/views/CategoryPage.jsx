@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 const CategoryPage = (props) => {
-    const { sessionId } = props
+    const { sessionId, userInfo } = props
     const [productsInCategory, setProductsInCategory] = useState([])
     const { categoryName } = useParams()
     const navigate = useNavigate()
@@ -59,7 +59,7 @@ const CategoryPage = (props) => {
     const capitalizedCategoryName = categoryName.charAt(0).toUpperCase() + categoryName.slice(1);
 
   return (
-    <div style={{ padding: '13%' }}>
+    <div style={{ padding: '15%' }}>
             <div className='fixed-top bg-white' style={{ zIndex: 1, paddingTop: '8%' }}>
                 <h1 className='mb-4' style={{ fontWeight: 300 }}>{capitalizedCategoryName} Category</h1>
             </div>
@@ -84,7 +84,7 @@ const CategoryPage = (props) => {
                                 </div>
                                 <div className='d-flex flex-row gap-2'>
                                     <button className='btn btn-outline-primary btn-sm' onClick={() => viewProduct(product.id)}>View</button>
-                                    {sessionId ? <div>
+                                    {userInfo.accountType == "admin" ? <div>
                                         <button className='btn btn-outline-primary btn-sm' onClick={() => editProduct(product.id)}>Edit</button>
                                         <button className='btn btn-outline-primary btn-sm' onClick={() => deleteProduct(product.id)}>Delete</button>
                                     </div> : null}
