@@ -4,7 +4,6 @@ import AllCategories from '../components/AllCategories'
 import FitPerfect from '../components/FitPerfect'
 import AboutUs from '../components/AboutUs'
 import Featured from '../components/Featured'
-import Footer from '../components/Footer'
 import { useEffect } from 'react'
 
 const Home = () => {
@@ -26,19 +25,19 @@ const Home = () => {
             }}>
                 <h1 style={{
                     position: 'absolute',
-                    bottom: '30%',
+                    bottom: '40%',
                     left: '5%',
                     color: 'black',
                     // fontFamily: 'Roboto',
-                    fontWeight: 300
+                    fontWeight: 400
                 }}>Unlock Your Style</h1>
                 <h4 style={{
                     position: 'absolute',
-                    bottom: '25%',
+                    bottom: '35%',
                     left: '5%',
                     color: 'black',
                     // fontFamily: 'Roboto',
-                    fontWeight: 100
+                    fontWeight: 250
                 }}>Fabriko - Where Elegance Reigns.</h4>
             </div>
             <Featured />
