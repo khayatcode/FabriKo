@@ -1,0 +1,40 @@
+.image-feat {
+    height: 50px;
+    width: auto;
+  }
+
+    @media screen and (max-width: 1650px) {
+        .image-feat {
+        height: 30px;
+        width: auto;
+        }
+    }
+
+    @media screen and (max-width: 1200px) {
+        .image-feat {
+        height: 23px;
+        width: auto;
+        }
+    }
+
+  @media screen and (max-width: 1020px) {
+    .image-feat {
+      height: 20px;
+      width: auto;
+    }
+  }
+
+    @media screen and (max-width: 600px) {
+        .image-feat {
+        height: 15px;
+        width: auto;
+        }
+    }
+
+    @media screen and (max-width: 530px) {
+        .image-feat {
+        height: 10px;
+        width: auto;
+        }
+    }
+
