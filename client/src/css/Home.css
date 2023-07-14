@@ -1,0 +1,96 @@
+.hero-container {
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    position: relative;
+}
+
+.hero-title,
+.hero-subtitle {
+    position: absolute;
+    left: 4%;
+    color: black;
+    font-weight: 300;
+}
+
+.hero-title {
+    bottom: 35%;
+}
+
+.hero-subtitle {
+    bottom: 30%;
+    font-weight: 150;
+}
+
+@media screen and (max-width: 1000px) {
+    .hero-title {
+        bottom: 70%;
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        bottom: 65%;
+        font-size: 1.4rem;
+    }
+}
+
+@media screen and (max-width: 790px) {
+    .hero-title {
+        bottom: 80%;
+        font-size: 1.7rem;
+    }
+
+    .hero-subtitle {
+        bottom: 75%;
+        font-size: 1.2rem;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .hero-title {
+        bottom: 80%;
+        font-size: 1.3rem;
+    }
+
+    .hero-subtitle {
+        bottom: 75%;
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .hero-title {
+        bottom: 80%;
+        font-size: 1.3rem;
+    }
+
+    .hero-subtitle {
+        bottom: 75%;
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .hero-title {
+        bottom: 80%;
+        font-size: 1.2rem;
+    }
+
+    .hero-subtitle {
+        bottom: 75%;
+        font-size: 0.9rem;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .hero-title {
+        bottom: 80%;
+        font-size: 1rem;
+    }
+
+    .hero-subtitle {
+        bottom: 75%;
+        font-size: 0.8rem;
+    }
+}

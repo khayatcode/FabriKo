@@ -5,6 +5,7 @@ import FitPerfect from '../components/FitPerfect'
 import AboutUs from '../components/AboutUs'
 import Featured from '../components/Featured'
 import { useEffect } from 'react'
+import '../css/Home.css'
 
 const Home = () => {
     useEffect(() => {
@@ -15,30 +16,9 @@ const Home = () => {
     }, [])
     return (
         <div className=''>
-            <div style={{
-                backgroundImage: `url(${SuitsPic})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center center',
-                backgroundRepeat: 'no-repeat',
-                height: '100vh',
-                position: 'relative'
-            }}>
-                <h1 style={{
-                    position: 'absolute',
-                    bottom: '40%',
-                    left: '5%',
-                    color: 'black',
-                    // fontFamily: 'Roboto',
-                    fontWeight: 400
-                }}>Unlock Your Style</h1>
-                <h4 style={{
-                    position: 'absolute',
-                    bottom: '35%',
-                    left: '5%',
-                    color: 'black',
-                    // fontFamily: 'Roboto',
-                    fontWeight: 250
-                }}>Fabriko - Where Elegance Reigns.</h4>
+            <div className="hero-container" style={{ backgroundImage: `url(${SuitsPic})` }}>
+                <h1 className="hero-title">Unlock Your Style</h1>
+                <h4 className="hero-subtitle">Fabriko - Where Elegance Reigns.</h4>
             </div>
             <Featured />
             <AboutUs />
@@ -49,3 +29,4 @@ const Home = () => {
 }
 
 export default Home
+
