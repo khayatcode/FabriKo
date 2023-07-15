@@ -12,26 +12,38 @@ import { useEffect, useState } from 'react'
 import '../css/Home.css'
 
 const Home = () => {
-    // const [currentImage, setCurrentImage] = useState(ImagesHome1);
-    // const [imageIndex, setImageIndex] = useState(0);
-    // const images = [ImagesHome1, ImagesHome2, ImagesHome3, ImagesHome4, ImagesHome5];
+    const images = [ImagesHome1, ImagesHome2, ImagesHome3, ImagesHome4, ImagesHome5];
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [isImageLoaded, setIsImageLoaded] = useState(false);
+    const [shouldReloadImage, setShouldReloadImage] = useState(false);
 
-    // const heroImage = document.querySelector('.hero-image');
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentImageIndex((prevIndex) =>
+                prevIndex === images.length - 1 ? 0 : prevIndex + 1
+            );
+            setIsImageLoaded(false);
+            setShouldReloadImage(true);
+        }, 6000); // Change image every 5 seconds
 
-    // heroImage.addEventListener('load', () => {
-    //     heroImage.classList.add('loaded');
-    // });
+        return () => clearInterval(interval);
+    }, []);
 
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         setImageIndex((imageIndex + 1) % images.length);
-    //     }, 5000);
-    //     return () => clearInterval(interval);
-    // }, [imageIndex, images.length]);
+    useEffect(() => {
+        if (shouldReloadImage) {
+            setIsImageLoaded(false);
+            setShouldReloadImage(false);
+        }
+    }, [shouldReloadImage]);
 
-    // useEffect(() => {
-    //     setCurrentImage(images[imageIndex]);
-    // }, [imageIndex, images]);
+    useEffect(() => {
+        const imageLoadTimeout = setTimeout(() => {
+            setIsImageLoaded(true);
+        }, 500); // Set a small delay to simulate image loading
+
+        return () => clearTimeout(imageLoadTimeout);
+    }, [currentImageIndex]);
+
 
 
     useEffect(() => {
@@ -40,10 +52,18 @@ const Home = () => {
             behavior: "smooth"
         })
     }, [])
-    // const isTextWhite = currentImage === ImagesHome3 || currentImage === ImagesHome4 || currentImage === ImagesHome5 || currentImage === ImagesHome2;
+
+    const isTextWhite = currentImageIndex > 0;
+
     return (
         <div className=''>
             <div className="hero-container">
+                <img
+                    key={currentImageIndex}
+                    src={images[currentImageIndex]}
+                    alt="Hero Image"
+                    className={`hero-image ${isImageLoaded ? 'fade-in' : ''}`}
+                />
                 <h1 className={`hero-title ${isTextWhite ? "text-white" : ""}`}>Unlock Your Style</h1>
                 <h4 className={`hero-subtitle ${isTextWhite ? "text-white" : ""}`}>Fabriko - Where Elegance Reigns.</h4>
             </div>
