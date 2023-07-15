@@ -18,7 +18,7 @@ const Footer = () => {
     return (
         <div className='container-fluid'>
             <footer className="bg-light text-center text-white">
-                <div className="container p-5 d-flex justify-content-evenly align-items-center">
+                <div className="p-5 d-flex justify-content-evenly align-items-center">
                     <section className="mb-4">
                         <h5 className='text-dark text-decoration-underline mb-3'>Check Us Out</h5>
                         <a className="btn btn-outline-light m-1" href="#!" role="button">
