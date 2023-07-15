@@ -1,96 +1,92 @@
 .hero-container {
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    height: 100vh;
     position: relative;
-}
+    
+  }
+  
+  .hero-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+  .hero-image.loaded {
+    opacity: 1;
+  }
+  
 
-.hero-title,
-.hero-subtitle {
+.hero-title{
     position: absolute;
     left: 4%;
     color: black;
-    font-weight: 300;
+    font-weight: 450;
+    font-size: 3rem;
+    
 }
+
+.hero-title.text-white,
+.hero-subtitle.text-white {
+  color: white;
+}
+
 
 .hero-title {
     bottom: 35%;
 }
 
 .hero-subtitle {
+    position: absolute;
+    left: 4%;
     bottom: 30%;
-    font-weight: 150;
+    font-weight: 300;
 }
 
 @media screen and (max-width: 1000px) {
     .hero-title {
-        bottom: 70%;
         font-size: 2rem;
     }
 
     .hero-subtitle {
-        bottom: 65%;
-        font-size: 1.4rem;
+        font-size: 1.2rem;
     }
 }
 
 @media screen and (max-width: 790px) {
     .hero-title {
-        bottom: 80%;
         font-size: 1.7rem;
     }
 
     .hero-subtitle {
-        bottom: 75%;
-        font-size: 1.2rem;
+        font-size: 1.0rem;
     }
 }
 
 @media screen and (max-width: 600px) {
     .hero-title {
-        bottom: 80%;
-        font-size: 1.3rem;
+        font-size: 1.5rem;
     }
 
     .hero-subtitle {
-        bottom: 75%;
-        font-size: 1rem;
+        font-size: 0.8rem;
     }
 }
 
 @media screen and (max-width: 480px) {
     .hero-title {
-        bottom: 80%;
         font-size: 1.3rem;
     }
 
     .hero-subtitle {
-        bottom: 75%;
-        font-size: 1rem;
+        font-size: 0.6rem;
     }
 }
 
 @media screen and (max-width: 420px) {
     .hero-title {
-        bottom: 80%;
-        font-size: 1.2rem;
+        font-size: 1.0rem;
     }
 
     .hero-subtitle {
-        bottom: 75%;
-        font-size: 0.9rem;
-    }
-}
-
-@media screen and (max-width: 380px) {
-    .hero-title {
-        bottom: 80%;
-        font-size: 1rem;
-    }
-
-    .hero-subtitle {
-        bottom: 75%;
-        font-size: 0.8rem;
+        font-size: 0.5rem;
     }
 }

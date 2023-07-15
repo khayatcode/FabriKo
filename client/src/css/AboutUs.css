@@ -1,0 +1,62 @@
+.aboutUsImg img {
+    height: auto;
+    width: 80%;
+}
+
+.aboutUsText h1 {
+    font-size: 3.2rem;
+}
+
+.aboutUsText p {
+    font-size: 1.5rem;
+}
+
+@media screen and (max-width: 1600px) {
+    .aboutUsText h1 {
+        font-size: 2.5rem;
+    }
+
+    .aboutUsText p {
+        font-size: 1.2rem;
+    }
+}
+
+@media screen and (max-width: 1350px) {
+    .aboutUsText h1 {
+        font-size: 2rem;
+    }
+
+    .aboutUsText p {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .aboutUsText h1 {
+        font-size: 1.5rem;
+    }
+
+    .aboutUsText p {
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .aboutUsText h1 {
+        font-size: 1.3rem;
+    }
+
+    .aboutUsText p {
+        font-size: 0.6rem;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .aboutUsText h1 {
+        font-size: 1rem;
+    }
+
+    .aboutUsText p {
+        font-size: 0.5rem;
+    }
+}
