@@ -8,8 +8,8 @@ import '../css/Featured.css'
 
 const Featured = () => {
   return (
-    <div className='p-5'>
-        <h3>Featured in</h3>
+    <div className='featured'>
+        <h2 className='text-decoration-underline'>Featured in</h2>
         <div className='row d-flex justify-content-evenly align-items-center p-5 gap-5 imageDiv'>
             <img src={featured1} alt='featured1' className='image-feat'/>
             <img src={featured2} alt='featured2' className='image-feat'/>
