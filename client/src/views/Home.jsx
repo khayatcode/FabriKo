@@ -14,37 +14,14 @@ import '../css/Home.css'
 const Home = () => {
     const images = [ImagesHome1, ImagesHome2, ImagesHome3, ImagesHome4, ImagesHome5];
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    const [isImageLoaded, setIsImageLoaded] = useState(false);
-    const [shouldReloadImage, setShouldReloadImage] = useState(false);
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setCurrentImageIndex((prevIndex) =>
-                prevIndex === images.length - 1 ? 0 : prevIndex + 1
-            );
-            setIsImageLoaded(false);
-            setShouldReloadImage(true);
-        }, 6000); // Change image every 5 seconds
+            setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+        }, 5000); // Change image every 5 seconds
 
         return () => clearInterval(interval);
-    }, []);
-
-    useEffect(() => {
-        if (shouldReloadImage) {
-            setIsImageLoaded(false);
-            setShouldReloadImage(false);
-        }
-    }, [shouldReloadImage]);
-
-    useEffect(() => {
-        const imageLoadTimeout = setTimeout(() => {
-            setIsImageLoaded(true);
-        }, 500); // Set a small delay to simulate image loading
-
-        return () => clearTimeout(imageLoadTimeout);
-    }, [currentImageIndex]);
-
-
+    }, [images.length]);
 
     useEffect(() => {
         window.scrollTo({
@@ -58,19 +35,33 @@ const Home = () => {
     return (
         <div className=''>
             <div className="hero-container">
-                <img
-                    key={currentImageIndex}
-                    src={images[currentImageIndex]}
-                    alt="Hero Image"
-                    className={`hero-image ${isImageLoaded ? 'fade-in' : ''}`}
-                />
-                <h1 className={`hero-title ${isTextWhite ? "text-white" : ""}`}>Unlock Your Style</h1>
-                <h4 className={`hero-subtitle ${isTextWhite ? "text-white" : ""}`}>Fabriko - Where Elegance Reigns.</h4>
+                <div className="image-wrapper">
+                    {images.map((image, index) => (
+                        <img
+                            key={index}
+                            src={image}
+                            alt={`Hero Image ${index + 1}`}
+                            className={`hero-image ${currentImageIndex === index ? 'active' : ''}`}
+                        />
+                    ))}
+                </div>
+                <div className="hero-content">
+                    <div className="text-pad">
+                        <h1 className={`hero-title text ${isTextWhite ? 'text-white' : ''}`}>
+                            Unlock Your Style
+                        </h1>
+                        <h4 className={`hero-subtitle text ${isTextWhite ? 'text-white' : ''}`}>
+                            Fabriko - Where Elegance Reigns.
+                        </h4>
+                    </div>
+                </div>
             </div>
-            <Featured />
-            <AboutUs />
-            <AllCategories />
-            <FitPerfect />
+            <div className='other-components'>
+                <Featured />
+                <AboutUs />
+                <AllCategories />
+                <FitPerfect />
+            </div>
         </div>
     )
 }
