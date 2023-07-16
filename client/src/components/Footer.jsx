@@ -3,6 +3,7 @@ import FaceBook from '../images/facebook.svg'
 import Twitter from '../images/twitter.svg'
 import Instagram from '../images/instagram.svg'
 import { Link } from 'react-router-dom';
+import '../css/Footer.css'
 const Footer = () => {
     const scrollToTop = () => {
         if (window.location.pathname === "/") {
@@ -16,22 +17,23 @@ const Footer = () => {
 
 
     return (
-        <div className='container-fluid'>
-            <footer className="bg-light text-center text-white">
-                <div className="p-5 d-flex justify-content-evenly align-items-center">
-                    <section className="mb-4">
-                        <h5 className='text-dark text-decoration-underline mb-3'>Check Us Out</h5>
+        <div className='container-fluid bg-light'>
+            <footer className=" ">
+                <div className="p-5 d-flex justify-content-evenly align-items-start">
+                    <section className="mb-4 bg-inf">
+                        <h5 className='text-dark text-decoration-underline mb-3 '>Check Us Out</h5>
                         <a className="btn btn-outline-light m-1" href="#!" role="button">
-                            <img src={FaceBook} alt="Facebook" style={{ height: '37.5px' }} />
+                            <img src={FaceBook} alt="Facebook"   className='imageFoot'/>
                         </a>
                         <a className="btn btn-outline-light btn-floating m-1" href="#!" role="button">
-                            <img src={Twitter} alt="Twitter" style={{ height: '37.5px' }} />
+                            <img src={Twitter} alt="Twitter"  className='imageFoot'/>
                         </a>
                         <a className="btn btn-outline-light btn-floating m-1" href="#!" role="button">
-                            <img src={Instagram} alt="Instagram" style={{ height: '37.5px' }} />
+                            <img src={Instagram} alt="Instagram"  className='imageFoot'/>
                         </a>
                     </section>
-                    <div className="mt-3 d-inline-block" style={{ borderRight: '1px solid #ccc', borderLeft: '1px solid #ccc', paddingRight: '150px', paddingLeft: '150px' }}>
+                    
+                    <div className=" d-inline-block bg-inf" style={{paddingRight: '10%', paddingLeft: '10%' }}>
                         <h5 className='text-dark text-decoration-underline'>Shop</h5>
                         <div className="mt-3 d-flex flex-column gap-2">
                             <Link to={'/category/upper'} className="text-secondary mx-3"  style={{ textDecoration: 'none'}} >Upperwear</Link>
@@ -39,7 +41,8 @@ const Footer = () => {
                             <Link to={'/category/shoes'} className="text-secondary mx-3" style={{ textDecoration: 'none'}} >Shoes</Link>
                         </div>
                     </div>
-                    <div className="mt-3 d-inline-block">
+                    
+                    <div className=" d-inline-block bg-dange ">
                         <h5 className='text-dark  text-decoration-underline'>Company</h5>
                         <div className="mt-3 d-flex flex-column gap-2">
                             <Link to={'/'} className="text-secondary mx-3" style={{ textDecoration: 'none'}} >Home</Link>
