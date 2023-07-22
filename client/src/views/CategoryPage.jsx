@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
+import '../css/CategoryPage.css'
 
 
 const CategoryPage = (props) => {
@@ -22,16 +23,16 @@ const CategoryPage = (props) => {
     useEffect(() => {
         if (categoryName !== "upper" && categoryName !== "bottom" && categoryName !== "shoes") {
             navigate("/category/error")
-            }
-            else {
-        fetch('http://localhost:8080/product/api/' + categoryName)
-            .then(res => res.json())
-            .then(res => {
-                console.log(res)
-                setProductsInCategory(res)
-            })
-            .catch(err => console.log(err))
-            }
+        }
+        else {
+            fetch('http://localhost:8080/product/api/' + categoryName)
+                .then(res => res.json())
+                .then(res => {
+                    console.log(res)
+                    setProductsInCategory(res)
+                })
+                .catch(err => console.log(err))
+        }
     }, [categoryName])
 
     const deleteProduct = (productId) => {
@@ -58,47 +59,54 @@ const CategoryPage = (props) => {
 
     const capitalizedCategoryName = categoryName.charAt(0).toUpperCase() + categoryName.slice(1);
 
-  return (
-    <div style={{ padding: '15%' }}>
-            <div className='fixed-top bg-white' style={{ zIndex: 1, paddingTop: '8%' }}>
-                <h1 className='mb-4' style={{ fontWeight: 300 }}>{capitalizedCategoryName} Category</h1>
+    return (
+        <div className='container-fluid containerCategory'>
+            <div className='categroyTitle'>
+                <h1 className='mb-4 text-decoration-underline' style={{ fontWeight: 300 }}>{capitalizedCategoryName} Category</h1>
             </div>
-            <div >
-                <div className="row p-3">
-                    {productsInCategory.length == 0 ? <h1 className='text-center mt-5'>No products in this category.</h1>
-                        :
+
+            <div className=" d-flex justify-content-evenly flex-wrap col-10 p-3 containerProducts mx-auto">
+                {productsInCategory.length == 0 ? <h3 className='text-center' style={{ marginTop: '150px' }}>No products in this category.</h3>
+                    :
                     productsInCategory.map((product, index) => {
                         return (
-                            <div className="col-sm-4 d-flex flex-column align-items-center gap-2" key={index}>
+                            <div className="col-md-3 d-flex flex-column align-items-center singleProduct" key={index}>
                                 <Link to={"/product/view/" + product.id}>
-                                    <img src={product.productImage1} alt={product.productName} style={{ height: '300px', backgroundColor: '#E8E8E8', transition: 'transform 0.2s', paddingRight: '30px', paddingLeft: '30px' }} onMouseOver={(e) => {
+                                    <img  className="productImage" src={product.productImage1} alt={product.productName} style={{ backgroundColor: '#E8E8E8', transition: 'transform 0.2s' }} onMouseOver={(e) => {
                                         e.currentTarget.style.transform = 'scale(1.05)';
                                     }}
                                         onMouseOut={(e) => {
                                             e.currentTarget.style.transform = 'scale(1)';
                                         }} />
                                 </Link>
-                                <div className='d-flex flex-column flex-wrap pb-2' style={{ width: '52%' }}>
-                                    <p className='text-start text-muted' style={{ fontSize: '15px' }}>{product.productName}</p>
-                                    <p className='text-start fw-bold' style={{ fontSize: '12px' }}>${product.productPrice}USD</p>
+                                <div className="d-flex flex-column pb-2 productDiscription">
+                                    <p className="text-start text-muted">
+                                        {product.productName} 
+                                    </p>
+                                    <p className="text-start fw-bold">
+                                        ${product.productPrice} USD
+                                    </p>
                                 </div>
+
+
                                 <div className='d-flex flex-row gap-2'>
                                     <button className='btn btn-outline-primary btn-sm' onClick={() => viewProduct(product.id)}>View</button>
-                                    {userInfo.accountType == "admin" ? <div>
-                                        <button className='btn btn-outline-primary btn-sm' onClick={() => editProduct(product.id)}>Edit</button>
-                                        <button className='btn btn-outline-primary btn-sm' onClick={() => deleteProduct(product.id)}>Delete</button>
-                                    </div> : null}
+                                    {userInfo.accountType == "admin" ?
+                                        <div className='d-flex gap-2'>
+                                            <button className='btn btn-outline-primary btn-sm ' onClick={() => editProduct(product.id)}>Edit</button>
+                                            <button className='btn btn-outline-primary btn-sm' onClick={() => deleteProduct(product.id)}>Delete</button>
+                                        </div>
+                                        : null}
                                 </div>
                             </div>
                         )
                     }
                     )
-                    }
-                </div>
+                }
             </div>
 
         </div>
-  )
+    )
 }
 
 export default CategoryPage

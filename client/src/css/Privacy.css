@@ -1,0 +1,11 @@
+@media (max-width: 1300px) {
+    .col-10 {
+     padding-top: 5vh;
+    }
+  }
+
+@media (max-width: 500px) {
+    .col-10 {
+     padding-top: 8vh;
+    }
+  }

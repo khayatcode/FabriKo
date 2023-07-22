@@ -56,9 +56,9 @@ const Log = (props) => {
     }
 
     return (
-        <div className='container d-flex justify-content-center' style={{ padding: '18%' }}>
-            <div className='col-md-6'>
-                <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>Login</h1>
+        <div className='container d-flex justify-content-center' style={{ height: '80vh', marginTop: '200px' }}>
+            <div className='col-10'>
+                <h1 className='text-center mb-5' style={{ fontWeight: 300 }}>Login</h1>
                 {errors.length > 0 && (
                     <div className='alert alert-danger'>
                         {errors.map((err, index) => (

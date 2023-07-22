@@ -3,7 +3,8 @@ import FormProduct from './FormProduct'
 import { useState, useEffect } from 'react'
 import { useNavigate, Link } from "react-router-dom";
 
-const CreateProduct = () => {
+const CreateProduct = (props) => {
+  const {userInfo, sessionId} = props
   const [productInfo, setProductInfo] = useState({
     productName: "",
     productCategory: "",
@@ -16,6 +17,13 @@ const CreateProduct = () => {
   const [errors, setErrors] = useState([])
   const [productCategory, setProductCategory] = useState("")
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (userInfo.accountType !== 'admin' || !userInfo || sessionId === '') {
+      navigate('/');
+    }
+  }, [userInfo, sessionId]);
+
 
   const changeHandler = (e) => {
     if (e.target.name === "productImage1File" || e.target.name === "productImage2File" || e.target.name === "productImage3File") {
