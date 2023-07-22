@@ -8,6 +8,16 @@ const NavBar = (props) => {
     const {sessionId, setSessionId, userInfo, setUserInfo} = props;
     const navigate = useNavigate()
 
+    // do if the page is in home page and I press the fabriko logo or home button it will scroll to the top of the page in smooth fashion
+    const scrollToTop = () => {
+        if (window.location.pathname === "/") {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            })
+        }
+    }
+
     const logOut = () => {
         setSessionId("")
         navigate("/login");
@@ -22,7 +32,7 @@ const NavBar = (props) => {
     <div>
         <nav className="navbar NavBarCSS navbar-expand-xl p-4 fixed-top">
             <div className="container-fluid gap-1">
-                <a className="navbar-brand display-5" href="/" style={{ fontSize: '2rem' }}>Fabriko</a>
+                <Link className="navbar-brand display-5" to={"/"} style={{ fontSize: '2rem' }} onClick={scrollToTop}>Fabriko</Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                     aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" >
                     <span className="navbar-toggler-icon"></span>
@@ -30,7 +40,7 @@ const NavBar = (props) => {
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup" >
                     <ul className="navbar-nav me-auto gap-3">
                         <li className="nav-item">
-                            <Link to={"/"} className="nav-link active" aria-current="page">Home</Link>
+                            <Link to={"/"} className="nav-link active" aria-current="page" onClick={scrollToTop}>Home</Link>
                         </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"

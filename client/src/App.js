@@ -9,9 +9,6 @@ import BillingForm from './components/BillingForm';
 import Cookies from 'js-cookie';
 import Home from './views/Home';
 import Footer from './components/Footer';
-import UpperCategory from './views/UpperCategory';
-import BottomCategory from './views/BottomCategory';
-import ShoesCategory from './views/ShoesCategory';
 import CreateProduct from './components/CreateProduct';
 import EditProduct from './components/EditProduct';
 import ViewProduct from './components/ViewProduct';
@@ -54,18 +51,14 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Reg sessionId={sessionId} setSessionId={setSessionId}/>} /> 
         <Route path="/login" element={<Log sessionId={sessionId} setSessionId={setSessionId}/>} />
-        {/* <Route path="/category/upper" element={<UpperCategory />} />
-        <Route path="/category/bottom" element={<BottomCategory />} />
-        <Route path="/category/shoes" element={<ShoesCategory />} /> */}
-        <Route path="/category/:categoryName" element={<CategoryPage sessionId={sessionId} />} />
-        <Route path="/createProduct" element={<CreateProduct />} />
-        <Route path="/product/edit/:productId" element={<EditProduct />} />
+        <Route path="/category/:categoryName" element={<CategoryPage sessionId={sessionId} userInfo={userInfo} />} />
+        <Route path="/createProduct" element={<CreateProduct userInfo={userInfo} sessionId={sessionId} />} />
+        <Route path="/product/edit/:productId" element={<EditProduct userInfo={userInfo} sessionId={sessionId} />} />
         <Route path="/product/view/:productId" element={<ViewProduct sessionId={sessionId}/>} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/billing" element={<BillingForm userInfo={userInfo} sessionId={sessionId}/>} />
         <Route path="/shippingInfo" element={<Shipping sessionId={sessionId}/>} />
         <Route path="/shopping/cart" element={<ShoppingCart sessionId={sessionId} firstName={userInfo.firstName}/>} />
-        <Route path="/shopping/cart/confirm" element={<ShoppingCartConf/>} />
         <Route path="/order/success" element={<OrderSuccessPage firstName={userInfo.firstName}/>} />
         <Route path="/terms" element={<Terms/>} />
         <Route path="/privacy" element={<Privacy/>} />

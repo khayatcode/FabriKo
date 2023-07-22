@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate, Link } from "react-router-dom";
 
 const Reg = (props) => {
@@ -21,6 +21,13 @@ const Reg = (props) => {
             [e.target.name]: e.target.value
         })
     }
+
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        })
+    }, [])
 
     const submitReg = (e) => {
         e.preventDefault()
@@ -58,8 +65,8 @@ const Reg = (props) => {
 
 
     return (
-        <div className='container d-flex justify-content-center' style={{ padding: '8%' }}>
-            <div className='col-md-6'>
+        <div className='container d-flex justify-content-center' style={{ height: '80vh', marginTop: '200px' }}>
+            <div className='col-10'>
                 <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>Register</h1>
                 {errors.length > 0 && (
                     <div className='alert alert-danger'>

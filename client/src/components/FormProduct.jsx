@@ -3,8 +3,8 @@ import React from 'react'
 const FormProduct = (props) => {
     const { message, productInfo, setProductInfo, changeHandler, submitProduct, errors, submitValue } = props
     return (
-        <div className='container d-flex justify-content-center' style={{ padding: '8%' }}>
-            <div className='col-md-6'>
+        <div className='container d-flex justify-content-center' style={{ height: '80vh', marginTop: '200px' }}>
+            <div className='col-md-10'>
                 <h1 className='text-center mb-3' style={{ fontWeight: 300 }}>{message}</h1>
                 <form onSubmit={submitProduct}>
                     {errors.length > 0 && (

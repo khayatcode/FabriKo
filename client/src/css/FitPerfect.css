@@ -1,0 +1,67 @@
+.fitText h2 {
+    font-weight: 400;
+    color: #212727;
+    font-size: 2.5rem;
+}
+
+.fitText p {
+    font-weight: 300;
+    color: #212727;
+    font-size: 1.2rem;
+}
+
+
+.fitImg img {
+    height: auto;
+    width: 60%;
+}
+
+@media screen and (max-width: 1350px) {
+    .fitText h2 {
+        font-size: 2rem;
+    }
+
+    .fitText p {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 1020px) {
+    .fitText h2 {
+        font-size: 1.5rem;
+    }
+
+    .fitText p {
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .fitText h2 {
+        font-size: 2rem;
+    }
+
+    .fitText p {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .fitText h2 {
+        font-size: 1.5rem;
+    }
+
+    .fitText p {
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .fitText h2 {
+        font-size: 1.3rem;
+    }
+
+    .fitText p {
+        font-size: 0.6rem;
+    }
+}

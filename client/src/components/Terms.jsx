@@ -1,8 +1,16 @@
 import React from 'react'
+import { useEffect } from 'react'
+import '../css/Privacy.css'
 
 const Terms = () => {
+  useEffect(() => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    })
+}, [])
   return (
-    <div className='container d-flex justify-content-center' style={{ padding: '8%' }}>
+    <div className='container-fluid d-flex justify-content-center' style={{ padding: '8%' }}>
         <div className='col-10'>
             <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>Terms and Conditions</h1>
             <p style={{ fontWeight: 300 }}>

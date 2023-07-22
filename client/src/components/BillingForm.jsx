@@ -19,23 +19,39 @@ const BillingForm = (props) => {
     });
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
+    
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        })
+    }, [])
 
 
 useEffect(() => {
-    Promise.all([
-        fetch(`http://localhost:8080/api/getuser/${sessionId}`).then(res => res.json()),
-        fetch(`http://localhost:8080/billing/find/${sessionId}`).then(res => res.json())
-    ])
-    .then(([user, billing]) => {
-        const { id, firstName, lastName, email, accountType } = user;
-        const { user: billingUser, ...billingWithoutUser } = billing;
-        setBillingForm({
-            ...billingWithoutUser,
-            user: { id, firstName, lastName, email, accountType }
-        });
-    })
-    .catch(err => console.log(err));
-}, []);
+    fetch(`http://localhost:8080/api/getuser/${sessionId}`)
+        .then(res => res.json())
+        .then(user => {
+            const { id, firstName, lastName, email, accountType } = user;
+            console.log(user);
+            setBillingForm(prevState => ({
+                ...prevState,
+                user: { id, firstName, lastName, email, accountType }
+            }));
+        })
+        .catch(err => console.log(err));
+    fetch(`http://localhost:8080/billing/find/${sessionId}`)
+        .then(res => res.json())
+        .then(billing => {
+            const { user: billingUser, ...billingWithoutUser } = billing;
+            console.log(billing);
+            setBillingForm(prevState => ({
+                ...prevState,
+                ...billingWithoutUser
+            }));
+        })
+        .catch(err => console.log(err));
+}, [sessionId]);
 
 
     const onChange = (e) => {

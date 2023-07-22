@@ -1,0 +1,125 @@
+.hero-container {
+    position: relative;
+    overflow: hidden;
+    height: 65vw;
+}
+/* @media screen and (min-width : 800px) { */
+    .hero-container {
+        max-height: 100vh;
+        /* margin-bottom: 30px; */
+    }
+/* } */
+
+.image-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-image {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.5s;
+    top: 0;
+    left: 0;
+  
+}
+
+.hero-image.active {
+    opacity: 1;
+  }
+
+.hero-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.text-pad {
+    max-width: 400px;
+}
+
+/* @media screen and (min-width: 800px) { */
+    .hero-content {
+        padding: 35vw 10vw;
+        top : 0;
+        display: flex;
+        align-items: center;
+    }
+/* } */
+
+.hero-title {
+    position: relative;
+    color: black;
+    font-weight: 450;
+    font-size: 3rem;
+
+}
+
+
+.hero-title.text-white,
+.hero-subtitle.text-white {
+    color: white;
+}
+
+
+
+.hero-subtitle {
+    position: relative;
+    font-weight: 300;
+}
+
+
+@media screen and (max-width: 1000px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .hero-title {
+        font-size: 1.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .hero-title {
+        font-size: 1.3rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.6rem;
+    }
+}
+
+@media screen and (max-width: 490px) {
+    .hero-title {
+        font-size: 1rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.5rem;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .hero-title {
+        font-size: 0.8rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.3rem;
+    }
+}
