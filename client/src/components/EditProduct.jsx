@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 
-const EditProduct = () => {
+const EditProduct = (props) => {
+    const {userInfo, sessionId} = props
     const [productInfo, setProductInfo] = useState({
         productName: "",
         productPrice: "",
@@ -33,6 +34,12 @@ const EditProduct = () => {
             })
         }
     }
+
+    useEffect(() => {
+        if (userInfo.accountType !== 'admin' || !userInfo || sessionId === '') {
+          navigate('/');
+        }
+      }, [userInfo, sessionId]);
 
     useEffect(() => {
         window.scrollTo({

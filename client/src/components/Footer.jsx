@@ -19,7 +19,7 @@ const Footer = () => {
     return (
         <div className='container-fluid bg-light'>
             <footer className=" ">
-                <div className="p-5 d-flex justify-content-evenly align-items-start">
+                <div className="p-5 d-flex justify-content-evenly align-items-start footerDiv">
                     <section className="mb-4 bg-inf">
                         <h5 className='text-dark text-decoration-underline mb-3 '>Check Us Out</h5>
                         <a className="btn btn-outline-light m-1" href="#!" role="button">
@@ -33,7 +33,7 @@ const Footer = () => {
                         </a>
                     </section>
                     
-                    <div className=" d-inline-block bg-inf" style={{paddingRight: '10%', paddingLeft: '10%' }}>
+                    <div className=" d-inline-block bg-inf footerInfo" style={{paddingRight: '10%', paddingLeft: '10%' }}>
                         <h5 className='text-dark text-decoration-underline'>Shop</h5>
                         <div className="mt-3 d-flex flex-column gap-2">
                             <Link to={'/category/upper'} className="text-secondary mx-3"  style={{ textDecoration: 'none'}} >Upperwear</Link>
@@ -42,7 +42,7 @@ const Footer = () => {
                         </div>
                     </div>
                     
-                    <div className=" d-inline-block bg-dange ">
+                    <div className=" d-inline-block bg-dange footerCompany footerInfo">
                         <h5 className='text-dark  text-decoration-underline'>Company</h5>
                         <div className="mt-3 d-flex flex-column gap-2">
                             <Link to={'/'} className="text-secondary mx-3" style={{ textDecoration: 'none'}} >Home</Link>
