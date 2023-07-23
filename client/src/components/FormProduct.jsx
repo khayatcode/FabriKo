@@ -35,15 +35,15 @@ const FormProduct = (props) => {
                         <textarea className='form-control' placeholder='Product Description' id='floatingTextarea2' style={{ height: '100px' }} name='productDescription' value={productInfo.productDescription} onChange={changeHandler}></textarea>
                         <label htmlFor='floatingTextarea2'>Product Description</label>
                     </div>
-                    <div className='mb-3'>
+                    <div className='mb-3 d-flex flex-column align-items-start'>
                         <label htmlFor='formFile' className='form-label'>Product Image 1</label>
                         <input type='file' className='form-control' id='formFile' placeholder='Product Image 1' name='productImage1File' onChange={changeHandler} />
                     </div>
-                    <div className='mb-3'>
+                    <div className='mb-3 d-flex flex-column align-items-start'>
                         <label htmlFor='formFile' className='form-label'>Product Image 2</label>
                         <input type='file' className='form-control' id='formFile' placeholder='Product Image 2' name='productImage2File' onChange={changeHandler} />
                     </div>
-                    <div className='mb-3'>
+                    <div className='mb-3 d-flex flex-column align-items-start'>
                         <label htmlFor='formFile' className='form-label'>Product Image 3</label>
                         <input type='file' className='form-control' id='formFile' placeholder='Product Image 3' name='productImage3File' onChange={changeHandler} />
                     </div>

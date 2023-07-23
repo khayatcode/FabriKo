@@ -98,7 +98,7 @@ useEffect(() => {
     };
 
     return (
-        <div className='container d-flex justify-content-center' style={{ padding: '10%' }}>
+        <div className='container d-flex justify-content-center' style={{  height: '80vh', marginTop: '200px' }}>
             <div className='col-md-12'>
                 <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>Billing Info</h1>
                 {errors.length > 0 && (
