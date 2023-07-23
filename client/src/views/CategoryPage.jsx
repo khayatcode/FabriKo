@@ -79,7 +79,7 @@ const CategoryPage = (props) => {
                                             e.currentTarget.style.transform = 'scale(1)';
                                         }} />
                                 </Link>
-                                <div className="d-flex flex-column pb-2 productDiscription">
+                                <div className="d-flex flex-column productDiscription">
                                     <p className="text-start text-muted">
                                         {product.productName} 
                                     </p>

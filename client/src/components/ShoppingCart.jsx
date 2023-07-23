@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import UpperWear from '../images/upperWear3.webp'
 import Pants from '../images/pants2.webp'
 import Shoes from '../images/shoes2.webp'
+import '../css/ShoppingCart.css'
 
 
 const ShoppingCart = (props) => {
@@ -66,43 +67,29 @@ const removeItem = (cartId) => {
 
     return (
         // do a row for each product having picture, product name, quantity, and total for product. make it spaced out evenly and have a button to remove it from the cart. have a total at the bottom with continue to checkout button. 
-        <div className='container d-flex justify-content-center' style={{ padding: '13%' }}>
-            <div className='col-10'>
-                <h1 className='mb-5' style={{ fontWeight: 300 }}>{firstName} Shopping Cart</h1>
-                {/* <div className='row d-flex justify-content-between align-items-center mb-5'>
-                <div className='col-3'>
-                    <img src={UpperWear} style={{height: '250px' }}/>
-                </div>
-                <div className='col-3'>
-                    <h6 style={{ fontWeight: 300 }}>Product Name: XXX</h6>
-                </div>
-                <div className='col-3'>
-                    <h6 style={{ fontWeight: 300 }}>Quantity: X</h6>
-                </div>
-                <div className='col-3'>
-                    <h6 style={{ fontWeight: 300 }}>Total: $X</h6>
-                </div>
-            </div> */}
-                {allCartItems.length === 0 ? <h1 className='text-center'>No Items in Cart</h1> : allCartItems.map((item, index) => {
+        <div className='container containerCart'>
+            <div className='col-12'>
+                <h1 className='mb-5 text-decoration-underline cartTitle' style={{ fontWeight: 300 }}>{firstName} Shopping Cart</h1>
+                {allCartItems.length === 0 ? <h3 className='text-center'>No Items in Cart</h3> : allCartItems.map((item, index) => {
                     return (
                         <div className='row d-flex justify-content-between align-items-center mb-5' key={index}>
                             <div className='col-3'>
-                                <img src={item.product.productImage1} style={{ height: '250px' }} />
+                                <img src={item.product.productImage1} className='cartImage' />
                             </div>
-                            <div className='col-2'>
-                                <h6 style={{ fontWeight: 300 }}>Product Name: 
-                                    <Link to={`/product/view/${item.product.id}`} style={{ textDecoration: 'none', color: 'black' }}> {item.product.productName}</Link>
+                            <div className='col-2 d-flex flex-column'>
+                                <h6 style={{ wordWrap: 'break-word' }} >Product Name: 
+                                    <Link to={`/product/view/${item.product.id}`} style={{ textDecoration: 'underline', color: 'black' }}> {item.product.productName}</Link>
                                 </h6>
                             </div>
                             <div className='col-2'>
-                                <h6 style={{ fontWeight: 300 }}>size: {item.size}</h6>
+                                <h6>size: {item.size}</h6>
                             </div>
                             <div className='col-2'>
-                                <h6 style={{ fontWeight: 300 }}>Quantity: {item.quantity}</h6>
+                                <h6>Quantity: {item.quantity}</h6>
                             </div>
-                            <div className='col-2'>
-                                <h6 style={{ fontWeight: 300 }}>Total: ${item.total}</h6>
-                                <button className='btn btn-outline-dark' onClick={() => removeItem(item.id)}>Remove</button>
+                            <div className='col-2 d-flex justify-content-evenly align-items-center gap-3'>
+                                <h6>Total: ${item.total}</h6>
+                                <button className='btn btn-outline-dark btn-sm buttonCart' onClick={() => removeItem(item.id)}>Remove</button>
                             </div>
                         </div>
                     )
@@ -110,14 +97,14 @@ const removeItem = (cartId) => {
                 )
                 }
                 <div className='row'>
-                    <div className='col-9'>
-                        <h4 style={{ fontWeight: 300 }}>Total: ${total}</h4>
+                    <div className='d-flex justify-content-around mt-4'>
+                        <h4  className="" style={{ fontWeight: 300 }}>Total: ${total}</h4>
+                        { allCartItems.length > 0 && (
+                            <div className=''>
+                                <Link to='/billing' className='btn btn-outline-dark '>Continue to Checkout</Link>
+                            </div>
+                        )}
                     </div>
-                    { allCartItems.length > 0 && (
-                        <div className='col-3'>
-                            <Link to='/billing' className='btn btn-outline-dark'>Continue to Checkout</Link>
-                        </div>
-                    )}
                 </div>
 
             </div>

@@ -93,7 +93,7 @@ const Shipping = (props) => {
 
   return (
     <div className='container d-flex justify-content-center' style={{ padding: '8%' }}>
-        <div className='col-md-6'>
+        <div className='col-md-8'>
             <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>Shipping</h1>
             {errors.length > 0 && (
                     <div className='alert alert-danger'>
