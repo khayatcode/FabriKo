@@ -1,0 +1,8 @@
+.contactContainer {
+    height: 100vh;
+}
+@media (max-width: 800px) {
+    .contactText {
+        font-size: 10px;
+    }
+}
