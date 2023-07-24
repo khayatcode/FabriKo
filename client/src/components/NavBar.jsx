@@ -40,7 +40,7 @@ const NavBar = (props) => {
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup" >
                     <ul className="navbar-nav me-auto gap-3">
                         <li className="nav-item">
-                            <Link to={"/"} className="nav-link active" aria-current="page" onClick={scrollToTop}>Home</Link>
+                            <Link to={"/"} className="nav-link" aria-current="page" onClick={scrollToTop}>Home</Link>
                         </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
@@ -54,18 +54,18 @@ const NavBar = (props) => {
                             </ul>
                         </li>
                         <li className="nav-item">
-                            <Link to={"/contact"} className="nav-link" >Contact us</Link>
-                        </li>
-                        <li className="nav-item">
                             <Link to={"/shopping/cart"} className="nav-link" >Shopping Cart</Link>
                         </li>
                         {userInfo.accountType === "admin" && (
                         <li className="nav-item mx-auto">
-                            <Link className="btn btn-outline-dark" to={"/createProduct"}>
+                            <Link className="nav-link" to={"/createProduct"}>
                             Add Product
                             </Link>
                         </li>
                         )}
+                        <li className="nav-item">
+                            <Link to={"/contact"} className="nav-link" >Contact Us</Link>
+                        </li>
                         {sessionId === "" ? (
                             <li className="nav-item">
                                 <Link to={"/login"} className="nav-link" >Login</Link>
