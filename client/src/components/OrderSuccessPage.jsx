@@ -15,11 +15,11 @@ const OrderSuccessPage = (props) => {
   }, [])
 
   return (
-    <div className='container d-flex justify-content-center' style={{ padding: '14%' }}>
+    <div className='container d-flex justify-content-center align-items-center' style={{ minHeight: "800px" }}>
       <div className='col-8'>
-          <h1 className='mb-3' style={{ fontWeight: 300 }}>Congratulations {firstName}!</h1>
-          <h2 className='mb-3' style={{ fontWeight: 300 }}>Your order has been placed!</h2>
-          <h6 className='mb-3' style={{ fontWeight: 300 }}>Order Number: #{orderNumber}</h6>
+          <h1 className='mb-3 text-decoration-underline' style={{ fontWeight: 300 }}>Congratulations {firstName}!</h1>
+          <h4 className='mb-3' style={{ fontWeight: 300 }}>Your order has been placed.</h4>
+          <h6 className='mb-3' style={{ fontWeight: 300 }}>Order Number: <span className='text-decoration-underline' style={{ color: 'blue' }}>#{orderNumber}</span></h6>
       </div>
     </div>
   )

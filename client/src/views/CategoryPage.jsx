@@ -80,14 +80,13 @@ const CategoryPage = (props) => {
                                         }} />
                                 </Link>
                                 <div className="d-flex flex-column productDiscription">
-                                    <p className="text-start text-muted">
+                                    <p className="text-start text-muted" style={{wordWrap: 'break-word'}}>
                                         {product.productName} 
                                     </p>
-                                    <p className="text-start fw-bold">
+                                    <p className="text-start fw-bold" >
                                         ${product.productPrice} USD
                                     </p>
                                 </div>
-
 
                                 <div className='d-flex flex-row gap-2'>
                                     <button className='btn btn-outline-primary btn-sm' onClick={() => viewProduct(product.id)}>View</button>

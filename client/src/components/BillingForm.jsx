@@ -98,7 +98,7 @@ useEffect(() => {
     };
 
     return (
-        <div className='container d-flex justify-content-center' style={{  height: '80vh', marginTop: '200px' }}>
+        <div className='container d-flex justify-content-center mb-5' style={{ marginTop: '150px', minHeight: "800px" }}>
             <div className='col-md-12'>
                 <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>Billing Info</h1>
                 {errors.length > 0 && (
@@ -235,7 +235,7 @@ useEffect(() => {
                             <label htmlFor="floatingInput">CVV</label>
                         </div>
                     </div>
-                    <button type="submit" className="btn btn-outline-dark">
+                    <button type="submit" className="btn btn-outline-dark col-3 mx-auto mt-3">
                         Submit
                     </button>
                 </form>

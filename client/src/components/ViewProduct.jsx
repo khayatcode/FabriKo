@@ -1,9 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import ViewProduct1 from '../images/ViewProduct1.webp'
-import ViewProduct3 from '../images/ViewProduct3.webp'
-import ViewProduct4 from '../images/ViewProduct4.webp'
 import { useParams, useNavigate, Link } from "react-router-dom";
+import "../css/ViewProduct.css"
 
 const ViewProduct = (props) => {
     const { sessionId } = props
@@ -126,7 +124,7 @@ const ViewProduct = (props) => {
 
     return (
         // create a page to view a product and select wich picture to view. Create a form to choose size and quantity and add to cart
-        <div className='container' style={{ padding: '8%', paddingTop: '10%' }}>
+        <div className='container viewProductContainer' style={{ marginTop: "150px", paddingBottom: "10%" }}>
             <div className='row'>
                 <div className='col-md-6'>
                     <div className='d-flex flex-column justify-content-center align-items-center view-product-image-container' style={{ position: "relative" }}>
@@ -134,26 +132,23 @@ const ViewProduct = (props) => {
                             className='view-product-image'
                             src={images[currentImage]}
                             alt='product'
-                            style={{ width: '40%' }}
+                            style={{ width: '260px' }}
                         />
-                        <div className='d-flex gap-3 justify-content-center mt-3'>
+                        <div className='d-flex gap-5 justify-content-center mt-5'>
                             <button className='btn btn-outline-dark' onClick={prevImage}>Prev</button>
                             <button className='btn btn-outline-dark' onClick={nextImage}>Next</button>
                         </div>
                     </div>
                 </div>
-                <div className='col-md-6' style={{ borderLeft: '1px solid #ccc', paddingLeft: '10%' }}>
-                    <h1 className='text-center mb-4' style={{ fontWeight: 300 }}>{productInfo.productName}</h1>
+                <div className='col-md-6 viewProductInfo'>
+                    <h4 className='text-start mb-4' style={{ fontWeight: 300, wordWrap: 'break-word' }}>Product Name: {productInfo.productName}</h4>
                     <div className='mb-4'>
-                        <p className='text-center' style={{ fontWeight: 300 }}>Description: {productInfo.productDescription}</p>
-                    </div>
-                    <div className='mb-4'>
-                        <p className='text-center' style={{ fontWeight: 300 }}>Price: ${productInfo.productPrice}</p>
+                        <h5 className='text-start' style={{ fontWeight: 300, wordWrap: 'break-word' }}>Price: ${productInfo.productPrice}</h5>
                     </div>
                     {errors.length > 0 && (
                     <div className='alert alert-danger'>
                         {errors.map((error, index) => (
-                            <div key={index}>{error}</div>
+                            <p key={index}>{error}</p>
                         ))}
                     </div>
                     )}
@@ -179,6 +174,9 @@ const ViewProduct = (props) => {
                             <Link to='/login' className='btn btn-outline-dark'>Login to Add to Cart</Link>
                         )}
                     </form>
+                    <div className='mt-4'>
+                        <p className='text-start' style={{ fontWeight: 300, wordWrap: 'break-word' }}>Description: {productInfo.productDescription}</p>
+                    </div>
                 </div>
             </div>
         </div>

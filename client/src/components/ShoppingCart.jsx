@@ -72,7 +72,8 @@ const removeItem = (cartId) => {
                 <h1 className='mb-5 text-decoration-underline cartTitle' style={{ fontWeight: 300 }}>{firstName} Shopping Cart</h1>
                 {allCartItems.length === 0 ? <h3 className='text-center'>No Items in Cart</h3> : allCartItems.map((item, index) => {
                     return (
-                        <div className='row d-flex justify-content-between align-items-center mb-5' key={index}>
+                        <div className='row d-flex justify-content-between align-items-center mb-5' key={index} style={{ borderBottom: '1px solid #89898964', paddingBottom: '50px' }}>
+
                             <div className='col-3'>
                                 <img src={item.product.productImage1} className='cartImage' />
                             </div>
@@ -91,6 +92,7 @@ const removeItem = (cartId) => {
                                 <h6>Total: ${item.total}</h6>
                                 <button className='btn btn-outline-dark btn-sm buttonCart' onClick={() => removeItem(item.id)}>Remove</button>
                             </div>
+                            
                         </div>
                     )
                 }
