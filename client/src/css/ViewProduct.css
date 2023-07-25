@@ -1,0 +1,26 @@
+.viewProductContainer {
+    min-height: 800px;
+}
+
+@media (min-width: 768px) {
+    .view-product-image-container {
+        /* Do border right */
+        padding-right: 100px;
+    }
+    .viewProductInfo {
+        padding-left: 100px;
+        border-left: 1px solid #89898964;
+    }
+    
+}
+
+@media (max-width: 767px) {
+    /* Do border below it */
+    .view-product-image-container {
+        padding-bottom: 30px;
+        border-bottom: 1px solid #89898964;
+    }
+    .viewProductInfo {
+        margin-top: 30px;
+    }
+}
