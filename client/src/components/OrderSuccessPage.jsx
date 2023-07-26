@@ -14,9 +14,11 @@ const OrderSuccessPage = (props) => {
     }, []);
 
     console.log("Order number: " + orderNumber);
-    if (orderNumber === "") {
-      navigate('/');
-    }
+    useEffect(() => {
+      if (orderNumber === "") {
+        navigate('/');
+      }
+    }, []);
 
 
   return (

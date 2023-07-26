@@ -21,9 +21,9 @@ const NavBar = (props) => {
     const logOut = () => {
         setSessionId("")
         setOrderNumber("")
-        navigate("/login");
         Cookies.remove("sessionId");
         Cookies.remove("orderNumber");
+        navigate("/login");
         window.location.reload(true);
     }
 
