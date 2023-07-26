@@ -136,7 +136,7 @@ const ViewProduct = (props) => {
         })
             .then(res => {
                 if (res.status === 200) {
-                    navigate("/")
+                    navigate(`/category/${productInfo.productCategory}`)
                 }
             })
             .catch(err => console.log(err))
