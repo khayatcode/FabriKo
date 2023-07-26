@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 
 
 const EditProduct = (props) => {
-    const {userInfo, sessionId} = props
+    const { userInfo, sessionId } = props
     const [productInfo, setProductInfo] = useState({
         productName: "",
         productPrice: "",
@@ -18,6 +18,7 @@ const EditProduct = (props) => {
     })
     const [errors, setErrors] = useState([])
     const [productCategory, setProductCategory] = useState("")
+    const [loaded, setLoaded] = useState(false)
     const navigate = useNavigate()
     const { productId } = useParams()
 
@@ -35,11 +36,10 @@ const EditProduct = (props) => {
         }
     }
 
-    useEffect(() => {
         if (userInfo.accountType !== 'admin' || !userInfo || sessionId === '') {
-          navigate('/');
+            navigate('/');
         }
-      }, [userInfo, sessionId]);
+
 
     useEffect(() => {
         window.scrollTo({
@@ -47,6 +47,12 @@ const EditProduct = (props) => {
             behavior: "smooth"
         })
     }, [])
+
+        // change the productCategory state every time the productInfo.productCategory changes
+        useEffect(() => {
+            setProductCategory(productInfo.productCategory)
+            console.log("Change product category " + productInfo.productCategory)
+        }, [productInfo.productCategory])
 
     useEffect(() => {
         fetch("http://localhost:8080/product/" + productId)
@@ -56,15 +62,11 @@ const EditProduct = (props) => {
                 setProductInfo(res)
                 console.log("Product Category" + res.productCategory)
                 setProductCategory(res.productCategory)
+                setLoaded(true)
             })
             .catch(err => console.log(err))
     }, [])
 
-    // change the productCategory state every time the productInfo.productCategory changes
-    useEffect(() => {
-        setProductCategory(productInfo.productCategory)
-        console.log("Change product category " + productInfo.productCategory)
-    }, [productInfo.productCategory])
 
 
 
@@ -118,6 +120,7 @@ const EditProduct = (props) => {
                 changeHandler={changeHandler}
                 submitProduct={editProduct}
                 errors={errors}
+                loaded={loaded}
                 submitValue={"Edit Product"}
             />
         </div>

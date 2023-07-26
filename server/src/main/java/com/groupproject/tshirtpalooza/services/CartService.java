@@ -43,12 +43,12 @@ public class CartService {
     }
 
     // make a method to find all carts by user id and completed = false, and make complete = true/
-    public List<Cart> makeComplete(Long id) {
+    public List<Cart> makeComplete(Long id, Integer randomNum) {
         List<Cart> carts = this.cartRepo.findByUserId(id);
-
         for (Cart cart : carts) {
             if (cart.getComplete() == false) {
                 cart.setComplete(true);
+                cart.setOrderNumber(randomNum);
                 this.cartRepo.save(cart);
             }
         }

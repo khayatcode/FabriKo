@@ -59,9 +59,11 @@ public class ShippingController {
 			Collections.sort(errorMessages);
 			return ResponseEntity.status(400).body(errorMessages);
 		}
-		Shipping savedShipping = shippingServ.create(shipping);
-		this.cartServ.makeComplete(id);
-		return ResponseEntity.status(HttpStatus.CREATED).body(savedShipping);
+		this.shippingServ.create(shipping);
+		// get random 10 digit number
+		Integer randomNum = (int) (Math.random() * 1000000000);
+		this.cartServ.makeComplete(id, randomNum);
+		return ResponseEntity.status(HttpStatus.CREATED).body(randomNum);
 	}
 	
 	@PostMapping("/shipping/update")
