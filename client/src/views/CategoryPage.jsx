@@ -92,7 +92,7 @@ const CategoryPage = (props) => {
                                             </p>
                                         </div>
 
-                                        <div className='d-flex flex-row gap-2'>
+                                        {/* <div className='d-flex flex-row gap-2'>
                                             <button className='btn btn-outline-primary btn-sm' onClick={() => viewProduct(product.id)}>View</button>
                                             {userInfo.accountType == "admin" ?
                                                 <div className='d-flex gap-2'>
@@ -100,7 +100,7 @@ const CategoryPage = (props) => {
                                                     <button className='btn btn-outline-danger btn-sm' onClick={() => deleteProduct(product.id)}>Delete</button>
                                                 </div>
                                                 : null}
-                                        </div>
+                                        </div> */}
                                     </div>
                                 )
                             }

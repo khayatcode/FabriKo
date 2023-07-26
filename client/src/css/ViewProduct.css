@@ -2,6 +2,14 @@
     min-height: 800px;
 }
 
+/* do media between 768px and 991px */
+@media (min-width: 768px) and (max-width: 991px) {
+    .btn-outline-danger {
+        margin: 10px;
+    }
+}
+
+
 @media (min-width: 768px) {
     .view-product-image-container {
         /* Do border right */
