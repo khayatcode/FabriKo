@@ -16,13 +16,12 @@ const CreateProduct = (props) => {
   })
   const [errors, setErrors] = useState([])
   const [productCategory, setProductCategory] = useState("")
+  const [loaded, setLoaded] = useState(false)
   const navigate = useNavigate()
 
-  useEffect(() => {
-    if (userInfo.accountType !== 'admin' || !userInfo || sessionId === '') {
+    if (userInfo.accountType !== 'admin' || !userInfo || sessionId == '') {
       navigate('/');
     }
-  }, [userInfo, sessionId]);
 
 
   const changeHandler = (e) => {
@@ -48,6 +47,7 @@ const CreateProduct = (props) => {
 
   useEffect(() => {
     setProductCategory(productInfo.productCategory)
+    setLoaded(true)
     console.log("Change product category " + productInfo.productCategory)
   }, [productInfo.productCategory])
 
@@ -85,6 +85,11 @@ const CreateProduct = (props) => {
           const data = await res.json();
           console.log(data)
           setErrors(data);
+          // scroll to top of page
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          })
         }
       })
       .catch(err => console.log(err))
@@ -100,6 +105,7 @@ const CreateProduct = (props) => {
         errors={errors}
         changeHandler={changeHandler}
         submitProduct={createProduct}
+        loaded={loaded}
         submitValue="Create Product"
       />
     </div>
