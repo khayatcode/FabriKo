@@ -6,8 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import '../css/CategoryPage.css'
 
 
-const CategoryPage = (props) => {
-    const { sessionId, userInfo } = props
+const CategoryPage = () => {
     const [productsInCategory, setProductsInCategory] = useState([])
     const [loaded, setLoaded] = useState(false)
     const { categoryName } = useParams()
@@ -21,11 +20,11 @@ const CategoryPage = (props) => {
         })
     }, [categoryName])
 
+    if (categoryName !== "upper" && categoryName !== "bottom" && categoryName !== "shoes") {
+        navigate("/error")
+    }
+
     useEffect(() => {
-        if (categoryName !== "upper" && categoryName !== "bottom" && categoryName !== "shoes") {
-            navigate("/error")
-        }
-        else {
             fetch('http://localhost:8080/product/api/' + categoryName)
                 .then(res => res.json())
                 .then(res => {
@@ -34,30 +33,7 @@ const CategoryPage = (props) => {
                     setLoaded(true)
                 })
                 .catch(err => console.log(err))
-        }
     }, [categoryName])
-
-    const deleteProduct = (productId) => {
-        console.log(productId)
-        fetch("http://localhost:8080/product/delete/" + productId, {
-            method: "DELETE"
-        })
-            .then(res => {
-                if (res.status === 200) {
-                    const updatedProducts = productsInCategory.filter(product => product.id !== productId)
-                    setProductsInCategory(updatedProducts)
-                }
-            })
-            .catch(err => console.log(err))
-    }
-
-    const editProduct = (productId) => {
-        navigate("/product/edit/" + productId)
-    }
-
-    const viewProduct = (productId) => {
-        navigate("/product/view/" + productId)
-    }
 
     const capitalizedCategoryName = categoryName.charAt(0).toUpperCase() + categoryName.slice(1);
 
@@ -70,7 +46,7 @@ const CategoryPage = (props) => {
                     </div>
 
                     <div className=" d-flex justify-content-evenly flex-wrap col-10 p-3 containerProducts mx-auto">
-                        {productsInCategory.length == 0 ? <h3 className='text-center' style={{ marginTop: '150px' }}>No products in this category.</h3>
+                        {productsInCategory.length === 0 ? <h3 className='text-center' style={{ marginTop: '150px' }}>No products in this category.</h3>
                             :
                             productsInCategory.map((product, index) => {
                                 return (
