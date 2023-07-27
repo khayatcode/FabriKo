@@ -42,7 +42,7 @@ public class Product {
 	private Double productPrice;
 	
 	@NotBlank(message="Description is required!")
-	@Size(min=3, message="Description must be at least 3 characters long")
+	@Size(min=3, max=255, message="Description must be between 3 and 255 characters long")
 	private String productDescription;
 	
 	// @NotNull(message="Product image is required!")

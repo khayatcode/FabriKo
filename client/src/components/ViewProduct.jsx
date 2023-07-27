@@ -153,7 +153,7 @@ const ViewProduct = (props) => {
                                 className='view-product-image'
                                 src={images[currentImage]}
                                 alt='product'
-                                style={{ width: '260px' }}
+                                style={{ width: productInfo.productImage1.includes("upper") || productInfo.productImage1.includes("bottom") ? '240px' : '500px' }}
                             />
                             <div className='d-flex gap-5 justify-content-center mt-5'>
                                 <button className='btn btn-outline-dark' onClick={prevImage}>Prev</button>

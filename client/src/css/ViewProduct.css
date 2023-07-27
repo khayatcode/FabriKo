@@ -1,6 +1,11 @@
 .viewProductContainer {
-    min-height: 800px;
+    min-height: 1000px;
 }
+
+/* .view-product-image{
+    min-width: 260px;
+    max-width: 400px;
+} */
 
 /* do media between 768px and 991px */
 @media (min-width: 768px) and (max-width: 991px) {
