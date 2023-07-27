@@ -50,13 +50,17 @@ const Log = (props) => {
                     const data = await res.json();
                     console.log("login data" + data)
                     setErrors(data)
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    })
                 }
             })
             .catch(err => console.log(err))
     }
 
     return (
-        <div className='container d-flex justify-content-center' style={{ height: '80vh', marginTop: '200px' }}>
+        <div className='container d-flex justify-content-center' style={{ minHeight: "800px", marginTop: '150px', marginBottom: "50px" }}>
             <div className='col-10'>
                 <h1 className='text-center mb-5' style={{ fontWeight: 300 }}>Login</h1>
                 {errors.length > 0 && (

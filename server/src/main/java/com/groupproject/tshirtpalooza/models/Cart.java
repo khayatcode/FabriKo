@@ -38,6 +38,9 @@ public class Cart {
     @NotNull(message="Complete cant be null")
     private Boolean complete;
     
+    @NotNull
+    private Integer orderNumber;
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="product_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Add this line to ignore the "hibernateLazyInitializer" and "handler" properties
@@ -108,6 +111,16 @@ public class Cart {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
+
+	public Integer getOrderNumber() {
+		return orderNumber;
+	}
+
+	public void setOrderNumber(Integer orderNumber) {
+		this.orderNumber = orderNumber;
+	}
+	
+	
 
 }
 

@@ -1,11 +1,12 @@
 .containerCart {
-    min-height: 1000px;
+    min-height: 800px;
+    margin-bottom: 50px;
 }
 .cartTitle {
     margin-top: 200px;
 }
 .cartImage {
-    width: 250px;
+    width: 130px;
 }
 
 h6 {
@@ -17,9 +18,9 @@ h6 {
     h6 {
         font-size: 14px;
     }
-    .cartImage {
+    /* .cartImage {
         width: 200px;
-    }
+    } */
     .buttonCart {
         font-size: 12px;
     }
@@ -29,9 +30,9 @@ h6 {
     h6 {
         font-size: 12px;
     }
-    .cartImage {
+    /* .cartImage {
         width: 150px;
-    }
+    } */
     .buttonCart {
         font-size: 10px;
     }
@@ -53,6 +54,9 @@ h6 {
     .buttonCart {
         font-size: 6px;
     }
+    .cartImage {
+        width: 80px;
+    }
 }
 
 @media (max-width: 500px) {
@@ -61,5 +65,8 @@ h6 {
     }
     .buttonCart {
         font-size: 4px;
+    }
+    .cartImage {
+        width: 60px;
     }
 }

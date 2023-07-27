@@ -14,57 +14,69 @@ import EditProduct from './components/EditProduct';
 import ViewProduct from './components/ViewProduct';
 import ContactUs from './components/ContactUs';
 import Shipping from './components/Shipping';
-import ShoppingCartConf from './components/ShoppingCartConf';
 import OrderSuccessPage from './components/OrderSuccessPage';
 import ShoppingCart from './components/ShoppingCart';
 import Terms from './components/Terms';
 import { Privacy } from './components/Privacy';
 import CategoryPage from './views/CategoryPage';
+import NotFound from './components/NotFound';
 
 
 
 function App() {
   const [sessionId, setSessionId] = useState(Cookies.get("sessionId") || "");
   const [userInfo, setUserInfo] = useState({})
+  const [orderNumber, setOrderNumber] = useState(Cookies.get("orderNumber") || "");
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     console.log("sessionId changed:", sessionId);
     Cookies.set("sessionId", sessionId);
-  }, [sessionId]);
+    console.log("orderNumber changed:", orderNumber);
+    Cookies.set("orderNumber", orderNumber);
+  }, [sessionId, orderNumber]);
 
   useEffect(() => {
-    if(!sessionId) return;
+    if (!sessionId) return;
     fetch('http://localhost:8080/api/getuser/' + sessionId)
-    .then(response => response.json()) 
-    .then(data => {
-            setUserInfo({...data, password : ""});
-    })
-    .catch(err => {
+      .then(response => response.json())
+      .then(data => {
+        setUserInfo({ ...data, password: "" });
+
+      })
+      .catch(err => {
         console.log(err)
-    })
-   }, [sessionId])
+      })
+  }, [sessionId])
+
+  useEffect(() => {
+    setLoaded(true);
+  }, [userInfo])
+
+  if (orderNumber == null) {
+    console.log("orderNumber is null");
+  }
 
   return (
     <div className="App">
-      <NavBar sessionId={sessionId} setSessionId={setSessionId} userInfo={userInfo} setUserInfo={setUserInfo}/>
+      <NavBar sessionId={sessionId} setSessionId={setSessionId} userInfo={userInfo} setUserInfo={setUserInfo} setOrderNumber={setOrderNumber} loaded={loaded} />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Reg sessionId={sessionId} setSessionId={setSessionId}/>} /> 
-        <Route path="/login" element={<Log sessionId={sessionId} setSessionId={setSessionId}/>} />
+        <Route path="/register" element={<Reg sessionId={sessionId} setSessionId={setSessionId} />} />
+        <Route path="/login" element={<Log sessionId={sessionId} setSessionId={setSessionId} />} />
         <Route path="/category/:categoryName" element={<CategoryPage sessionId={sessionId} userInfo={userInfo} />} />
         <Route path="/createProduct" element={<CreateProduct userInfo={userInfo} sessionId={sessionId} />} />
         <Route path="/product/edit/:productId" element={<EditProduct userInfo={userInfo} sessionId={sessionId} />} />
-        <Route path="/product/view/:productId" element={<ViewProduct sessionId={sessionId}/>} />
+        <Route path="/product/view/:productId" element={<ViewProduct sessionId={sessionId} userInfo={userInfo} />} />
         <Route path="/contact" element={<ContactUs />} />
-        <Route path="/billing" element={<BillingForm userInfo={userInfo} sessionId={sessionId}/>} />
-        <Route path="/shippingInfo" element={<Shipping sessionId={sessionId}/>} />
-        <Route path="/shopping/cart" element={<ShoppingCart sessionId={sessionId} firstName={userInfo.firstName}/>} />
-        <Route path="/order/success" element={<OrderSuccessPage firstName={userInfo.firstName}/>} />
-        <Route path="/terms" element={<Terms/>} />
-        <Route path="/privacy" element={<Privacy/>} />
-        <Route path="/category/error" element={<h1>Category Not Found</h1>} />
-        <Route path="*" element={<h1>Not Found</h1>} /> 
-      </Routes> 
+        <Route path="/billing" element={<BillingForm userInfo={userInfo} sessionId={sessionId} />} />
+        <Route path="/shippingInfo" element={<Shipping sessionId={sessionId} setOrderNumber={setOrderNumber} />} />
+        <Route path="/shopping/cart" element={<ShoppingCart sessionId={sessionId} firstName={userInfo.firstName} />} />
+        <Route path="/order/success" element={<OrderSuccessPage firstName={userInfo.firstName} orderNumber={orderNumber} setOrderNumber={setOrderNumber} sessionId={sessionId} />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
       <Footer />
     </div>
   );
