@@ -6,7 +6,7 @@
     margin-top: 200px;
 }
 .cartImage {
-    width: 130px;
+    width: 180px;
 }
 
 h6 {
@@ -30,9 +30,9 @@ h6 {
     h6 {
         font-size: 12px;
     }
-    /* .cartImage {
-        width: 150px;
-    } */
+    .cartImage {
+        width: 130px;
+    }
     .buttonCart {
         font-size: 10px;
     }

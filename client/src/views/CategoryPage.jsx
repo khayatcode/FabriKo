@@ -42,7 +42,7 @@ const CategoryPage = () => {
             {loaded && (
                 <>
                     <div className='categroyTitle'>
-                        <h1 className='mb-4 text-decoration-underline' style={{ fontWeight: 300 }}>{capitalizedCategoryName} Category</h1>
+                        <h1 className='mb-5 text-decoration-underline' style={{ fontWeight: 300 }}>{capitalizedCategoryName} Category</h1>
                     </div>
 
                     <div className=" d-flex justify-content-evenly flex-wrap col-10 p-3 containerProducts mx-auto">
