@@ -1,11 +1,13 @@
 import React from 'react'
+import { config } from '../Constants';
 
 const ShoppingCartConf = (props) => {
     const { firstName, total, shippingInfo, billingInfo } = props
+    const SERVER_URL = config.url;
 
     const confirmOrder = (e) => {
         e.preventDefault()
-        fetch("http://localhost:8080/api/confirmOrder", {
+        fetch(`${SERVER_URL}/api/confirmOrder`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { config } from '../Constants';
 
 const Shipping = (props) => {
     const { sessionId, setOrderNumber } = props
@@ -18,6 +19,7 @@ const Shipping = (props) => {
     const [allCartItems, setAllCartItems] = useState([])
     const [loaded, setLoaded] = useState(false)
     const navigate = useNavigate()
+    const SERVER_URL = config.url;
 
     const onChange = (e) => {
         setShippingAddress({
@@ -38,7 +40,7 @@ const Shipping = (props) => {
     }
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/getuser/${sessionId}`)
+        fetch(`${SERVER_URL}/api/getuser/${sessionId}`)
             .then(res => res.json())
             .then(user => {
                 const { id, firstName, lastName, email, accountType } = user;
@@ -49,7 +51,7 @@ const Shipping = (props) => {
             })
             .catch(err => console.log(err));
 
-        fetch(`http://localhost:8080/shipping/user/${sessionId}`)
+        fetch(`${SERVER_URL}/shipping/user/${sessionId}`)
             .then(res => res.json())
             .then(shipping => {
                 const { user: shippingUser, ...shippingWithoutUser } = shipping;
@@ -60,7 +62,7 @@ const Shipping = (props) => {
             })
             .catch(err => console.log(err));
 
-        fetch(`http://localhost:8080/cart/find/uncomplete/${sessionId}`)
+        fetch(`${SERVER_URL}/cart/find/uncomplete/${sessionId}`)
             .then(res => res.json())
             .then(cartItems => {
                 console.log("cartItems", cartItems)
@@ -78,7 +80,7 @@ const Shipping = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log(shippingAddress)
-        fetch(`http://localhost:8080/shipping/add/update/${sessionId}`, {
+        fetch(`${SERVER_URL}/shipping/add/update/${sessionId}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

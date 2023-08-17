@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useNavigate, Link } from "react-router-dom";
+import { config } from '../Constants';
 
 const Log = (props) => {
     const { sessionId, setSessionId } = props
@@ -10,6 +11,7 @@ const Log = (props) => {
     })
     const [errors, setErrors] = useState([])
     const navigate = useNavigate()
+    const SERVER_URL = config.url;
 
     const changeHandler = (e) => {
         setUser({
@@ -27,7 +29,7 @@ const Log = (props) => {
 
     const submitLog = (e) => {
         e.preventDefault()
-        fetch("http://localhost:8080/api/login", {
+        fetch(`${SERVER_URL}/api/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

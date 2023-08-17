@@ -2,12 +2,14 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from "react-router-dom";
 import "../css/ViewProduct.css"
+import { config } from '../Constants';
 
 const ViewProduct = (props) => {
     const { sessionId, userInfo } = props
     const { productId } = useParams()
     const [productInfo, setProductInfo] = useState({})
     const [loaded, setLoaded] = useState(false)
+    const SERVER_URL = config.url;
 
     const [cart, setCart] = useState({
         user: {},
@@ -32,8 +34,8 @@ const ViewProduct = (props) => {
     useEffect(() => {
         if (sessionId) {
             Promise.all([
-                fetch(`http://localhost:8080/api/getuser/${sessionId}`).then(res => res.json()),
-                fetch(`http://localhost:8080/product/${productId}`).then(res => res.json())
+                fetch(`${SERVER_URL}/api/getuser/${sessionId}`).then(res => res.json()),
+                fetch(`${SERVER_URL}/product/${productId}`).then(res => res.json())
             ])
                 .then(([user, product]) => {
                     const { id, firstName, lastName, email, accountType } = user;
@@ -48,7 +50,7 @@ const ViewProduct = (props) => {
                 })
                 .catch(err => console.log(err));
         } else {
-            fetch(`http://localhost:8080/product/${productId}`)
+            fetch(`${SERVER_URL}/product/${productId}`)
                 .then(res => res.json())
                 .then(res => {
                     setProductInfo(res)
@@ -98,7 +100,7 @@ const ViewProduct = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log(cart)
-        fetch(`http://localhost:8080/cart/create/${productId}/${sessionId}`, {
+        fetch(`${SERVER_URL}/cart/create/${productId}/${sessionId}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -131,7 +133,7 @@ const ViewProduct = (props) => {
 
     const deleteProduct = (productId) => {
         console.log(productId)
-        fetch("http://localhost:8080/product/delete/" + productId, {
+        fetch(`${SERVER_URL}/product/delete/` + productId, {
             method: "DELETE"
         })
             .then(res => {

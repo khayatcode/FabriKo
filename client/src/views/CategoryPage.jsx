@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import '../css/CategoryPage.css'
+import { config } from '../Constants';
 
 
 const CategoryPage = () => {
@@ -11,6 +12,7 @@ const CategoryPage = () => {
     const [loaded, setLoaded] = useState(false)
     const { categoryName } = useParams()
     const navigate = useNavigate()
+    const SERVER_URL = config.url;
 
     // Do everytime I run this component it will scroll to the top of the page in smooth fashion
     useEffect(() => {
@@ -25,7 +27,7 @@ const CategoryPage = () => {
     }
 
     useEffect(() => {
-            fetch('http://localhost:8080/product/api/' + categoryName)
+            fetch(`${SERVER_URL}/product/api/` + categoryName)
                 .then(res => res.json())
                 .then(res => {
                     console.log(res)
