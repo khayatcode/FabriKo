@@ -1,4 +1,4 @@
-package com.groupproject.tshirtpalooza.models;
+package com.groupproject.test.models;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;

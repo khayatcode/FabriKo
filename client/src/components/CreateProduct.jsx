@@ -2,6 +2,7 @@ import React from 'react'
 import FormProduct from './FormProduct'
 import { useState, useEffect } from 'react'
 import { useNavigate, Link } from "react-router-dom";
+import { config } from '../Constants';
 
 const CreateProduct = (props) => {
   const {userInfo, sessionId} = props
@@ -18,6 +19,7 @@ const CreateProduct = (props) => {
   const [productCategory, setProductCategory] = useState("")
   const [loaded, setLoaded] = useState(false)
   const navigate = useNavigate()
+  const SERVER_URL = config.url;
 
     if (userInfo.accountType !== 'admin' || !userInfo || sessionId == '') {
       navigate('/');
@@ -61,7 +63,7 @@ const CreateProduct = (props) => {
     formData.append("productImage2File", productInfo.productImage2File)
     formData.append("productImage3File", productInfo.productImage3File)
     e.preventDefault()
-    fetch("http://localhost:8080/product/add", {
+    fetch(`${SERVER_URL}/product/add`, {
       method: "POST",
       body: formData
     })

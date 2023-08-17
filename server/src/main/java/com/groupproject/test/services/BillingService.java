@@ -1,4 +1,4 @@
-package com.groupproject.tshirtpalooza.services;
+package com.groupproject.test.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.groupproject.tshirtpalooza.models.Billing;
-import com.groupproject.tshirtpalooza.repositories.BillingRepository;
+import com.groupproject.test.models.Billing;
+import com.groupproject.test.repositories.BillingRepository;
 
 @Service
 public class BillingService {

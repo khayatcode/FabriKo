@@ -1,11 +1,11 @@
-package com.groupproject.tshirtpalooza.serializer;
+package com.groupproject.test.serializer;
 
 import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.groupproject.tshirtpalooza.models.Cart;
+import com.groupproject.test.models.Cart;
 
 public class CartSerializer extends JsonSerializer<Cart> {
 	@Override

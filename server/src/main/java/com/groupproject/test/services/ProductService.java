@@ -1,4 +1,4 @@
-package com.groupproject.tshirtpalooza.services;
+package com.groupproject.test.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,8 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.groupproject.tshirtpalooza.models.Product;
-import com.groupproject.tshirtpalooza.repositories.ProductRepository;
+import com.groupproject.test.models.Product;
+import com.groupproject.test.repositories.ProductRepository;
 
 @Service
 public class ProductService {

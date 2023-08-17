@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useNavigate, Link } from "react-router-dom";
+import { config } from '../Constants';
 
 const Reg = (props) => {
     const { sessionId, setSessionId } = props
@@ -14,6 +15,7 @@ const Reg = (props) => {
     })
     const [errors, setErrors] = useState([])
     const navigate = useNavigate()
+    const SERVER_URL = config.url;
 
     const changeHandler = (e) => {
         setUserInfo({
@@ -32,7 +34,7 @@ const Reg = (props) => {
     const submitReg = (e) => {
         e.preventDefault()
         console.log(userInfo)
-        fetch("http://localhost:8080/api/register", {
+        fetch(`${SERVER_URL}/api/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

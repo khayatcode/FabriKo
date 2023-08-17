@@ -1,4 +1,4 @@
-package com.groupproject.tshirtpalooza.models;
+package com.groupproject.test.models;
 
 import java.math.BigInteger;
 import java.util.Date;

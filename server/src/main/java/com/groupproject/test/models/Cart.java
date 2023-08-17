@@ -1,4 +1,4 @@
-package com.groupproject.tshirtpalooza.models;
+package com.groupproject.test.models;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

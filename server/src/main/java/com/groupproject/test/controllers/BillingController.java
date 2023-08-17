@@ -1,4 +1,4 @@
-package com.groupproject.tshirtpalooza.controllers;
+package com.groupproject.test.controllers;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -26,8 +26,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.groupproject.tshirtpalooza.models.Billing;
-import com.groupproject.tshirtpalooza.services.BillingService;
+import com.groupproject.test.models.Billing;
+import com.groupproject.test.services.BillingService;
 
 @CrossOrigin
 @RestController

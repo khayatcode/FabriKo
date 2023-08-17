@@ -1,4 +1,4 @@
-package com.groupproject.tshirtpalooza.services;
+package com.groupproject.test.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.groupproject.tshirtpalooza.models.Shipping;
-import com.groupproject.tshirtpalooza.repositories.ShippingRepository;
+import com.groupproject.test.models.Shipping;
+import com.groupproject.test.repositories.ShippingRepository;
 
 @Service
 public class ShippingService {

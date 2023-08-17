@@ -1,4 +1,4 @@
-package com.jquinones.authentication;
+package com.groupproject.test;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

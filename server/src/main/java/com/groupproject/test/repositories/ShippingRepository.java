@@ -1,9 +1,10 @@
-package com.groupproject.tshirtpalooza.repositories;
+package com.groupproject.test.repositories;
 
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import com.groupproject.tshirtpalooza.models.Shipping;
+
+import com.groupproject.test.models.Shipping;
 
 @Repository
 public interface ShippingRepository extends CrudRepository<Shipping, Long>{
