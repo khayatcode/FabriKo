@@ -1,4 +1,4 @@
-package com.groupproject.tshirtpalooza.services;
+package com.groupproject.test.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
-import com.groupproject.tshirtpalooza.models.LoginUser;
-import com.groupproject.tshirtpalooza.models.User;
-import com.groupproject.tshirtpalooza.repositories.UserRepository;
+import com.groupproject.test.models.LoginUser;
+import com.groupproject.test.models.User;
+import com.groupproject.test.repositories.UserRepository;
 
 @Service
 public class UserService {

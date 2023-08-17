@@ -5,6 +5,7 @@ import UpperWear from '../images/upperWear3.webp'
 import Pants from '../images/pants2.webp'
 import Shoes from '../images/shoes2.webp'
 import '../css/ShoppingCart.css'
+import { config } from '../Constants';
 
 
 const ShoppingCart = (props) => {
@@ -13,6 +14,7 @@ const ShoppingCart = (props) => {
     const [loaded, setLoaded] = useState(false)
     const [total, setTotal] = useState(0)
     const navigate = useNavigate()
+    const SERVER_URL = config.url;
 
     useEffect(() => {
         window.scrollTo({
@@ -27,7 +29,7 @@ const ShoppingCart = (props) => {
         if (sessionId === "") {
             navigate('/login');
         } else {
-        fetch(`http://localhost:8080/cart/find/uncomplete/${sessionId}`)
+        fetch(`${SERVER_URL}/cart/find/uncomplete/${sessionId}`)
             .then(res => res.json())
             .then(res => {
                 console.log("all cart items: ", res)
@@ -58,7 +60,7 @@ const ShoppingCart = (props) => {
     }, [sessionId])
 
     const removeItem = (cartId) => {
-        fetch(`http://localhost:8080/cart/delete/${cartId}`, {
+        fetch(`${SERVER_URL}/cart/delete/${cartId}`, {
             method: 'DELETE'
         })
             .then(res => {

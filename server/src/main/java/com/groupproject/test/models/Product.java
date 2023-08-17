@@ -1,4 +1,4 @@
-package com.groupproject.tshirtpalooza.models;
+package com.groupproject.test.models;
 
 import java.util.Date;
 import java.util.List;

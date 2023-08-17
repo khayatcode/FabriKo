@@ -20,6 +20,7 @@ import Terms from './components/Terms';
 import { Privacy } from './components/Privacy';
 import CategoryPage from './views/CategoryPage';
 import NotFound from './components/NotFound';
+import { config } from './Constants';
 
 
 
@@ -28,6 +29,8 @@ function App() {
   const [userInfo, setUserInfo] = useState({})
   const [orderNumber, setOrderNumber] = useState(Cookies.get("orderNumber") || "");
   const [loaded, setLoaded] = useState(false);
+  const SERVER_URL = config.url;
+  console.log("URL:", SERVER_URL);
 
   useEffect(() => {
     console.log("sessionId changed:", sessionId);
@@ -38,7 +41,7 @@ function App() {
 
   useEffect(() => {
     if (!sessionId) return;
-    fetch('http://localhost:8080/api/getuser/' + sessionId)
+    fetch(`${SERVER_URL}/api/getuser/` + sessionId)
       .then(response => response.json())
       .then(data => {
         setUserInfo({ ...data, password: "" });

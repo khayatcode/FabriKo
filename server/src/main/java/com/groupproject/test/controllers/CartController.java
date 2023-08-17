@@ -1,4 +1,4 @@
-package com.groupproject.tshirtpalooza.controllers;
+package com.groupproject.test.controllers;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.groupproject.tshirtpalooza.models.Cart;
-import com.groupproject.tshirtpalooza.services.CartService;
-import com.groupproject.tshirtpalooza.services.ProductService;
-import com.groupproject.tshirtpalooza.services.UserService;
+import com.groupproject.test.models.Cart;
+import com.groupproject.test.services.CartService;
+import com.groupproject.test.services.ProductService;
+import com.groupproject.test.services.UserService;
 
 @CrossOrigin
 @RestController

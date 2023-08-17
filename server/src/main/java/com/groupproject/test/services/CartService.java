@@ -1,4 +1,4 @@
-package com.groupproject.tshirtpalooza.services;
+package com.groupproject.test.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.groupproject.tshirtpalooza.models.Cart;
-import com.groupproject.tshirtpalooza.repositories.CartRepository;
+import com.groupproject.test.models.Cart;
+import com.groupproject.test.repositories.CartRepository;
 
 @Service
 public class CartService {

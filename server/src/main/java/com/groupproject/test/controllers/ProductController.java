@@ -1,4 +1,4 @@
-package com.groupproject.tshirtpalooza.controllers;
+package com.groupproject.test.controllers;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,8 +30,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import com.groupproject.tshirtpalooza.models.Product;
-import com.groupproject.tshirtpalooza.services.ProductService;
+import com.groupproject.test.models.Product;
+import com.groupproject.test.services.ProductService;
 
 @CrossOrigin
 @RestController

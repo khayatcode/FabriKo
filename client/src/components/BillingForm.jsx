@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { config } from '../Constants';
 
 const BillingForm = (props) => {
     const { sessionId } = props;
@@ -21,6 +22,7 @@ const BillingForm = (props) => {
     const [allCartItems, setAllCartItems] = useState([])
     const [loaded, setLoaded] = useState(false)
     const navigate = useNavigate();
+    const SERVER_URL = config.url;
 
     useEffect(() => {
         window.scrollTo({
@@ -35,7 +37,7 @@ const BillingForm = (props) => {
     }
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/getuser/${sessionId}`)
+        fetch(`${SERVER_URL}/api/getuser/${sessionId}`)
             .then(res => res.json())
             .then(user => {
                 const { id, firstName, lastName, email, accountType } = user;
@@ -47,7 +49,7 @@ const BillingForm = (props) => {
             })
             .catch(err => console.log(err));
 
-        fetch(`http://localhost:8080/billing/find/${sessionId}`)
+        fetch(`${SERVER_URL}/billing/find/${sessionId}`)
             .then(res => res.json())
             .then(billing => {
                 const { user: billingUser, ...billingWithoutUser } = billing;
@@ -60,7 +62,7 @@ const BillingForm = (props) => {
             })
             .catch(err => console.log(err));
 
-        fetch(`http://localhost:8080/cart/find/uncomplete/${sessionId}`)
+        fetch(`${SERVER_URL}/cart/find/uncomplete/${sessionId}`)
             .then(res => res.json())
             .then(cartItems => {
                 console.log("cartItems", cartItems)
@@ -85,7 +87,7 @@ const BillingForm = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(billingForm);
-        fetch(`http://localhost:8080/billing/create/update/${sessionId}`, {
+        fetch(`${SERVER_URL}/billing/create/update/${sessionId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

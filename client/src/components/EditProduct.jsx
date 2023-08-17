@@ -3,6 +3,7 @@ import FormProduct from './FormProduct'
 import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { config } from '../Constants';
 
 
 const EditProduct = (props) => {
@@ -21,6 +22,7 @@ const EditProduct = (props) => {
     const [loaded, setLoaded] = useState(false)
     const navigate = useNavigate()
     const { productId } = useParams()
+    const SERVER_URL = config.url;
 
     const changeHandler = (e) => {
         if (e.target.name === "productImage1File" || e.target.name === "productImage2File" || e.target.name === "productImage3File") {
@@ -55,7 +57,7 @@ const EditProduct = (props) => {
         }, [productInfo.productCategory])
 
     useEffect(() => {
-        fetch("http://localhost:8080/product/" + productId)
+        fetch(`${SERVER_URL}/product/` + productId)
             .then(res => res.json())
             .then(res => {
                 console.log("edit product response" + res)
@@ -80,7 +82,7 @@ const EditProduct = (props) => {
         formData.append("productImage2File", productInfo.productImage2File)
         formData.append("productImage3File", productInfo.productImage3File)
         e.preventDefault()
-        fetch("http://localhost:8080/product/edit/" + productId, {
+        fetch(`${SERVER_URL}/product/edit/` + productId, {
             method: "PUT",
             body: formData
         })

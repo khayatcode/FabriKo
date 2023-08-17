@@ -1,4 +1,4 @@
-package com.groupproject.tshirtpalooza.repositories;
+package com.groupproject.test.repositories;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.groupproject.tshirtpalooza.models.Product;
+import com.groupproject.test.models.Product;
 
 @Repository
 public interface ProductRepository extends CrudRepository<Product, Long>{
