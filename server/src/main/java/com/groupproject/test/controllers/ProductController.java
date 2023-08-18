@@ -151,8 +151,8 @@ public class ProductController {
 		}
 
 		// Initialize Amazon S3 client
-		String accessKey = REPLACED_ACCESS_KEY;
-	    String secretKey = REPLACED_SECRET_KEY;
+		String accessKey = "REPLACED_ACCESS_KEY";
+	    String secretKey = "REPLACED_SECRET_KEY";
 	    String region = "us-east-1";
 	    String bucketName = "fabriko-bucket";
 	    BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKey, secretKey);
