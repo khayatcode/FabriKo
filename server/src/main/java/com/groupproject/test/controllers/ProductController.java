@@ -127,7 +127,7 @@ public class ProductController {
 // 	}
 
 	// Continue from here. You now are able to show the error messages. Keep @Valid
-	// @ModelAttribute Product productForm, BindingResult result
+	// @ModelAttribute Product productForm, BindingResult result test
 	@PostMapping("/add")
 	public ResponseEntity<Object> add(
 			@RequestParam(value = "productImage1File", required = false) MultipartFile productImage1File,
