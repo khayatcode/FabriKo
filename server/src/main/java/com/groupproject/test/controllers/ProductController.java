@@ -150,7 +150,7 @@ public class ProductController {
 			return ResponseEntity.status(400).body(errorMessages);
 		}
 
-		// Initialize Amazon S3 client
+		// Initialize Amazon S3 client test
 		String accessKey = "REPLACED_ACCESS_KEY";
 	    String secretKey = "REPLACED_SECRET_KEY";
 	    String region = "us-east-1";
@@ -175,7 +175,7 @@ public class ProductController {
 	            tempFile.delete();
 	            String imageUrl = s3Client.getUrl(bucketName, fileName).toString();
 	            imageUrls[i] = imageUrl;
-	        }
+	        } 
 	    }
 		productForm.setProductImage1(imageUrls[0]);
 		productForm.setProductImage2(imageUrls[1]);
