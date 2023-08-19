@@ -30,7 +30,7 @@ import com.groupproject.test.services.UserService;
 @CrossOrigin
 @RestController
 @RequestMapping("/cart")
-public class CartController {
+public class CartController { 
 
 	@Autowired
 	private CartService cartServ;
