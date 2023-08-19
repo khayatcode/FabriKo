@@ -24,4 +24,4 @@ public class WebConfig {
 	                .allowCredentials(true)
 	                .maxAge(3600);
 	    }
-}
+} 

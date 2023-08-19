@@ -29,14 +29,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.client.builder.AwsClientBuilder.EndpointConfiguration;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.PutObjectResult;
-
+import com.amazonaws.services.s3.AmazonS3Client;
 import com.groupproject.test.models.Product;
 import com.groupproject.test.services.ProductService;
 
@@ -71,60 +65,65 @@ public class ProductController {
 		return ResponseEntity.status(200).body(this.productServ.findByProductCategory(category));
 	}
 
-// 	@PostMapping("/add")
-// 	public ResponseEntity<Object> add(@Valid @RequestBody Product productForm, @RequestParam("productImageTest") MultipartFile productImageTest, HttpServletRequest request)
-//         throws IOException {
-// 		System.out.println("We Got 1 here");
-// 	// 	if (result.hasErrors()) {
-//     //     List<String> errorMessages = new ArrayList<>();
-//     //     for (ObjectError error : result.getAllErrors()) {
-//     //         errorMessages.add(error.getDefaultMessage());
-//     //     }
-// 	// 	System.out.println("errorMessages " + errorMessages);
-// 	// 	Collections.sort(errorMessages);
-//     //     return ResponseEntity.status(400).body(errorMessages);
-//     // }
-// 		Product product = new Product();
-// 		product.setProductName(productForm.getProductName());
-// 		product.setProductCategory(productForm.getProductCategory());
-// 		// product.setProductPrice(Double.parseDouble(productPrice));
-// 		product.setProductDescription(productForm.getProductDescription());
-// 		System.out.println("We Got 2 here");
+	// @PostMapping("/add")
+	// public ResponseEntity<Object> add(@Valid @RequestBody Product productForm,
+	// @RequestParam("productImageTest") MultipartFile productImageTest,
+	// HttpServletRequest request)
+	// throws IOException {
+	// System.out.println("We Got 1 here");
+	// // if (result.hasErrors()) {
+	// // List<String> errorMessages = new ArrayList<>();
+	// // for (ObjectError error : result.getAllErrors()) {
+	// // errorMessages.add(error.getDefaultMessage());
+	// // }
+	// // System.out.println("errorMessages " + errorMessages);
+	// // Collections.sort(errorMessages);
+	// // return ResponseEntity.status(400).body(errorMessages);
+	// // }
+	// Product product = new Product();
+	// product.setProductName(productForm.getProductName());
+	// product.setProductCategory(productForm.getProductCategory());
+	// // product.setProductPrice(Double.parseDouble(productPrice));
+	// product.setProductDescription(productForm.getProductDescription());
+	// System.out.println("We Got 2 here");
 
-// 		String uploadDir = servletContext.getRealPath("/images/product/");
-// 		System.out.println("upload Dir " + uploadDir);
+	// String uploadDir = servletContext.getRealPath("/images/product/");
+	// System.out.println("upload Dir " + uploadDir);
 
-// 		String fileName = productImageTest.getOriginalFilename();
-// 		String serverFileName = uploadDir + File.separator + fileName;
-// 		System.out.println("Full Path " + serverFileName);
+	// String fileName = productImageTest.getOriginalFilename();
+	// String serverFileName = uploadDir + File.separator + fileName;
+	// System.out.println("Full Path " + serverFileName);
 
-// 		File directory = new File(uploadDir);
-// 		if (!directory.exists()) {
-// 			directory.mkdirs();
-// 		}
+	// File directory = new File(uploadDir);
+	// if (!directory.exists()) {
+	// directory.mkdirs();
+	// }
 
-// 		File serverFile = new File(serverFileName);
-// 		productImageTest.transferTo(serverFile);
+	// File serverFile = new File(serverFileName);
+	// productImageTest.transferTo(serverFile);
 
-// 		// This gets base URL. It will be used to construct the URL of the image. It can
-// 		// be eaither localhost for the back end or IP address for AWS deployment
-// 		String baseUrl = request.getRequestURL().toString();
-// 		System.out.println("Base URL" + baseUrl);
-// 		String imageUrl = baseUrl.substring(0, baseUrl.length() - request.getRequestURI().length())
-// 				+ request.getContextPath() + "/images/product/" + fileName;
-// 		System.out.println("Image Url " + imageUrl);
-// //	    String imageUrl = "http://localhost:8080/images/product/" + fileName; // Use the relative path
-// 		product.setProductImage1(imageUrl);
+	// // This gets base URL. It will be used to construct the URL of the image. It
+	// can
+	// // be eaither localhost for the back end or IP address for AWS deployment
+	// String baseUrl = request.getRequestURL().toString();
+	// System.out.println("Base URL" + baseUrl);
+	// String imageUrl = baseUrl.substring(0, baseUrl.length() -
+	// request.getRequestURI().length())
+	// + request.getContextPath() + "/images/product/" + fileName;
+	// System.out.println("Image Url " + imageUrl);
+	// // String imageUrl = "http://localhost:8080/images/product/" + fileName; //
+	// Use the relative path
+	// product.setProductImage1(imageUrl);
 
-// 		System.out.println("IMAGE " + productForm.getProductImage1());
+	// System.out.println("IMAGE " + productForm.getProductImage1());
 
-// 		this.productServ.save(product);
+	// this.productServ.save(product);
 
-// 		System.out.println("Product " + product);
+	// System.out.println("Product " + product);
 
-// 		// Return the saved product
-// 		return ResponseEntity.status(HttpStatus.CREATED).body(product);
-// 	}
+	// // Return the saved product
+	// return ResponseEntity.status(HttpStatus.CREATED).body(product);
+	// }
 
 	// Continue from here. You now are able to show the error messages. Keep @Valid
 	// @ModelAttribute Product productForm, BindingResult result test
@@ -135,6 +134,7 @@ public class ProductController {
 			@RequestParam(value = "productImage3File", required = false) MultipartFile productImage3File,
 			@Valid @ModelAttribute Product productForm, BindingResult result, HttpServletRequest request)
 			throws IOException {
+
 		System.out.println("We Got 1 here");
 		System.out.println("product Image Test " + productImage1File);
 		if (result.hasErrors() || productImage1File == null || productImage2File == null || productImage3File == null) {
@@ -151,36 +151,37 @@ public class ProductController {
 		}
 
 		// Initialize Amazon S3 client test
-		String accessKey = "REPLACED_ACCESS_KEY";
-	    String secretKey = "REPLACED_SECRET_KEY";
-	    String region = "us-east-1";
-	    String bucketName = "fabriko-bucket";
-	    BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKey, secretKey);
-	    AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
-	            .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
-	            .withRegion(region)
-	            .build();
+		AmazonS3 s3Client = AmazonS3Client.builder().build();
+		String bucketName = "fabriko-bucket";
 
-	    // Upload images to S3 bucket
-	    MultipartFile[] files = { productImage1File, productImage2File, productImage3File };
-	    String[] imageUrls = new String[3];
-	    for (int i = 0; i < files.length; i++) {
-	        MultipartFile file = files[i];
-	        if (file != null) {
-	            String fileName = UUID.randomUUID().toString() + "-" + file.getOriginalFilename();
-	            File tempFile = File.createTempFile("temp", null);
-	            file.transferTo(tempFile);
-	            PutObjectRequest putRequest = new PutObjectRequest(bucketName, fileName, tempFile);
-	            PutObjectResult putResult = s3Client.putObject(putRequest);
-	            tempFile.delete();
-	            String imageUrl = s3Client.getUrl(bucketName, fileName).toString();
-	            imageUrls[i] = imageUrl;
-	        } 
-	    }
+		// Check if the S3 client is connected
+		if (s3Client.doesBucketExistV2(bucketName)) {
+			System.out.println("Connected to Amazon S3 bucket: " + bucketName);
+		} else {
+			System.out.println("Failed to connect to Amazon S3 bucket: " + bucketName);
+		}
+
+		// Upload images to S3 bucket
+		MultipartFile[] files = { productImage1File, productImage2File, productImage3File };
+		String[] imageUrls = new String[3];
+		for (int i = 0; i < files.length; i++) {
+			MultipartFile file = files[i];
+			if (file != null) {
+				String fileName = UUID.randomUUID().toString() + "-" + file.getOriginalFilename();
+				File tempFile = File.createTempFile("temp", null);
+				file.transferTo(tempFile);
+
+				s3Client.putObject(bucketName, fileName, tempFile);
+				tempFile.delete();
+
+				String imageUrl = s3Client.getUrl(bucketName, fileName).toString();
+				imageUrls[i] = imageUrl;
+			}
+		}
 		productForm.setProductImage1(imageUrls[0]);
 		productForm.setProductImage2(imageUrls[1]);
 		productForm.setProductImage3(imageUrls[2]);
-		
+
 		System.out.println(productForm.getProductImage1());
 
 		this.productServ.save(productForm);
