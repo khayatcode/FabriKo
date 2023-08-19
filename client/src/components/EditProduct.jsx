@@ -38,9 +38,9 @@ const EditProduct = (props) => {
         }
     }
 
-        if (userInfo.accountType !== 'admin' || !userInfo || sessionId === '') {
-            navigate('/');
-        }
+    if (userInfo.accountType !== 'admin' || !userInfo || sessionId === '') {
+        navigate('/');
+    }
 
 
     useEffect(() => {
@@ -50,11 +50,11 @@ const EditProduct = (props) => {
         })
     }, [])
 
-        // change the productCategory state every time the productInfo.productCategory changes
-        useEffect(() => {
-            setProductCategory(productInfo.productCategory)
-            console.log("Change product category " + productInfo.productCategory)
-        }, [productInfo.productCategory])
+    // change the productCategory state every time the productInfo.productCategory changes
+    useEffect(() => {
+        setProductCategory(productInfo.productCategory)
+        console.log("Change product category " + productInfo.productCategory)
+    }, [productInfo.productCategory])
 
     useEffect(() => {
         fetch(`${SERVER_URL}/product/` + productId)
@@ -105,6 +105,11 @@ const EditProduct = (props) => {
                     const data = await res.json();
                     console.log(data)
                     setErrors(data);
+                    // scroll to top of page
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    })
                 }
             })
             .catch(err => {
