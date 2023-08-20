@@ -29,8 +29,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+//import com.amazonaws.services.s3.AmazonS3;
+//import com.amazonaws.services.s3.AmazonS3Client;
+
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.PutObjectResult;
 import com.groupproject.test.models.Product;
 import com.groupproject.test.services.ProductService;
 
@@ -162,12 +170,14 @@ public class ProductController {
 		}
 
 		// Upload images to S3 bucket
-		MultipartFile[] files = { productImage1File, productImage2File, productImage3File };
+		MultipartFile[] files = { productImage1File, productImage2File,
+				productImage3File };
 		String[] imageUrls = new String[3];
 		for (int i = 0; i < files.length; i++) {
 			MultipartFile file = files[i];
 			if (file != null) {
-				String fileName = UUID.randomUUID().toString() + "-" + file.getOriginalFilename();
+				String fileName = UUID.randomUUID().toString() + "-" +
+						file.getOriginalFilename();
 				File tempFile = File.createTempFile("temp", null);
 				file.transferTo(tempFile);
 
@@ -217,26 +227,33 @@ public class ProductController {
 			product.setProductPrice(productForm.getProductPrice());
 			product.setProductDescription(productForm.getProductDescription());
 
-			String uploadDir = servletContext.getRealPath("/images/product/");
-			File directory = new File(uploadDir);
-			if (!directory.exists()) {
-				directory.mkdirs();
+			// Initialize Amazon S3 client test
+			AmazonS3 s3Client = AmazonS3Client.builder().build();
+			String bucketName = "fabriko-bucket";
+
+			// Check if the S3 client is connected
+			if (s3Client.doesBucketExistV2(bucketName)) {
+				System.out.println("Connected to Amazon S3 bucket: " + bucketName);
+			} else {
+				System.out.println("Failed to connect to Amazon S3 bucket: " + bucketName);
 			}
 
-			MultipartFile[] files = { productImage1File, productImage2File, productImage3File };
+			// Upload images to S3 bucket
+			MultipartFile[] files = { productImage1File, productImage2File,
+					productImage3File };
 			String[] imageUrls = new String[3];
-
 			for (int i = 0; i < files.length; i++) {
 				MultipartFile file = files[i];
 				if (file != null) {
-					String fileName = file.getOriginalFilename();
-					String serverFileName = uploadDir + File.separator + fileName;
-					File serverFile = new File(serverFileName);
-					file.transferTo(serverFile);
+					String fileName = UUID.randomUUID().toString() + "-" +
+							file.getOriginalFilename();
+					File tempFile = File.createTempFile("temp", null);
+					file.transferTo(tempFile);
 
-					String baseUrl = request.getRequestURL().toString();
-					String imageUrl = baseUrl.substring(0, baseUrl.length() - request.getRequestURI().length())
-							+ request.getContextPath() + "/images/product/" + fileName;
+					s3Client.putObject(bucketName, fileName, tempFile);
+					tempFile.delete();
+
+					String imageUrl = s3Client.getUrl(bucketName, fileName).toString();
 					imageUrls[i] = imageUrl;
 				}
 			}
