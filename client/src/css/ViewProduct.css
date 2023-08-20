@@ -2,10 +2,32 @@
     min-height: 1000px;
 }
 
-/* .view-product-image{
-    min-width: 260px;
-    max-width: 400px;
-} */
+.viewProductUpperBottomImg {
+    width: 240px;
+}
+
+.viewProductShoesImg {
+    width: 500px;
+}
+
+@media screen and (max-width: 768px) {
+    .viewProductUpperBottomImg {
+        width: 200px;
+    }
+    
+}
+
+@media (min-width: 768px) and (max-width: 1070px){
+    .viewProductShoesImg {
+        width: 350px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .viewProductShoesImg {
+        width: 290px;
+    }
+}
 
 /* do media between 768px and 991px */
 @media (min-width: 768px) and (max-width: 991px) {
