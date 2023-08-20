@@ -1,6 +1,6 @@
 .aboutUsImg img {
     height: auto;
-    width: 80%;
+    width: 60%;
 }
 
 .aboutUsText h1 {
@@ -59,4 +59,12 @@
     .aboutUsText p {
         font-size: 0.5rem;
     }
+}
+
+@media screen and (max-width: 500px) {
+    .aboutUsImg img {
+        height: auto;
+        width: 100%;
+    }
+    
 }
