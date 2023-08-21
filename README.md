@@ -22,7 +22,7 @@ Welcome to Fabriko, an E-commerce website where users can shop for a wide range 
 
 ## Deployment
 
-The "Fabriko" E-commerce website is successfully deployed on AWS EC2, demonstrating skills in server deployment and cloud technologies.
+The "Fabriko" E-commerce website is successfully deployed on AWS EC2, showcasing adeptness in server deployment and cloud technologies. Additionally, Amazon S3 bucket integration enables seamless storage and viewing of product images, enhancing the overall user experience.
 
 Feel free to explore, shop, and experience the convenience of online shopping with Fabriko! 🛍️
 
