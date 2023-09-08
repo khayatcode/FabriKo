@@ -163,9 +163,9 @@ const ViewProduct = (props) => {
                         </div>
                     </div>
                     <div className='col-md-6 viewProductInfo'>
-                        <h4 className='text-start mb-4' style={{ fontWeight: 300, wordWrap: 'break-word' }}>Product Name: {productInfo.productName}</h4>
+                        <h4 className='text-start mb-4' style={{ fontWeight: 300, wordWrap: 'break-word' }}><strong>Product Name:</strong> {productInfo.productName}</h4>
                         <div className='mb-4'>
-                            <h5 className='text-start' style={{ fontWeight: 300, wordWrap: 'break-word' }}>Price: ${productInfo.productPrice}</h5>
+                            <h5 className='text-start' style={{ fontWeight: 300, wordWrap: 'break-word' }}><strong>Price:</strong> ${productInfo.productPrice}</h5>
                         </div>
                         {errors.length > 0 && (
                             <div className='alert alert-danger'>
@@ -206,7 +206,7 @@ const ViewProduct = (props) => {
                             </div>
                         </form>
                         <div className='mt-4'>
-                            <p className='text-start' style={{ fontWeight: 300, wordWrap: 'break-word' }}>Description: {productInfo.productDescription}</p>
+                            <p className='text-start' style={{ fontWeight: 300, wordWrap: 'break-word' }}><strong>Description:</strong> {productInfo.productDescription}</p>
                         </div>
                     </div>
                 </div>

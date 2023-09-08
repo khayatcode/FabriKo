@@ -88,6 +88,13 @@ const Log = (props) => {
                         </div>
                     </div>
                 </form>
+                {/* Demo Admin Account email and password */}
+                <div className='row mt-3'>
+                    <div className='col text-center'>
+                        <p className='text-dark small'>Demo Admin Account: a.khayat0103@hotmail.com</p>
+                        <p className='text-dark small'>Demo Admin Account Password: Test12345</p>
+                    </div>
+                </div>
             </div>
         </div>
     )

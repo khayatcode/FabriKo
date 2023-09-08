@@ -158,41 +158,69 @@ public class ProductController {
 			return ResponseEntity.status(400).body(errorMessages);
 		}
 
-		// Initialize Amazon S3 client test
-		AmazonS3 s3Client = AmazonS3Client.builder().build();
-		String bucketName = "fabriko-bucket";
-
-		// Check if the S3 client is connected
-		if (s3Client.doesBucketExistV2(bucketName)) {
-			System.out.println("Connected to Amazon S3 bucket: " + bucketName);
-		} else {
-			System.out.println("Failed to connect to Amazon S3 bucket: " + bucketName);
+//		// Initialize Amazon S3 client test
+//		AmazonS3 s3Client = AmazonS3Client.builder().build();
+//		String bucketName = "fabriko-bucket";
+//
+//		// Check if the S3 client is connected
+//		if (s3Client.doesBucketExistV2(bucketName)) {
+//			System.out.println("Connected to Amazon S3 bucket: " + bucketName);
+//		} else {
+//			System.out.println("Failed to connect to Amazon S3 bucket: " + bucketName);
+//		}
+//
+//		// Upload images to S3 bucket
+//		MultipartFile[] files = { productImage1File, productImage2File,
+//				productImage3File };
+//		String[] imageUrls = new String[3];
+//		for (int i = 0; i < files.length; i++) {
+//			MultipartFile file = files[i];
+//			if (file != null) {
+//				String fileName = UUID.randomUUID().toString() + "-" +
+//						file.getOriginalFilename();
+//				File tempFile = File.createTempFile("temp", null);
+//				file.transferTo(tempFile);
+//
+//				s3Client.putObject(bucketName, fileName, tempFile);
+//				tempFile.delete();
+//
+//				String imageUrl = s3Client.getUrl(bucketName, fileName).toString();
+//				imageUrls[i] = imageUrl;
+//			}
+//		}
+//		productForm.setProductImage1(imageUrls[0]);
+//		productForm.setProductImage2(imageUrls[1]);
+//		productForm.setProductImage3(imageUrls[2]);
+//
+//		System.out.println(productForm.getProductImage1());
+		
+		String uploadDir = servletContext.getRealPath("/images/product/");
+		File directory = new File(uploadDir);
+		if (!directory.exists()) {
+			directory.mkdirs();
 		}
 
-		// Upload images to S3 bucket
-		MultipartFile[] files = { productImage1File, productImage2File,
-				productImage3File };
+		MultipartFile[] files = { productImage1File, productImage2File, productImage3File };
 		String[] imageUrls = new String[3];
+
 		for (int i = 0; i < files.length; i++) {
 			MultipartFile file = files[i];
 			if (file != null) {
-				String fileName = UUID.randomUUID().toString() + "-" +
-						file.getOriginalFilename();
-				File tempFile = File.createTempFile("temp", null);
-				file.transferTo(tempFile);
+				String fileName = file.getOriginalFilename();
+				String serverFileName = uploadDir + File.separator + fileName;
+				File serverFile = new File(serverFileName);
+				file.transferTo(serverFile);
 
-				s3Client.putObject(bucketName, fileName, tempFile);
-				tempFile.delete();
-
-				String imageUrl = s3Client.getUrl(bucketName, fileName).toString();
+				String baseUrl = request.getRequestURL().toString();
+				String imageUrl = baseUrl.substring(0, baseUrl.length() - request.getRequestURI().length())
+						+ request.getContextPath() + "/images/product/" + fileName;
 				imageUrls[i] = imageUrl;
 			}
 		}
+
 		productForm.setProductImage1(imageUrls[0]);
 		productForm.setProductImage2(imageUrls[1]);
 		productForm.setProductImage3(imageUrls[2]);
-
-		System.out.println(productForm.getProductImage1());
 
 		this.productServ.save(productForm);
 
